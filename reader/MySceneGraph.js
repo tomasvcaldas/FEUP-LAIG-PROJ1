@@ -234,7 +234,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	this.transformations=[];
 
 
-
 	for(var i = 0; i < tempTransf[0].children.length ; i++){
 
 
@@ -286,7 +285,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	sceneLine.attributes.getNamedItem("axis_length").value + ".");
 
 	//-----------------------------------------------------------------------------//
-	//ILLUMINATION------------------------------------------------------------------------//
+	//ILLUMINATION-----------------------------------------------------------------//
 	//-----------------------------------------------------------------------------//
 
 	var tempIlum = rootElement.getElementsByTagName('illumination');
@@ -329,6 +328,60 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	}
 
 	this.views=[];
+
+	for(var i = 0; i < tempTransf[0].children.length ; i++){
+
+		
+		console.log("Read transformation with id " + tempTransf[0].children[i].attributes.getNamedItem("id").value);
+		var transf = tempTransf[0].children[i].children;
+
+		for(var j=0; j < transf.length; j++){
+			if(transf[j].tagName =='translate'){
+				console.log("Read transformation: translation item with x y z values: "
+				+ transf[j].attributes.getNamedItem("x").value + " "
+				+ transf[j].attributes.getNamedItem("y").value + " "
+				+ transf[j].attributes.getNamedItem("z").value + " "
+				)
+			}
+
+			if(transf[j].tagName =='rotate'){
+				console.log("Read transformation: rotation item with axis angle values: "
+				+ transf[j].attributes.getNamedItem("axis").value + " "
+				+ transf[j].attributes.getNamedItem("angle").value + " "
+				)
+			}
+
+			if(transf[j].tagName =='scale'){
+				console.log("Read transformation: scaling item with x y z values: "
+				+ transf[j].attributes.getNamedItem("x").value + " "
+				+ transf[j].attributes.getNamedItem("y").value + " "
+				+ transf[j].attributes.getNamedItem("z").value + " "
+				)
+			}
+		}
+	}
+
+	//-----------------------------------------------------------------------------//
+	//SCENE------------------------------------------------------------------------//
+	//-----------------------------------------------------------------------------//
+
+	var tempScene=rootElement.getElementsByTagName('scene');
+
+	if (tempScene == null  || tempScene.length==0) {
+		return "scene element is missing.";
+	}
+
+	this.sceneLine=[];
+
+	var sceneLine = tempScene[0]
+
+	console.log("Read scene item with root axis_length values: " +
+	sceneLine.attributes.getNamedItem("root").value + " " +
+	sceneLine.attributes.getNamedItem("axis_length").value + ".");
+
+	//-----------------------------------------------------------------------------//
+	//ILLUMINATION------------------------------------------------------------------------//
+	//-----------------------------------------------------------------------------//
 
 	var views = tempViews[0]
 
