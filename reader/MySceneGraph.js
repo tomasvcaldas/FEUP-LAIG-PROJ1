@@ -233,8 +233,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 	this.transformations=[];
 
-
-
 	for(var i = 0; i < tempTransf[0].children.length ; i++){
 
 
@@ -278,6 +276,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	}
 
 	this.sceneLine=[];
+
 
 	var sceneLine = tempScene[0]
 
@@ -340,6 +339,123 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		views.children[i].attributes.getNamedItem("far").value + " " +
 		views.children[i].attributes.getNamedItem("angle").value + ".")
 
+	var sceneLine = tempScene[0]
+
+	console.log("Read scene item with root axis_length values: " +
+	sceneLine.attributes.getNamedItem("root").value + " " +
+	sceneLine.attributes.getNamedItem("axis_length").value + ".");
+
+	//-----------------------------------------------------------------------------//
+	//ILLUMINATION-----------------------------------------------------------------//
+	//-----------------------------------------------------------------------------//
+
+	var tempIlum = rootElement.getElementsByTagName('illumination');
+
+	if (tempIlum == null  || tempIlum.length==0) {
+		return "Illumination element is missing.";
+	}
+
+
+	this.illumination=[];
+	var illumination = tempIlum[0];
+
+	console.log("Read illumination: doublesided - " + illumination.attributes.getNamedItem("doublesided").value +
+							" and local: - " + illumination.attributes.getNamedItem("local").value);
+
+	for(var i=0; i < illumination.children.length; i++){
+		if(illumination.children[i].tagName =='ambient'){
+			console.log("Read ambient with values r = " + illumination.children[i].attributes.getNamedItem("r").value +
+			" g = " +illumination.children[i].attributes.getNamedItem("g").value +
+			" g = " +illumination.children[i].attributes.getNamedItem("b").value +
+			" g = " +illumination.children[i].attributes.getNamedItem("a").value);
+		}
+
+		if(illumination.children[i].tagName =='background'){
+			console.log("Read background with values r = " + illumination.children[i].attributes.getNamedItem("r").value +
+			" g = " +illumination.children[i].attributes.getNamedItem("g").value +
+			" g = " +illumination.children[i].attributes.getNamedItem("b").value +
+			" g = " +illumination.children[i].attributes.getNamedItem("a").value);
+		}
+	}
+
+	//-----------------------------------------------------------------------------//
+	//VIEWS------------------------------------------------------------------------//
+	//-----------------------------------------------------------------------------//
+
+	var tempViews=rootElement.getElementsByTagName('views');
+
+	if (tempViews == null  || tempViews.length==0) {
+		return "views element is missing.";
+	}
+
+	this.views=[];
+
+	for(var i = 0; i < tempTransf[0].children.length ; i++){
+
+		
+		console.log("Read transformation with id " + tempTransf[0].children[i].attributes.getNamedItem("id").value);
+		var transf = tempTransf[0].children[i].children;
+
+		for(var j=0; j < transf.length; j++){
+			if(transf[j].tagName =='translate'){
+				console.log("Read transformation: translation item with x y z values: "
+				+ transf[j].attributes.getNamedItem("x").value + " "
+				+ transf[j].attributes.getNamedItem("y").value + " "
+				+ transf[j].attributes.getNamedItem("z").value + " "
+				)
+			}
+
+			if(transf[j].tagName =='rotate'){
+				console.log("Read transformation: rotation item with axis angle values: "
+				+ transf[j].attributes.getNamedItem("axis").value + " "
+				+ transf[j].attributes.getNamedItem("angle").value + " "
+				)
+			}
+
+			if(transf[j].tagName =='scale'){
+				console.log("Read transformation: scaling item with x y z values: "
+				+ transf[j].attributes.getNamedItem("x").value + " "
+				+ transf[j].attributes.getNamedItem("y").value + " "
+				+ transf[j].attributes.getNamedItem("z").value + " "
+				)
+			}
+		}
+	}
+
+	//-----------------------------------------------------------------------------//
+	//SCENE------------------------------------------------------------------------//
+	//-----------------------------------------------------------------------------//
+
+	var tempScene=rootElement.getElementsByTagName('scene');
+
+	if (tempScene == null  || tempScene.length==0) {
+		return "scene element is missing.";
+	}
+
+	this.sceneLine=[];
+
+	var sceneLine = tempScene[0]
+
+	console.log("Read scene item with root axis_length values: " +
+	sceneLine.attributes.getNamedItem("root").value + " " +
+	sceneLine.attributes.getNamedItem("axis_length").value + ".");
+
+	//-----------------------------------------------------------------------------//
+	//ILLUMINATION------------------------------------------------------------------------//
+	//-----------------------------------------------------------------------------//
+
+	var views = tempViews[0]
+
+	console.log("Read views item with id value: " + views.attributes.getNamedItem("default").value + ".");
+
+	for(var i = 0; i < views.children.length; i++){
+		console.log("Read perspective item with id near far angle values: " +
+		views.children[i].attributes.getNamedItem("id").value + " " +
+		views.children[i].attributes.getNamedItem("near").value + " " +
+		views.children[i].attributes.getNamedItem("far").value + " " +
+		views.children[i].attributes.getNamedItem("angle").value + ".")
+
+
 		var viewChild = views.children[i].children;
 
 		for(var j = 0; j < viewChild.length; j++){
@@ -358,6 +474,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 			}
 		}
 	}
+
 
 	//-----------------------------------------------------------------------------//
 	//TEXTURES---------------------------------------------------------------------//
@@ -378,6 +495,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		" length_s = " + text[i].attributes.getNamedItem("length_s").value +
 		" length_t = " + text[i].attributes.getNamedItem("length_t").value);
 	}
+
 };
 
 /*
