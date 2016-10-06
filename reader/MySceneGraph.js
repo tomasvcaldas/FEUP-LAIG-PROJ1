@@ -199,11 +199,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 				}
 			}
 
-
-			/*for(var k = 0 ; k < comp.length ;  k++){
-				console.log("tag name: " + comp[j].tagName + " tamanho: " + comp[j].children.length);
-			}*/
-
 			if(comp[j].tagName == 'materials'){
 				console.log("Read material item with id value: " + compChild1[0].attributes.getNamedItem("id").value + ".");
 			}
@@ -265,24 +260,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		}
 	}
 
-	//-----------------------------------------------------------------------------//
-	//SCENE------------------------------------------------------------------------//
-	//-----------------------------------------------------------------------------//
-
-	var tempScene=rootElement.getElementsByTagName('scene');
-
-	if (tempScene == null  || tempScene.length==0) {
-		return "scene element is missing.";
-	}
-
-	this.sceneLine=[];
-
-
-	var sceneLine = tempScene[0]
-
-	console.log("Read scene item with root axis_length values: " +
-	sceneLine.attributes.getNamedItem("root").value + " " +
-	sceneLine.attributes.getNamedItem("axis_length").value + ".");
 
 	//-----------------------------------------------------------------------------//
 	//ILLUMINATION-----------------------------------------------------------------//
@@ -317,107 +294,50 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	}
 
 	//-----------------------------------------------------------------------------//
-	//VIEWS------------------------------------------------------------------------//
+	//TEXTURES---------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------//
 
-	var tempViews=rootElement.getElementsByTagName('views');
+	var tempText = rootElement.getElementsByTagName('textures');
 
-	if (tempViews == null  || tempViews.length==0) {
-		return "views element is missing.";
+	if (tempText == null  || tempText.length==0) {
+		return "Textures element is missing.";
 	}
 
-	this.views=[];
+	this.text=[];
+	var text = tempText[0].children;
 
-	var views = tempViews[0]
-
-	console.log("Read views item with id value: " + views.attributes.getNamedItem("default").value + ".");
-
-	for(var i = 0; i < views.children.length; i++){
-		console.log("Read perspective item with id near far angle values: " +
-		views.children[i].attributes.getNamedItem("id").value + " " +
-		views.children[i].attributes.getNamedItem("near").value + " " +
-		views.children[i].attributes.getNamedItem("far").value + " " +
-		views.children[i].attributes.getNamedItem("angle").value + ".")
-
-	var sceneLine = tempScene[0]
-
-	console.log("Read scene item with root axis_length values: " +
-	sceneLine.attributes.getNamedItem("root").value + " " +
-	sceneLine.attributes.getNamedItem("axis_length").value + ".");
-
-	//-----------------------------------------------------------------------------//
-	//ILLUMINATION-----------------------------------------------------------------//
-	//-----------------------------------------------------------------------------//
-
-	var tempIlum = rootElement.getElementsByTagName('illumination');
-
-	if (tempIlum == null  || tempIlum.length==0) {
-		return "Illumination element is missing.";
-	}
-
-
-	this.illumination=[];
-	var illumination = tempIlum[0];
-
-	console.log("Read illumination: doublesided - " + illumination.attributes.getNamedItem("doublesided").value +
-							" and local: - " + illumination.attributes.getNamedItem("local").value);
-
-	for(var i=0; i < illumination.children.length; i++){
-		if(illumination.children[i].tagName =='ambient'){
-			console.log("Read ambient with values r = " + illumination.children[i].attributes.getNamedItem("r").value +
-			" g = " +illumination.children[i].attributes.getNamedItem("g").value +
-			" g = " +illumination.children[i].attributes.getNamedItem("b").value +
-			" g = " +illumination.children[i].attributes.getNamedItem("a").value);
-		}
-
-		if(illumination.children[i].tagName =='background'){
-			console.log("Read background with values r = " + illumination.children[i].attributes.getNamedItem("r").value +
-			" g = " +illumination.children[i].attributes.getNamedItem("g").value +
-			" g = " +illumination.children[i].attributes.getNamedItem("b").value +
-			" g = " +illumination.children[i].attributes.getNamedItem("a").value);
-		}
+	for(var i=0; i < text.length; i++){
+		console.log("Read texture with id= " +text[i].attributes.getNamedItem("id").value +
+		" file = " + text[i].attributes.getNamedItem("file").value +
+		" length_s = " + text[i].attributes.getNamedItem("length_s").value +
+		" length_t = " + text[i].attributes.getNamedItem("length_t").value);
 	}
 
 	//-----------------------------------------------------------------------------//
-	//VIEWS------------------------------------------------------------------------//
+	//MATERIALS--------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------//
 
-	var tempViews=rootElement.getElementsByTagName('views');
-
-	if (tempViews == null  || tempViews.length==0) {
-		return "views element is missing.";
+	var tempMat=rootElement.getElementsByTagName('materials');
+	if (tempMat == null  || tempMat.length==0) {
+		return "Materials element is missing.";
 	}
 
-	this.views=[];
+	this.materials=[];
 
-	for(var i = 0; i < tempTransf[0].children.length ; i++){
+	for(var i = 0; i < tempMat[0].children.length ; i++)
+	{
 
-		
-		console.log("Read transformation with id " + tempTransf[0].children[i].attributes.getNamedItem("id").value);
-		var transf = tempTransf[0].children[i].children;
 
-		for(var j=0; j < transf.length; j++){
-			if(transf[j].tagName =='translate'){
-				console.log("Read transformation: translation item with x y z values: "
-				+ transf[j].attributes.getNamedItem("x").value + " "
-				+ transf[j].attributes.getNamedItem("y").value + " "
-				+ transf[j].attributes.getNamedItem("z").value + " "
-				)
-			}
+		console.log("Read material with id " + tempMat[0].children[i].attributes.getNamedItem("id").value);
+		var mats = tempMat[0].children[i].children;
 
-			if(transf[j].tagName =='rotate'){
-				console.log("Read transformation: rotation item with axis angle values: "
-				+ transf[j].attributes.getNamedItem("axis").value + " "
-				+ transf[j].attributes.getNamedItem("angle").value + " "
-				)
-			}
-
-			if(transf[j].tagName =='scale'){
-				console.log("Read transformation: scaling item with x y z values: "
-				+ transf[j].attributes.getNamedItem("x").value + " "
-				+ transf[j].attributes.getNamedItem("y").value + " "
-				+ transf[j].attributes.getNamedItem("z").value + " "
-				)
+		for(var j=0; j < mats.length; j++){
+			if(mats[j].tagName =='emission'){
+				console.log("Read transformation: emission with r = " +
+				+ mats[j].attributes.getNamedItem("r").value + " and g = "
+				+ mats[j].attributes.getNamedItem("g").value + " and b = "
+				+ mats[j].attributes.getNamedItem("b").value + " and a = "
+				+ mats[j].attributes.getNamedItem("b").value);
 			}
 		}
 	}
@@ -441,8 +361,16 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	sceneLine.attributes.getNamedItem("axis_length").value + ".");
 
 	//-----------------------------------------------------------------------------//
-	//ILLUMINATION------------------------------------------------------------------------//
+	//VIEWS------------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------//
+
+	var tempViews=rootElement.getElementsByTagName('views');
+
+	if (tempViews == null  || tempViews.length==0) {
+		return "views element is missing.";
+	}
+
+	this.views=[];
 
 	var views = tempViews[0]
 
@@ -454,7 +382,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		views.children[i].attributes.getNamedItem("near").value + " " +
 		views.children[i].attributes.getNamedItem("far").value + " " +
 		views.children[i].attributes.getNamedItem("angle").value + ".")
-
 
 		var viewChild = views.children[i].children;
 
@@ -475,25 +402,100 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		}
 	}
 
-
 	//-----------------------------------------------------------------------------//
-	//TEXTURES---------------------------------------------------------------------//
+	//LIGHTS-----------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------//
 
-	var tempText = rootElement.getElementsByTagName('textures');
+	var tempLights=rootElement.getElementsByTagName('lights');
 
-	if (tempText == null  || tempText.length==0) {
-		return "Textures element is missing.";
+	if (tempLights == null  || tempLights.length==0) {
+		return "lights element is missing.";
 	}
 
-	this.text=[];
-	var text = tempText[0].children;
+	this.lights=[];
 
-	for(var i=0; i < text.length; i++){
-		console.log("Read texture with id= " +text[i].attributes.getNamedItem("id").value +
-		" file = " + text[i].attributes.getNamedItem("file").value +
-		" length_s = " + text[i].attributes.getNamedItem("length_s").value +
-		" length_t = " + text[i].attributes.getNamedItem("length_t").value);
+	var lights = tempLights[0];
+
+	for(var i = 0; i < lights.children.length; i++){
+		var lightsChild = lights.children[i];
+
+		if(lightsChild.tagName == 'omni'){
+			console.log("Read omni item with id enable values: " + lightsChild.attributes.getNamedItem("id").value + " " +	lightsChild.attributes.getNamedItem("enabled").value + ".");
+			for(var j = 0; j < lightsChild.children.length; j++){
+				if(lightsChild.children[j].tagName == 'location'){
+					console.log("Read location item with x y z w values: " +
+					lightsChild.children[j].attributes.getNamedItem("x").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("y").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("z").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("w").value + ".");
+				}
+				if(lightsChild.children[j].tagName == 'ambient'){
+					console.log("Read ambient item with r g b a values: " +
+					lightsChild.children[j].attributes.getNamedItem("r").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("g").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("b").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("a").value + ".");
+				}
+				if(lightsChild.children[j].tagName == 'diffuse'){
+					console.log("Read diffuse item with r g b a values: " +
+					lightsChild.children[j].attributes.getNamedItem("r").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("g").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("b").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("a").value + ".");
+				}
+				if(lightsChild.children[j].tagName == 'specular'){
+					console.log("Read specular item with r g b a values: " +
+					lightsChild.children[j].attributes.getNamedItem("r").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("g").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("b").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("a").value + ".");
+				}
+			}
+		}
+
+		if(lightsChild.tagName == 'spot'){
+			console.log("Read spot item with id enable angle exponent values: " +
+			lightsChild.attributes.getNamedItem("id").value + " " +
+			lightsChild.attributes.getNamedItem("enabled").value + " " +
+			lightsChild.attributes.getNamedItem("angle").value + " " +
+			lightsChild.attributes.getNamedItem("exponent").value + ".");
+
+			for(var j = 0; j < lightsChild.children.length; j++){
+				if(lightsChild.children[j].tagName == 'target'){
+					console.log("Read target item with x y z values: " +
+					lightsChild.children[j].attributes.getNamedItem("x").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("y").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("z").value + ".");
+				}
+				if(lightsChild.children[j].tagName == 'location'){
+					console.log("Read location item with x y z values: " +
+					lightsChild.children[j].attributes.getNamedItem("x").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("y").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("z").value + ".");
+				}
+				if(lightsChild.children[j].tagName == 'ambient'){
+					console.log("Read ambient item with r g b a values: " +
+					lightsChild.children[j].attributes.getNamedItem("r").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("g").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("b").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("a").value + ".");
+				}
+				if(lightsChild.children[j].tagName == 'diffuse'){
+					console.log("Read diffuse item with r g b a values: " +
+					lightsChild.children[j].attributes.getNamedItem("r").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("g").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("b").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("a").value + ".");
+				}
+				if(lightsChild.children[j].tagName == 'specular'){
+					console.log("Read specular item with r g b a values: " +
+					lightsChild.children[j].attributes.getNamedItem("r").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("g").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("b").value + " " +
+					lightsChild.children[j].attributes.getNamedItem("a").value + ".");
+				}
+			}
+		}
 	}
 
 };
