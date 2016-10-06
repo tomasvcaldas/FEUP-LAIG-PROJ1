@@ -101,17 +101,11 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 	for(var i = 0; i < tempPrim[0].children.length ; i++){
 
+		console.log("Read primitive with id " + tempPrim[0].children[i].attributes.getNamedItem("id").value);
 		var prim = tempPrim[0].children[i].children;
 
-		/*var var1 = prim[j].attributes.getNamedItem("x1").value;       <isto é a outra maneira de mostrar.>
-		console.log("Read rectangle item id x1 with value " + var1);
-		var var2 = prim[j].attributes.getNamedItem("y1").value;
-		console.log("Read rectangle item id y1 with value " + var2);
-		var var3 = prim[j].attributes.getNamedItem("x2").value;
-		console.log("Read rectangle item id x2 with value " + var3);
-		var var4 = prim[j].attributes.getNamedItem("y2").value;
-		console.log("Read rectangle item id y2 with value " + var4);*/
 			for(var j = 0; j < prim.length; j++){
+
 				if(prim[j].tagName == 'rectangle' ){
 					console.log("Read rectangle item with x1 y1 x2 y2 values: "
 					+ prim[j].attributes.getNamedItem("x1").value + " "
@@ -228,7 +222,72 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 	}
 
+	//-----------------------------------------------------------------------------//
+	//TRANSFORMATIONS -------------------------------------------------------------//
+	//-----------------------------------------------------------------------------//
 
+	var tempTransf=rootElement.getElementsByTagName('transformations');
+	if (tempTransf == null  || tempTransf.length==0) {
+		return "transformations element is missing.";
+	}
+
+	this.transformations=[];
+
+
+
+	for(var i = 0; i < tempTransf[0].children.length ; i++){
+
+		
+		console.log("Read transformation with id " + tempTransf[0].children[i].attributes.getNamedItem("id").value);
+		var transf = tempTransf[0].children[i].children;
+
+		for(var j=0; j < transf.length; j++){
+			if(transf[j].tagName =='translate'){
+				console.log("Read transformation: translation item with x y z values: "
+				+ transf[j].attributes.getNamedItem("x").value + " "
+				+ transf[j].attributes.getNamedItem("y").value + " "
+				+ transf[j].attributes.getNamedItem("z").value + " "
+				)
+			}
+
+			if(transf[j].tagName =='rotate'){
+				console.log("Read transformation: rotation item with axis angle values: "
+				+ transf[j].attributes.getNamedItem("axis").value + " "
+				+ transf[j].attributes.getNamedItem("angle").value + " "
+				)
+			}
+
+			if(transf[j].tagName =='scale'){
+				console.log("Read transformation: scaling item with x y z values: "
+				+ transf[j].attributes.getNamedItem("x").value + " "
+				+ transf[j].attributes.getNamedItem("y").value + " "
+				+ transf[j].attributes.getNamedItem("z").value + " "
+				)
+			}
+		}
+	}
+
+	//-----------------------------------------------------------------------------//
+	//SCENE------------------------------------------------------------------------//
+	//-----------------------------------------------------------------------------//
+
+	var tempScene=rootElement.getElementsByTagName('scene');
+
+	if (tempScene == null  || tempScene.length==0) {
+		return "scene element is missing.";
+	}
+
+	this.sceneLine=[];
+
+	var sceneLine = tempScene[0]
+
+	console.log("Read scene item with root axis_length values: " +
+	sceneLine.attributes.getNamedItem("root").value + " " +
+	sceneLine.attributes.getNamedItem("axis_length").value + ".");
+
+	//-----------------------------------------------------------------------------//
+	//ILLUMINATION------------------------------------------------------------------------//
+	//-----------------------------------------------------------------------------//
 
 
 
