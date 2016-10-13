@@ -6,6 +6,8 @@ function MySceneGraph(filename, scene) {
 	this.scene = scene;
 	scene.graph=this;
 
+	this.objects={};
+
 	// File reading
 	this.reader = new CGFXMLreader();
 
@@ -118,7 +120,9 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 				var x2 = prim[j].attributes.getNamedItem("x2").value;
 				var y2 = prim[j].attributes.getNamedItem("y2").value
 
-				this.rectangle = new MyQuad(this.scene,x1,y1,x2,y2);
+			//	this.rectangle = new MyQuad(this.scene,x1,y1,x2,y2);
+				this.objects[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new MyQuad(this.scene,x1,y1,x2,y2);
+
 
 				}
 				if(prim[j].tagName == 'triangle' ){

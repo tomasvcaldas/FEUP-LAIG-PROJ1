@@ -68,7 +68,7 @@ XMLscene.prototype.display = function () {
 
 	// Draw axis
 	this.axis.display();
-  
+
 
 	this.setDefaultAppearance();
 
@@ -81,6 +81,10 @@ XMLscene.prototype.display = function () {
 	{
 		this.lights[0].update();
 	};
+
+ for(var key in this.graph.objects){
+   this.graph.objects[key].display();
+ }
 
 
 };
