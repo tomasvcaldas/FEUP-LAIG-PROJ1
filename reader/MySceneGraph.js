@@ -66,25 +66,73 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");
 
 	//-----------------------------------------------------------------------------//
-	//LISTAS ----------------------------------------------------------------------//
+	//COMPONENTES -----------------------------------------------------------------//
 	//-----------------------------------------------------------------------------//
-	var tempList=rootElement.getElementsByTagName('list');
 
-	if (tempList == null  || tempList.length==0) {
-		return "list element is missing.";
+	var tempComp=rootElement.getElementsByTagName('components');
+
+	if (tempComp == null  || tempComp.length==0) {
+		return "components element is missing.";
 	}
 
-	this.list=[];
-	// iterate over every element
-	var nnodes=tempList[0].children.length;
-	for (var i=0; i< nnodes; i++)
-	{
-		var e=tempList[0].children[i];
+	this.components=[];
 
-		// process each element and store its information
-		this.list[e.id]=e.attributes.getNamedItem("coords").value;
-		console.log("Read list item id "+ e.id+" with value "+this.list[e.id]);
-	};
+	for(var i = 0; i < tempComp[0].children.length ; i++){
+		console.log("Read component with id" + tempComp[0].children[i].attributes.getNamedItem("id").value);
+		var comp = tempComp[0].children[i].children;
+
+		for(var j = 0; j < comp.length; j++){
+			var compChild1 = tempComp[0].children[i].children[j].children;
+
+			if(comp[j].tagName == 'transformation'){
+				for(var k = 0; k < compChild1.length; k++){
+					if(compChild1[k].tagName == 'transformationref'){
+						console.log("Read transformationref item with id value: "
+						 + compChild1[k].attributes.getNamedItem("id").value + ".");
+					}
+					if(compChild1[k].tagName == 'translate'){
+						console.log("Read translate item with x y z values: "
+						+ compChild1[k].attributes.getNamedItem("x").value + " "
+						+ compChild1[k].attributes.getNamedItem("y").value + " "
+						+ compChild1[k].attributes.getNamedItem("z").value + ".");
+					}
+					if(compChild1[k].tagName == 'rotate'){
+						console.log("Read rotate item with axis angle values: "
+						+ compChild1[k].attributes.getNamedItem("axis").value + " "
+						+ compChild1[k].attributes.getNamedItem("angle").value + ".");
+					}
+					if(compChild1[k].tagName == 'scale'){
+						console.log("Read scale item with x y z values: "
+						+ compChild1[k].attributes.getNamedItem("x").value + " "
+						+ compChild1[k].attributes.getNamedItem("y").value + " "
+						+ compChild1[k].attributes.getNamedItem("z").value + ".");
+					}
+				}
+			}
+
+			if(comp[j].tagName == 'materials'){
+				console.log("Read material item with id value: " + compChild1[0].attributes.getNamedItem("id").value + ".");
+			}
+
+			if(comp[j].tagName == 'texture'){
+				console.log("Read texture item with id value: " + comp[j].attributes.getNamedItem("id").value + ".");
+			}
+
+			if(comp[j].tagName == 'children'){
+				for(var l = 0; l < compChild1.length; l++){
+					if(compChild1[l].tagName == 'componentref'){
+						console.log("Read componentref item with id value: "
+						 + compChild1[l].attributes.getNamedItem("id").value + ".");
+					}
+				}
+
+			}
+
+
+		}
+
+	}
+
 
 	//-----------------------------------------------------------------------------//
 	//PRIMITIVAS ------------------------------------------------------------------//
@@ -154,68 +202,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 			}
 	}
 
-	//-----------------------------------------------------------------------------//
-	//COMPONENTES -----------------------------------------------------------------//
-	//-----------------------------------------------------------------------------//
 
-	var tempComp=rootElement.getElementsByTagName('components');
-
-	if (tempComp == null  || tempComp.length==0) {
-		return "components element is missing.";
-	}
-
-	this.components=[];
-
-
-	for(var i = 0; i < tempComp[0].children.length ; i++){
-		var comp = tempComp[0].children[i].children;
-
-		for(var j = 0; j < comp.length; j++){
-			var compChild1 = tempComp[0].children[i].children[j].children;
-
-			if(comp[j].tagName == 'transformation'){
-				for(var k = 0; k < compChild1.length; k++){
-					if(compChild1[k].tagName == 'transformationref'){
-						console.log("Read transformationref item with id value: "
-						 + compChild1[k].attributes.getNamedItem("id").value + ".");
-					}
-					if(compChild1[k].tagName == 'translate'){
-						console.log("Read translate item with x y z values: "
-						+ compChild1[k].attributes.getNamedItem("x").value + " "
-						+ compChild1[k].attributes.getNamedItem("y").value + " "
-						+ compChild1[k].attributes.getNamedItem("z").value + ".");
-					}
-					if(compChild1[k].tagName == 'rotate'){
-						console.log("Read rotate item with axis angle values: "
-						+ compChild1[k].attributes.getNamedItem("axis").value + " "
-						+ compChild1[k].attributes.getNamedItem("angle").value + ".");
-					}
-					if(compChild1[k].tagName == 'scale'){
-						console.log("Read scale item with x y z values: "
-						+ compChild1[k].attributes.getNamedItem("x").value + " "
-						+ compChild1[k].attributes.getNamedItem("y").value + " "
-						+ compChild1[k].attributes.getNamedItem("z").value + ".");
-					}
-				}
-			}
-
-			if(comp[j].tagName == 'materials'){
-				console.log("Read material item with id value: " + compChild1[0].attributes.getNamedItem("id").value + ".");
-			}
-
-			if(comp[j].tagName == 'texture'){
-				console.log("Read texture item with id value: " + comp[j].attributes.getNamedItem("id").value + ".");
-			}
-
-			if(comp[j].tagName == 'children'){
-				console.log("Read componentref item with id value: " + compChild1[0].attributes.getNamedItem("id").value + ".");
-				console.log("Read primitiveref item with id value: " + compChild1[1].attributes.getNamedItem("id").value + ".");
-			}
-
-
-		}
-
-	}
 
 	//-----------------------------------------------------------------------------//
 	//TRANSFORMATIONS -------------------------------------------------------------//
@@ -522,6 +509,27 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 			}
 		}
 	}
+
+	//-----------------------------------------------------------------------------//
+	//LISTAS ----------------------------------------------------------------------//
+	//-----------------------------------------------------------------------------//
+	var tempList=rootElement.getElementsByTagName('list');
+
+	if (tempList == null  || tempList.length==0) {
+		return "list element is missing.";
+	}
+
+	this.list=[];
+	// iterate over every element
+	var nnodes=tempList[0].children.length;
+	for (var i=0; i< nnodes; i++)
+	{
+		var e=tempList[0].children[i];
+
+		// process each element and store its information
+		this.list[e.id]=e.attributes.getNamedItem("coords").value;
+		console.log("Read list item id "+ e.id+" with value "+this.list[e.id]);
+	};
 
 };
 

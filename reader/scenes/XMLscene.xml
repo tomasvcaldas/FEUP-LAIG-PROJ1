@@ -1,0 +1,215 @@
+<dsx>
+
+    <globals background ="0 0.5 0 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
+
+    <list>
+      <elem id="rect" coords="0 0 1" />
+    </list>
+
+
+    <!-- deve definir-se um objeto para raiz do grafo , assim -->
+    <!-- como o comprimento dos tres eixos (cilindros) -->
+    <scene root="ss" axis_length="ff" />
+
+    <views default="ss" >
+
+        <!-- declaracao obrigatoria de pelo menos uma vista; -->
+        <!-- se varias vistas declaradas, o default e' a -->
+        <!-- primeira vista; de cada vez que se pressione a tecla v/V, -->
+        <!-- a vista muda para a proxima da lista; da -->
+        <!-- ultima vista da lista volta 'a primeira -->
+        <perspective id="ss" near="ff" far="ff" angle="ff">
+            <from x="ff" y="ff" z="ff" />
+            <to x="ff" y="ff" z="ff" />
+        </perspective>
+
+    </views>
+
+    <illumination doublesided="tt" local="tt" >
+
+        <ambient r="ff" g="ff" b="ff" a="ff" />
+        <background r="ff" g="ff" b="ff" a="ff" />
+
+    </illumination>
+
+    <textures>
+
+        <!-- Deve existir um ou mais blocos "texture" -->
+        <!-- Os identificadores "id" nao podem ser repetidos -->
+        <!-- length_s e length_t sao fatores de escala de textura:-->
+        <!-- Exemplo length_s=3.0: uma ocorrencia da textura, em -->
+        <!-- comprimento, deve cobrir um comprimento igual -->
+        <!-- a 3 unidades;  -->
+        <!-- Exemplo length_t=0.4, uma ocorrencia da textura, em -->
+        <!-- largura, deve cobrir uma largura igual a 0.4 unidades.  -->
+        <!-- Transf. Geometr. do tipo escalamento sobre os -->
+        <!-- objetos respetivos podem a violar esta regra.         -->
+        <!-- Nao necessario aplicar fatores de escala em  -->
+        <!-- quadricas (esfera, ciclindro...) -->
+        <texture id="ss" file="ss" length_s="ff" length_t="ff" />
+
+    </textures>
+
+    <lights>
+
+        <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
+        <!-- Os identificadores "id" nao podem ser repetidos -->
+        <omni id="ss" enabled="tt" >
+            <location x="ff" y="ff" z="ff" w="ff" />
+            <ambient r="ff" g="ff" b="ff" a="ff" />
+            <diffuse r="ff" g="ff" b="ff" a="ff" />
+            <specular r="ff" g="ff" b="ff" a="ff" />
+        </omni>
+
+        <spot id="ss" enabled="tt" angle="ff" exponent="ff">
+            <!-- atencao, "target" e' diferente de "direction" -->
+            <target x="ff" y="ff" z="ff" />
+            <location x="ff" y="ff" z="ff" />
+            <ambient r="ff" g="ff" b="ff" a="ff" />
+            <diffuse r="ff" g="ff" b="ff" a="ff" />
+            <specular r="ff" g="ff" b="ff" a="ff" />
+        </spot>
+    </lights>
+
+
+    <materials>
+
+        <!-- Deve existir um ou mais blocos "material" -->
+        <!-- Os identificadores "id" nao podem ser repetidos -->
+        <material id="ss" >
+            <emission r="ff" g="ff" b="ff" a="ff" />
+            <ambient r="ff" g="ff" b="ff" a="ff" />
+            <diffuse r="ff" g="ff" b="ff" a="ff" />
+            <specular r="ff" g="ff" b="ff" a="ff" />
+            <shininess value="ff" />
+        </material>
+
+    </materials>
+
+
+    <transformations>
+
+        <!-- Deve existir um ou mais blocos "transformation" -->
+        <!-- Os identificadores "id" nao podem ser repetidos -->
+        <transformation id="ss">
+           <!-- instrucoes a usar sem limite nem ordem -->
+           <!-- deve existir pelo menos uma transformacao -->
+           <translate x="ff" y="ff" z="ff" />
+           <rotate axis="cc" angle="ff" />
+           <scale x="ff" y="ff" z="ff" />
+        </transformation>
+
+    </transformations>
+
+
+    <primitives>
+
+      <primitive id="rect">
+          <rectangle x1="0" y1="0" x2="5" y2="5" />
+      </primitive>
+
+    </primitives>
+
+
+    <components>
+
+        <component id="cube">
+
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+
+            </transformation>
+
+            <children>
+
+                <componentref id="face1" />
+                <componentref id="face2" />
+                <componentref id="face3" />
+                <componentref id="face4" />
+                <componentref id="top" />
+                <componentref id="bot" />
+
+            </children>
+
+        </component>
+
+        <component id="face1">
+
+          <transformation>
+              <translate x="0.5" y="0" z="0.5" />
+              <rotate axis="z" angle="90" />
+          </transformation>
+
+          <children>
+            <primitiveref id="rect"/>
+          </children>
+
+        </component>
+
+        <component id="face2">
+
+          <transformation>
+              <rotate axis="x" angle="90" />
+              <translate x="0.5" y="0.5" z="1" />
+          </transformation>
+
+          <children>
+            <primitiveref id="rect"/>
+          </children>
+
+        </component>
+
+        <component id="face3">
+
+          <transformation>
+            <rotate axis="z" angle="-90" />
+            <translate x="1" y="0.5" z="0.5" />
+          </transformation>
+
+          <children>
+            <primitiveref id="rect"/>
+          </children>
+
+        </component>
+
+        <component id="face4">
+
+          <transformation>
+            <translate x="0.5" y="0" z="0.5" />
+            <rotate axis="x" angle="90" />
+          </transformation>
+
+          <children>
+            <primitiveref id="rect"/>
+          </children>
+
+        </component>
+
+        <component id="top">
+
+          <transformation>
+              <translate x="0.5" y="1" z="0.5" />
+          </transformation>
+
+          <children>
+            <primitiveref id="rect"/>
+          </children>
+
+        </component>
+
+        <component id="bot">
+
+          <transformation>
+              <rotate axis="x" angle="180" />
+              <translate x="0.5" y="0" z="0.5" />
+          </transformation>
+
+          <children>
+            <primitiveref id="rect"/>
+          </children>
+
+        </component>
+
+    </components>
+
+</dsx>

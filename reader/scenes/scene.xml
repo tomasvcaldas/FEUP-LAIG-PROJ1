@@ -17,10 +17,8 @@
     <globals background ="0 0.5 0 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
 
     <list>
-      <elem id="1" coords="0 0 2" />
-      <elem id="2" coords="0 1 0" />
-      <elem id="3" coords="1 0 0" />
-    </list>
+		<elem id="rect" coords="0 0 1" />
+	 </list>
 
 
     <!-- deve definir-se um objeto para raiz do grafo , assim -->
