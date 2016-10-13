@@ -66,6 +66,103 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");
 
 	//-----------------------------------------------------------------------------//
+	//LISTAS ----------------------------------------------------------------------//
+	//-----------------------------------------------------------------------------//
+	var tempList=rootElement.getElementsByTagName('list');
+
+	if (tempList == null  || tempList.length==0) {
+		return "list element is missing.";
+	}
+
+	this.list=[];
+	// iterate over every element
+	var nnodes=tempList[0].children.length;
+	for (var i=0; i< nnodes; i++)
+	{
+		var e=tempList[0].children[i];
+
+		// process each element and store its information
+		this.list[e.id]=e.attributes.getNamedItem("coords").value;
+		console.log("Read list item id "+ e.id+" with value "+this.list[e.id]);
+	};
+
+	//-----------------------------------------------------------------------------//
+	//PRIMITIVAS ------------------------------------------------------------------//
+	//-----------------------------------------------------------------------------//
+
+	var tempPrim=rootElement.getElementsByTagName('primitives');
+
+	if (tempPrim == null  || tempPrim.length==0) {
+		return "primitives element is missing.";
+	}
+
+	this.primitives=[];
+
+
+	for(var i = 0; i < tempPrim[0].children.length ; i++){
+
+		console.log("Read primitive with id " + tempPrim[0].children[i].attributes.getNamedItem("id").value);
+		var prim = tempPrim[0].children[i].children;
+
+			for(var j = 0; j < prim.length; j++){
+
+				if(prim[j].tagName == 'rectangle' ){
+					console.log("Read rectangle item with x1 y1 x2 y2 values: "
+					+ prim[j].attributes.getNamedItem("x1").value + " "
+					+ prim[j].attributes.getNamedItem("y1").value + " "
+					+ prim[j].attributes.getNamedItem("x2").value + " "
+					+ prim[j].attributes.getNamedItem("y2").value + "."
+				)
+				var x1 = prim[j].attributes.getNamedItem("x1").value;
+				var y1 = prim[j].attributes.getNamedItem("y1").value
+				var x2 = prim[j].attributes.getNamedItem("x2").value;
+				var y2 = prim[j].attributes.getNamedItem("y2").value
+
+				this.rectangle = new MyQuad(this.scene,x1,y1,x2,y2);
+
+				}
+				if(prim[j].tagName == 'triangle' ){
+					console.log("Read triangle item with x1 y1 z1 x2 y2 z2 x3 y3 z3 values: "
+					+ prim[j].attributes.getNamedItem("x1").value + " "
+					+ prim[j].attributes.getNamedItem("y1").value + " "
+					+ prim[j].attributes.getNamedItem("z1").value + " "
+					+ prim[j].attributes.getNamedItem("x2").value + " "
+					+ prim[j].attributes.getNamedItem("y2").value + " "
+					+ prim[j].attributes.getNamedItem("z2").value + " "
+					+ prim[j].attributes.getNamedItem("x3").value + " "
+					+ prim[j].attributes.getNamedItem("y3").value + " "
+					+ prim[j].attributes.getNamedItem("z3").value + "."
+					)
+
+				}
+				if(prim[j].tagName == 'cylinder' ){
+					console.log("Read cylinder item with base top height slices stacks values: "
+					+ prim[j].attributes.getNamedItem("base").value + " "
+					+ prim[j].attributes.getNamedItem("top").value + " "
+					+ prim[j].attributes.getNamedItem("height").value + " "
+					+ prim[j].attributes.getNamedItem("slices").value + " "
+					+ prim[j].attributes.getNamedItem("stacks").value + "."
+					)
+				}
+				if(prim[j].tagName == 'sphere' ){
+					console.log("Read sphere item with radius slices stacks values: "
+					+ prim[j].attributes.getNamedItem("radius").value + " "
+					+ prim[j].attributes.getNamedItem("slices").value + " "
+					+ prim[j].attributes.getNamedItem("stacks").value + "."
+					)
+				}
+				if(prim[j].tagName == 'torus' ){
+					console.log("Read torus item with inner outer slices loops values: "
+					+ prim[j].attributes.getNamedItem("inner").value + " "
+					+ prim[j].attributes.getNamedItem("outer").value + " "
+					+ prim[j].attributes.getNamedItem("slices").value + " "
+					+ prim[j].attributes.getNamedItem("loops").value + "."
+					)
+				}
+			}
+	}
+
+	//-----------------------------------------------------------------------------//
 	//COMPONENTES -----------------------------------------------------------------//
 	//-----------------------------------------------------------------------------//
 
@@ -77,8 +174,8 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 	this.components=[];
 
+
 	for(var i = 0; i < tempComp[0].children.length ; i++){
-		console.log("Read component with id" + tempComp[0].children[i].attributes.getNamedItem("id").value);
 		var comp = tempComp[0].children[i].children;
 
 		for(var j = 0; j < comp.length; j++){
@@ -119,90 +216,14 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 			}
 
 			if(comp[j].tagName == 'children'){
-				for(var l = 0; l < compChild1.length; l++){
-					if(compChild1[l].tagName == 'componentref'){
-						console.log("Read componentref item with id value: "
-						 + compChild1[l].attributes.getNamedItem("id").value + ".");
-					}
-				}
-
+				console.log("Read componentref item with id value: " + compChild1[0].attributes.getNamedItem("id").value + ".");
+				console.log("Read primitiveref item with id value: " + compChild1[1].attributes.getNamedItem("id").value + ".");
 			}
 
 
 		}
 
 	}
-
-
-	//-----------------------------------------------------------------------------//
-	//PRIMITIVAS ------------------------------------------------------------------//
-	//-----------------------------------------------------------------------------//
-
-	var tempPrim=rootElement.getElementsByTagName('primitives');
-
-	if (tempPrim == null  || tempPrim.length==0) {
-		return "primitives element is missing.";
-	}
-
-	this.primitives=[];
-
-
-	for(var i = 0; i < tempPrim[0].children.length ; i++){
-
-		console.log("Read primitive with id " + tempPrim[0].children[i].attributes.getNamedItem("id").value);
-		var prim = tempPrim[0].children[i].children;
-
-			for(var j = 0; j < prim.length; j++){
-
-				if(prim[j].tagName == 'rectangle' ){
-					console.log("Read rectangle item with x1 y1 x2 y2 values: "
-					+ prim[j].attributes.getNamedItem("x1").value + " "
-					+ prim[j].attributes.getNamedItem("y1").value + " "
-					+ prim[j].attributes.getNamedItem("x2").value + " "
-					+ prim[j].attributes.getNamedItem("y2").value + "."
-					)
-				}
-				if(prim[j].tagName == 'triangle' ){
-					console.log("Read triangle item with x1 y1 z1 x2 y2 z2 x3 y3 z3 values: "
-					+ prim[j].attributes.getNamedItem("x1").value + " "
-					+ prim[j].attributes.getNamedItem("y1").value + " "
-					+ prim[j].attributes.getNamedItem("z1").value + " "
-					+ prim[j].attributes.getNamedItem("x2").value + " "
-					+ prim[j].attributes.getNamedItem("y2").value + " "
-					+ prim[j].attributes.getNamedItem("z2").value + " "
-					+ prim[j].attributes.getNamedItem("x3").value + " "
-					+ prim[j].attributes.getNamedItem("y3").value + " "
-					+ prim[j].attributes.getNamedItem("z3").value + "."
-					)
-				}
-				if(prim[j].tagName == 'cylinder' ){
-					console.log("Read cylinder item with base top height slices stacks values: "
-					+ prim[j].attributes.getNamedItem("base").value + " "
-					+ prim[j].attributes.getNamedItem("top").value + " "
-					+ prim[j].attributes.getNamedItem("height").value + " "
-					+ prim[j].attributes.getNamedItem("slices").value + " "
-					+ prim[j].attributes.getNamedItem("stacks").value + "."
-					)
-				}
-				if(prim[j].tagName == 'sphere' ){
-					console.log("Read sphere item with radius slices stacks values: "
-					+ prim[j].attributes.getNamedItem("radius").value + " "
-					+ prim[j].attributes.getNamedItem("slices").value + " "
-					+ prim[j].attributes.getNamedItem("stacks").value + "."
-					)
-				}
-				if(prim[j].tagName == 'torus' ){
-					console.log("Read torus item with inner outer slices loops values: "
-					+ prim[j].attributes.getNamedItem("inner").value + " "
-					+ prim[j].attributes.getNamedItem("outer").value + " "
-					+ prim[j].attributes.getNamedItem("slices").value + " "
-					+ prim[j].attributes.getNamedItem("loops").value + "."
-					)
-				}
-			}
-	}
-
-
 
 	//-----------------------------------------------------------------------------//
 	//TRANSFORMATIONS -------------------------------------------------------------//
@@ -216,6 +237,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	this.transformations=[];
 
 	for(var i = 0; i < tempTransf[0].children.length ; i++){
+
 
 
 		console.log("Read transformation with id " + tempTransf[0].children[i].attributes.getNamedItem("id").value);
@@ -260,16 +282,20 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 	this.illumination=[];
 	var illumination = tempIlum[0];
+	/*if(illumination.attributes.length > 0) console.log("Illumination attributes: ");
+	for(var i = 0; i <illumination.attributes.length; i++){
+		console.log( i ++  illumination.attributes[i].value );
 
-	console.log("Read illumination: doublesided - " + illumination.attributes.getNamedItem("doublesided").value +
-							" and local: - " + illumination.attributes.getNamedItem("local").value);
+	}*/
+	/*console.log("Read illumination: doublesided - " + illumination.attributes.getNamedItem("doublesided").value +
+							" and local: - " + illumination.attributes.getNamedItem("local").value);*/
 
 	for(var i=0; i < illumination.children.length; i++){
 		if(illumination.children[i].tagName =='ambient'){
 			console.log("Read ambient with values r = " + illumination.children[i].attributes.getNamedItem("r").value +
 			" g = " +illumination.children[i].attributes.getNamedItem("g").value +
-			" g = " +illumination.children[i].attributes.getNamedItem("b").value +
-			" g = " +illumination.children[i].attributes.getNamedItem("a").value);
+			" b = " +illumination.children[i].attributes.getNamedItem("b").value +
+			" a = " +illumination.children[i].attributes.getNamedItem("a").value);
 		}
 
 		if(illumination.children[i].tagName =='background'){
@@ -509,27 +535,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 			}
 		}
 	}
-
-	//-----------------------------------------------------------------------------//
-	//LISTAS ----------------------------------------------------------------------//
-	//-----------------------------------------------------------------------------//
-	var tempList=rootElement.getElementsByTagName('list');
-
-	if (tempList == null  || tempList.length==0) {
-		return "list element is missing.";
-	}
-
-	this.list=[];
-	// iterate over every element
-	var nnodes=tempList[0].children.length;
-	for (var i=0; i< nnodes; i++)
-	{
-		var e=tempList[0].children[i];
-
-		// process each element and store its information
-		this.list[e.id]=e.attributes.getNamedItem("coords").value;
-		console.log("Read list item id "+ e.id+" with value "+this.list[e.id]);
-	};
 
 };
 

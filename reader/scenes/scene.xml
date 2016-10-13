@@ -14,11 +14,13 @@
 
 <dsx>
 
-    <globals background ="0 0.5 0 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
+    <globals background ="1 5 4 " drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
 
     <list>
-		<elem id="rect" coords="0 0 1" />
-	 </list>
+      <elem id="1" coords="0 0 2" />
+      <elem id="2" coords="0 1 0" />
+      <elem id="3" coords="1 0 0" />
+    </list>
 
 
     <!-- deve definir-se um objeto para raiz do grafo , assim -->
@@ -129,7 +131,7 @@
             <!--     rectangle, triangle, cylinder, sphere, torus -->
             <!-- os parametros devem ser interpretados, genericamente como-->
             <!-- em OpenGL/GLUT; o cilindro deve adicionalmente ter tampas -->
-            <rectangle x1="ff" y1="ff" x2="ff" y2="ff" />
+            <rectangle x1="1" y1="1" x2="3" y2="3" />
             <triangle x1="ff" y1="ff" z1="ff" x2="ff" y2="ff" z2="ff" x3="ff" y3="ff" z3="ff" />
             <cylinder base="ff" top="ff" height="ff" slices="ii" stacks="ii" />
             <sphere radius="ff" slices="ii" stacks="ii" />
