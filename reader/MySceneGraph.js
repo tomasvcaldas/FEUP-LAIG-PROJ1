@@ -103,58 +103,67 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 	for(var i = 0; i < tempPrim[0].children.length ; i++){
 		var prim = tempPrim[0].children[i].children;
-
-			for(var j = 0; j < prim.length; j++){
-
-				if(prim[j].tagName == 'rectangle' ){
-				var x1 = prim[j].attributes.getNamedItem("x1").value;
-				var y1 = prim[j].attributes.getNamedItem("y1").value
-				var x2 = prim[j].attributes.getNamedItem("x2").value;
-				var y2 = prim[j].attributes.getNamedItem("y2").value
+				if(prim[0].tagName == 'rectangle' ){
+					console.log("OI!!");
+				var x1 = prim[0].attributes.getNamedItem("x1").value;
+				var y1 = prim[0].attributes.getNamedItem("y1").value
+				var x2 = prim[0].attributes.getNamedItem("x2").value;
+				var y2 = prim[0].attributes.getNamedItem("y2").value
 
 				this.objects[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new MyQuad(this.scene,x1,y1,x2,y2);
-
-
 				}
-				if(prim[j].tagName == 'triangle' ){
+				console.log("passou 1");
+				if(prim[0].tagName == 'triangle' ){
+
 					console.log("Read triangle item with x1 y1 z1 x2 y2 z2 x3 y3 z3 values: "
-					+ getFloat(prim[j],'x1') + " "
-					+ prim[j].attributes.getNamedItem("y1").value + " "
-					+ prim[j].attributes.getNamedItem("z1").value + " "
-					+ prim[j].attributes.getNamedItem("x2").value + " "
-					+ prim[j].attributes.getNamedItem("y2").value + " "
-					+ prim[j].attributes.getNamedItem("z2").value + " "
-					+ prim[j].attributes.getNamedItem("x3").value + " "
-					+ prim[j].attributes.getNamedItem("y3").value + " "
-					+ prim[j].attributes.getNamedItem("z3").value + "."
+					+ prim[0].attributes.getNamedItem("x1").value + " "
+					+ prim[0].attributes.getNamedItem("y1").value + " "
+					+ prim[0].attributes.getNamedItem("z1").value + " "
+					+ prim[0].attributes.getNamedItem("x2").value + " "
+					+ prim[0].attributes.getNamedItem("y2").value + " "
+					+ prim[0].attributes.getNamedItem("z2").value + " "
+					+ prim[0].attributes.getNamedItem("x3").value + " "
+					+ prim[0].attributes.getNamedItem("y3").value + " "
+					+ prim[0].attributes.getNamedItem("z3").value + "."
 					)
+					var tx1 = prim[0].attributes.getNamedItem("x1").value;
+					var ty1 = prim[0].attributes.getNamedItem("y1").value;
+					console.log(tx1);
+					var tz1 = prim[0].attributes.getNamedItem("z1").value;
+					var tx2 = prim[0].attributes.getNamedItem("x2").value;
+					var ty2 = prim[0].attributes.getNamedItem("y2").value;
+					var tz2 = prim[0].attributes.getNamedItem("z2").value;
+					var tx3 = prim[0].attributes.getNamedItem("x3").value;
+					var ty3 = prim[0].attributes.getNamedItem("y3").value;
+					var tz3 = prim[0].attributes.getNamedItem("z3").value;
 
+					this.objects[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new Triangle(this.scene,tx1,ty1,tz1,tx2,ty2,tz2,tx3,ty3,tz3);
 				}
-				if(prim[j].tagName == 'cylinder' ){
+				if(prim[0].tagName == 'cylinder' ){
 					console.log("Read cylinder item with base top height slices stacks values: "
-					+ prim[j].attributes.getNamedItem("base").value + " "
-					+ prim[j].attributes.getNamedItem("top").value + " "
-					+ prim[j].attributes.getNamedItem("height").value + " "
-					+ prim[j].attributes.getNamedItem("slices").value + " "
-					+ prim[j].attributes.getNamedItem("stacks").value + "."
+					+ prim[0].attributes.getNamedItem("base").value + " "
+					+ prim[0].attributes.getNamedItem("top").value + " "
+					+ prim[0].attributes.getNamedItem("height").value + " "
+					+ prim[0].attributes.getNamedItem("slices").value + " "
+					+ prim[0].attributes.getNamedItem("stacks").value + "."
 					)
 				}
-				if(prim[j].tagName == 'sphere' ){
+				if(prim[0].tagName == 'sphere' ){
 					console.log("Read sphere item with radius slices stacks values: "
-					+ prim[j].attributes.getNamedItem("radius").value + " "
-					+ prim[j].attributes.getNamedItem("slices").value + " "
-					+ prim[j].attributes.getNamedItem("stacks").value + "."
+					+ prim[0].attributes.getNamedItem("radius").value + " "
+					+ prim[0].attributes.getNamedItem("slices").value + " "
+					+ prim[0].attributes.getNamedItem("stacks").value + "."
 					)
 				}
-				if(prim[j].tagName == 'torus' ){
+				if(prim[0].tagName == 'torus' ){
 					console.log("Read torus item with inner outer slices loops values: "
-					+ prim[j].attributes.getNamedItem("inner").value + " "
-					+ prim[j].attributes.getNamedItem("outer").value + " "
-					+ prim[j].attributes.getNamedItem("slices").value + " "
-					+ prim[j].attributes.getNamedItem("loops").value + "."
+					+ prim[0].attributes.getNamedItem("inner").value + " "
+					+ prim[0].attributes.getNamedItem("outer").value + " "
+					+ prim[0].attributes.getNamedItem("slices").value + " "
+					+ prim[0].attributes.getNamedItem("loops").value + "."
 					)
 				}
-			}
+
 	}
 
 	//-----------------------------------------------------------------------------//

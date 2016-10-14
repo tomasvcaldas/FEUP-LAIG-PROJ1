@@ -108,6 +108,8 @@
           <rectangle x1="1" y1="1" x2="2" y2="2" />
       </primitive>
 
+      <primitive id="triang">
+          <triangle x1="ff" y1="ff" z1="ff" x2="ff" y2="ff" z2="ff" x3="ff" y3="ff" z3="ff" />
     </primitives>
 
 

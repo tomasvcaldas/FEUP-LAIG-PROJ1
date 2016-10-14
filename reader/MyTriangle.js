@@ -2,12 +2,18 @@
  * Triangle
  * @constructor
  */
-function Triangle(scene, point1, point2, point3) {
+function Triangle(scene, x1, y1, z1, x2, y2, z2, x3, y3, z3) {
     CGFobject.call(this, scene);
 
-    this.point1 = point1;
-    this.point2 = point2;
-    this.point3 = point3;
+    this.x1 = x1;
+    this.y1 = y1;
+    this.z1 = z1;
+    this.x2 = x1;
+    this.y2 = y1;
+    this.z2 = z1;
+    this.x3 = x1;
+    this.y3 = y1;
+    this.z3 = z1;
 
     this.initBuffers();
 };
@@ -17,9 +23,9 @@ Triangle.prototype.constructor = Triangle;
 
 Triangle.prototype.initBuffers = function() {
     this.vertices = [
-        this.point1.x, this.point1.y, this.point1.z,
-        this.point2.x, this.point2.y, this.point2.z,
-        this.point3.x, this.point3.y, this.point3.z
+        this.x1, this.y1, this.z1,
+        this.x2, this.y2, this.z2,
+        this.x3, this.y3, this.z3
     ];
 
     this.indices = [

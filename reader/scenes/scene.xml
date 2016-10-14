@@ -14,7 +14,7 @@
 
 <dsx>
 
-    <globals background ="1 5 4 " drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
+    <globals background =" 0 0.5 0 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
 
     <list>
       <elem id="1" coords="0 0 2" />
