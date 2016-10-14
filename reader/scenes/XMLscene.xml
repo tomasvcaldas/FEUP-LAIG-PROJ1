@@ -104,8 +104,8 @@
 
     <primitives>
 
-      <primitive id="rect">
-          <rectangle x1="0" y1="0" x2="5" y2="5" />
+      <primitive id="rect1">
+          <rectangle x1="1" y1="1" x2="2" y2="2" />
       </primitive>
 
     </primitives>
@@ -137,12 +137,13 @@
 
           <transformation>
               <translate x="0.5" y="0" z="0.5" />
-              <rotate axis="z" angle="90" />
+              <rotate axis="z" angle="180" />
           </transformation>
 
           <children>
-            <primitiveref id="rect"/>
+            <primitiveref id="rect1"/>
           </children>
+
 
         </component>
 
@@ -154,7 +155,7 @@
           </transformation>
 
           <children>
-            <primitiveref id="rect"/>
+            <primitiveref id="rect2"/>
           </children>
 
         </component>

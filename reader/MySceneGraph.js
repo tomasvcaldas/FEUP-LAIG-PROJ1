@@ -102,32 +102,23 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 
 	for(var i = 0; i < tempPrim[0].children.length ; i++){
-
-		console.log("Read primitive with id " + tempPrim[0].children[i].attributes.getNamedItem("id").value);
 		var prim = tempPrim[0].children[i].children;
 
 			for(var j = 0; j < prim.length; j++){
 
 				if(prim[j].tagName == 'rectangle' ){
-					console.log("Read rectangle item with x1 y1 x2 y2 values: "
-					+ prim[j].attributes.getNamedItem("x1").value + " "
-					+ prim[j].attributes.getNamedItem("y1").value + " "
-					+ prim[j].attributes.getNamedItem("x2").value + " "
-					+ prim[j].attributes.getNamedItem("y2").value + "."
-				)
 				var x1 = prim[j].attributes.getNamedItem("x1").value;
 				var y1 = prim[j].attributes.getNamedItem("y1").value
 				var x2 = prim[j].attributes.getNamedItem("x2").value;
 				var y2 = prim[j].attributes.getNamedItem("y2").value
 
-			//	this.rectangle = new MyQuad(this.scene,x1,y1,x2,y2);
 				this.objects[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new MyQuad(this.scene,x1,y1,x2,y2);
 
 
 				}
 				if(prim[j].tagName == 'triangle' ){
 					console.log("Read triangle item with x1 y1 z1 x2 y2 z2 x3 y3 z3 values: "
-					+ prim[j].attributes.getNamedItem("x1").value + " "
+					+ getFloat(prim[j],'x1') + " "
 					+ prim[j].attributes.getNamedItem("y1").value + " "
 					+ prim[j].attributes.getNamedItem("z1").value + " "
 					+ prim[j].attributes.getNamedItem("x2").value + " "
@@ -221,7 +212,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 			if(comp[j].tagName == 'children'){
 				console.log("Read componentref item with id value: " + compChild1[0].attributes.getNamedItem("id").value + ".");
-				console.log("Read primitiveref item with id value: " + compChild1[1].attributes.getNamedItem("id").value + ".");
+
 			}
 
 
