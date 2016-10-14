@@ -102,9 +102,10 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 
 	for(var i = 0; i < tempPrim[0].children.length ; i++){
+
 		var prim = tempPrim[0].children[i].children;
+
 				if(prim[0].tagName == 'rectangle' ){
-					console.log("OI!!");
 				var x1 = prim[0].attributes.getNamedItem("x1").value;
 				var y1 = prim[0].attributes.getNamedItem("y1").value
 				var x2 = prim[0].attributes.getNamedItem("x2").value;
@@ -112,23 +113,10 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 				this.objects[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new MyQuad(this.scene,x1,y1,x2,y2);
 				}
-				console.log("passou 1");
-				if(prim[0].tagName == 'triangle' ){
 
-					console.log("Read triangle item with x1 y1 z1 x2 y2 z2 x3 y3 z3 values: "
-					+ prim[0].attributes.getNamedItem("x1").value + " "
-					+ prim[0].attributes.getNamedItem("y1").value + " "
-					+ prim[0].attributes.getNamedItem("z1").value + " "
-					+ prim[0].attributes.getNamedItem("x2").value + " "
-					+ prim[0].attributes.getNamedItem("y2").value + " "
-					+ prim[0].attributes.getNamedItem("z2").value + " "
-					+ prim[0].attributes.getNamedItem("x3").value + " "
-					+ prim[0].attributes.getNamedItem("y3").value + " "
-					+ prim[0].attributes.getNamedItem("z3").value + "."
-					)
+				if(prim[0].tagName == 'triangle' ){
 					var tx1 = prim[0].attributes.getNamedItem("x1").value;
 					var ty1 = prim[0].attributes.getNamedItem("y1").value;
-					console.log(tx1);
 					var tz1 = prim[0].attributes.getNamedItem("z1").value;
 					var tx2 = prim[0].attributes.getNamedItem("x2").value;
 					var ty2 = prim[0].attributes.getNamedItem("y2").value;
@@ -139,6 +127,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 					this.objects[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new Triangle(this.scene,tx1,ty1,tz1,tx2,ty2,tz2,tx3,ty3,tz3);
 				}
+
 				if(prim[0].tagName == 'cylinder' ){
 					console.log("Read cylinder item with base top height slices stacks values: "
 					+ prim[0].attributes.getNamedItem("base").value + " "
