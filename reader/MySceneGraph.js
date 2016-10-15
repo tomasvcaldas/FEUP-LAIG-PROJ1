@@ -137,13 +137,14 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 					+ prim[0].attributes.getNamedItem("stacks").value + "."
 					)
 				}
+
 				if(prim[0].tagName == 'sphere' ){
-					console.log("Read sphere item with radius slices stacks values: "
-					+ prim[0].attributes.getNamedItem("radius").value + " "
-					+ prim[0].attributes.getNamedItem("slices").value + " "
-					+ prim[0].attributes.getNamedItem("stacks").value + "."
-					)
+					var radius = prim[0].attributes.getNamedItem("radius").value;
+					var slices = prim[0].attributes.getNamedItem("slices").value;
+					var stacks = prim[0].attributes.getNamedItem("stacks").value;
+					this.objects[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new Sphere(this.scene,radius,slices,stacks);
 				}
+
 				if(prim[0].tagName == 'torus' ){
 					console.log("Read torus item with inner outer slices loops values: "
 					+ prim[0].attributes.getNamedItem("inner").value + " "
@@ -152,6 +153,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 					+ prim[0].attributes.getNamedItem("loops").value + "."
 					)
 				}
+
 
 	}
 

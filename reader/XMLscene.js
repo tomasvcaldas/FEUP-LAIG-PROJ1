@@ -22,7 +22,6 @@ XMLscene.prototype.init = function (application) {
 
 	this.axis=new CGFaxis(this);
 
-
 };
 
 XMLscene.prototype.initLights = function () {

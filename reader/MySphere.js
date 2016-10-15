@@ -1,9 +1,9 @@
 function Sphere(scene, radius, slices, stacks) {
     CGFobject.call(this, scene);
 
-    this.radius = radius;
-    this.slices = slices;
-    this.stacks = stacks;
+    this.radius = parseFloat(radius);
+    this.slices = parseInt(slices);
+    this.stacks = parseInt(stacks);
 
     this.initBuffers();
 };
@@ -49,6 +49,9 @@ Sphere.prototype.initBuffers = function() {
             this.indices.push(first, first + 1, second + 1);
         }
     }
+
+    console.log(this.vertices.length/3)
+    console.log("indices" + this.indices);
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
