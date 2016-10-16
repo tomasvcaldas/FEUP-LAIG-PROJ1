@@ -143,7 +143,6 @@ XMLscene.prototype.display = function () {
   this.triangle.display();
   this.popMatrix();
 
-
   this.torus = new Torus(this,0.5,1,20,10);
 
   this.pushMatrix();
@@ -152,6 +151,7 @@ XMLscene.prototype.display = function () {
   this.scale(0.3,0.3,0.3);
   this.torus.display();
   this.popMatrix();
+  
 
 	this.setDefaultAppearance();
 
