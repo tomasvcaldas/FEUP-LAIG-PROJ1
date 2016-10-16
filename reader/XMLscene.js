@@ -19,6 +19,34 @@ XMLscene.prototype.init = function (application) {
     this.gl.enable(this.gl.DEPTH_TEST);
 	this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
+	
+	  this.enableTextures(true);
+
+    this.brick = "../resources/images/brick.jpg";
+    this.wood = "../resources/images/penis.jpg";
+    this.orange = "../resources/images/orange.jpg";
+
+
+    this.tableAppearance = new CGFappearance(this);
+  	this.tableAppearance.setAmbient(0.3,0.3,0.3,1);
+  	this.tableAppearance.setDiffuse(0.7,0.7,0.7,1);
+  	this.tableAppearance.setSpecular(0.5,0.5,0.5,1);
+  	this.tableAppearance.setShininess(120);
+  	this.tableAppearance.loadTexture(this.wood);
+
+    this.legAppearance = new CGFappearance(this);
+    this.legAppearance.setAmbient(0.3,0.3,0.3,1);
+    this.legAppearance.setDiffuse(0.7,0.7,0.7,1);
+    this.legAppearance.setSpecular(0.5,0.5,0.5,1);
+    this.legAppearance.setShininess(120);
+    this.legAppearance.loadTexture(this.wood);
+
+    this.torusAppearance = new CGFappearance(this);
+    this.torusAppearance.setAmbient(0.3,0.3,0.3,1);
+    this.torusAppearance.setDiffuse(0.7,0.7,0.7,1);
+    this.torusAppearance.setSpecular(0.5,0.5,0.5,1);
+    this.torusAppearance.setShininess(120);
+    this.torusAppearance.loadTexture(this.orange);
 
 	this.axis=new CGFaxis(this);
 
@@ -73,6 +101,7 @@ XMLscene.prototype.display = function () {
   this.pushMatrix();
   this.translate(1,1.5,2);
   this.scale(1.8,0.2,3);
+  this.tableAppearance.apply();
   this.cube.display();
   this.popMatrix();
 
@@ -83,6 +112,7 @@ XMLscene.prototype.display = function () {
   this.translate(0.2,0,0.6);
   this.rotate(-Math.PI/2, 1, 0, 0);
   this.scale(0.1, 0.1, 1.5);
+  this.legAppearance.apply();
   this.cylinder.display();
   this.popMatrix();
 
@@ -91,6 +121,7 @@ XMLscene.prototype.display = function () {
   this.translate(0.2,0,3.4);
   this.rotate(-Math.PI/2, 1, 0, 0);
   this.scale(0.1, 0.1, 1.5);
+  this.legAppearance.apply();
   this.cylinder.display();
   this.popMatrix();
 
@@ -99,6 +130,7 @@ XMLscene.prototype.display = function () {
   this.translate(1.8,0,3.4);
   this.rotate(-Math.PI/2, 1, 0, 0);
   this.scale(0.1, 0.1, 1.5);
+  this.legAppearance.apply();
   this.cylinder.display();
   this.popMatrix();
 
@@ -107,6 +139,7 @@ XMLscene.prototype.display = function () {
   this.translate(1.8,0,0.6);
   this.rotate(-Math.PI/2, 1, 0, 0);
   this.scale(0.1, 0.1, 1.5);
+  this.legAppearance.apply();
   this.cylinder.display();
   this.popMatrix();
 
@@ -149,6 +182,7 @@ XMLscene.prototype.display = function () {
   this.translate(1,1.75,3);
   this.rotate(-Math.PI/2,1,0,0);
   this.scale(0.3,0.3,0.3);
+  this.torusAppearance.apply();
   this.torus.display();
   this.popMatrix();
   
