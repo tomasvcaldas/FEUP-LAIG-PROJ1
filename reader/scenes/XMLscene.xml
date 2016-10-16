@@ -115,12 +115,17 @@
       </primitive>
 
       <primitive id="sphere">
-      <sphere radius="0.5" slices="20" stacks="10" />
+        <sphere radius="0.5" slices="20" stacks="10" />
       </primitive>
 
       <primitive id="torus">
-      <torus inner="0.5" outer="1" slices="20" loops="10" />
+        <torus inner="0.5" outer="1" slices="20" loops="10" />
       </primitive>
+
+      <primitive id="cylinder">
+        <cylinder base="0.5" top="0.5" height="1" slices="50" stacks="20" />
+      </primitive>
+      
 
     </primitives>
 

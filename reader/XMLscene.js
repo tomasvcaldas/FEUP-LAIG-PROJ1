@@ -25,8 +25,6 @@ XMLscene.prototype.init = function (application) {
     this.brick = "../resources/images/brick.jpg";
     this.wood = "../resources/images/wood.jpg";
     this.orange = "../resources/images/boia.jpg";
-    this.floor = "../resources/images/tijoleira.jpg";
-
 
     this.tableAppearance = new CGFappearance(this);
   	this.tableAppearance.setAmbient(0.3,0.3,0.3,1);
@@ -117,7 +115,7 @@ XMLscene.prototype.display = function () {
   this.cube.display();
   this.popMatrix();
 
-  this.cylinder = new MyCylinder(this,15,20,1);
+  this.cylinder = new CreateCylinder(this,0.5,0.5,1,50,20);
 
   //Perna da mesa 2
   this.pushMatrix();
@@ -198,6 +196,7 @@ XMLscene.prototype.display = function () {
   this.torus.display();
   this.popMatrix();
 
+
   this.floor = new MyQuad(this);
 
   this.pushMatrix();
@@ -208,6 +207,7 @@ XMLscene.prototype.display = function () {
   this.floorAppearance.apply();
   this.floor.display();
   this.popMatrix();
+
 
 
 	this.setDefaultAppearance();
