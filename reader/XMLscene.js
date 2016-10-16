@@ -19,12 +19,13 @@ XMLscene.prototype.init = function (application) {
     this.gl.enable(this.gl.DEPTH_TEST);
 	this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
-	
+
 	  this.enableTextures(true);
 
     this.brick = "../resources/images/brick.jpg";
-    this.wood = "../resources/images/penis.jpg";
-    this.orange = "../resources/images/orange.jpg";
+    this.wood = "../resources/images/wood.jpg";
+    this.orange = "../resources/images/boia.jpg";
+    this.floor = "../resources/images/tijoleira.jpg";
 
 
     this.tableAppearance = new CGFappearance(this);
@@ -48,15 +49,26 @@ XMLscene.prototype.init = function (application) {
     this.torusAppearance.setShininess(120);
     this.torusAppearance.loadTexture(this.orange);
 
+    this.floorAppearance = new CGFappearance(this);
+  	this.floorAppearance.setAmbient(0.3,0.3,0.3,1);
+  	this.floorAppearance.setDiffuse(0.40,0.25,0.15,1);
+  	this.floorAppearance.setSpecular(0.2,0.2,0.2,1);
+  	this.floorAppearance.setShininess(100);
+    this.floorAppearance.loadTexture(this.floor);
+
 	this.axis=new CGFaxis(this);
 
 };
 
 XMLscene.prototype.initLights = function () {
 
-	this.lights[0].setPosition(2, 3, 3, 1);
-    this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
-    this.lights[0].update();
+  //OMNI
+	 this.lights[0].setPosition(5, 5, 5, 0.2);
+   this.lights[0].setAmbient(0.8,0.8,0.8, 0.8);
+   this.lights[0].setDiffuse(0.5, 0.5, 0.5, 0.5);
+   this.lights[0].setSpecular(1, 1, 0, 1);
+   this.lights[0].enable();
+
 };
 
 XMLscene.prototype.initCameras = function () {
@@ -105,7 +117,7 @@ XMLscene.prototype.display = function () {
   this.cube.display();
   this.popMatrix();
 
-  this.cylinder = new MyCylinder(this,15,20);
+  this.cylinder = new MyCylinder(this,15,20,1);
 
   //Perna da mesa 2
   this.pushMatrix();
@@ -185,7 +197,18 @@ XMLscene.prototype.display = function () {
   this.torusAppearance.apply();
   this.torus.display();
   this.popMatrix();
-  
+
+  this.floor = new MyQuad(this);
+
+  this.pushMatrix();
+  this.scale(7,7,7);
+  this.translate(0.5,0,0.5);
+  this.rotate(Math.PI/2,-1,0,0);
+  this.rotate(Math.PI,0,0,1);
+  this.floorAppearance.apply();
+  this.floor.display();
+  this.popMatrix();
+
 
 	this.setDefaultAppearance();
 

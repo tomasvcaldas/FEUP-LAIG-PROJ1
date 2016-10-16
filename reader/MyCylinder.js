@@ -2,11 +2,12 @@
  * MyCylinder
  * @constructor
  */
- function MyCylinder(scene, slices, stacks) {
+ function MyCylinder(scene, slices, stacks, height) {
  	CGFobject.call(this,scene);
 
 	this.slices = slices;
 	this.stacks = stacks;
+  this.height = height;
 
  	this.initBuffers();
  };
@@ -16,7 +17,7 @@
 
  MyCylinder.prototype.initBuffers = function() {
 	this.ang = Math.PI*2/this.slices;
-	this.stackSize = 1/this.stacks;
+	this.stackSize = this.height/this.stacks;
 
 	this.vertices = [];
 	this.indices = [];

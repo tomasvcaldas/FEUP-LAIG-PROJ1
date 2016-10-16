@@ -1,6 +1,6 @@
 <dsx>
 
-    <globals background ="0 0 0 0" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
+    <globals background ="0.5 0.3 0 0.5" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
 
     <list>
       <elem id="rect" coords="0 0 1" />
@@ -9,26 +9,26 @@
 
     <!-- deve definir-se um objeto para raiz do grafo , assim -->
     <!-- como o comprimento dos tres eixos (cilindros) -->
-    <scene root="ss" axis_length="ff" />
+    <scene root="root" axis_length="3" />
 
-    <views default="ss" >
+    <views default="p1" >
 
         <!-- declaracao obrigatoria de pelo menos uma vista; -->
         <!-- se varias vistas declaradas, o default e' a -->
         <!-- primeira vista; de cada vez que se pressione a tecla v/V, -->
         <!-- a vista muda para a proxima da lista; da -->
         <!-- ultima vista da lista volta 'a primeira -->
-        <perspective id="ss" near="ff" far="ff" angle="ff">
-            <from x="ff" y="ff" z="ff" />
-            <to x="ff" y="ff" z="ff" />
+        <perspective id="p1" near="0.1" far="500" angle="22">
+            <from x="15" y="20" z="35" />
+            <to x="5" y="5" z="5" />
         </perspective>
 
     </views>
 
-    <illumination doublesided="tt" local="tt" >
+    <illumination doublesided="1" local="1" >
 
-        <ambient r="ff" g="ff" b="ff" a="ff" />
-        <background r="ff" g="ff" b="ff" a="ff" />
+        <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
+        <background r="0.1" g="0.1" b="0.2" a="1" />
 
     </illumination>
 
@@ -47,8 +47,8 @@
         <!-- Nao necessario aplicar fatores de escala em  -->
         <!-- quadricas (esfera, ciclindro...) -->
         <texture id="brick" file="resources\\images\\brick.jpg" length_s="1.0" length_t="1.0" />
-        <texture id="wood" file="resources\\images\\penis.jpg" length_s="1.0" length_t="1.0" />
-        <texture id="orange" file="resources\\images\\orange.jpg" length_s="1.0" length_t="1.0" />
+        <texture id="wood" file="resources\\images\\wood.jpg" length_s="1.0" length_t="1.0" />
+        <texture id="orange" file="resources\\images\\boia.jpg" length_s="1.0" length_t="1.0" />
 
     </textures>
 
