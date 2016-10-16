@@ -46,9 +46,11 @@
         <!-- objetos respetivos podem a violar esta regra.         -->
         <!-- Nao necessario aplicar fatores de escala em  -->
         <!-- quadricas (esfera, ciclindro...) -->
-        <texture id="brick" file="resources\\images\\brick.jpg" length_s="1.0" length_t="1.0" />
+        <texture id="floor" file="resources\\images\\carpet3.jpg" length_s="1.0" length_t="1.0" />
         <texture id="wood" file="resources\\images\\wood.jpg" length_s="1.0" length_t="1.0" />
-        <texture id="orange" file="resources\\images\\boia.jpg" length_s="1.0" length_t="1.0" />
+        <texture id="boia" file="resources\\images\\boia.jpg" length_s="1.0" length_t="1.0" />
+        <texture id="wall" file="resources\\images\\wall.jpg" length_s="1.0" length_t="1.0" />
+
 
     </textures>
 
@@ -93,12 +95,10 @@
 
         <!-- Deve existir um ou mais blocos "transformation" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <transformation id="ss">
+        <transformation id="sample">
            <!-- instrucoes a usar sem limite nem ordem -->
            <!-- deve existir pelo menos uma transformacao -->
-           <translate x="ff" y="ff" z="ff" />
-           <rotate axis="cc" angle="ff" />
-           <scale x="ff" y="ff" z="ff" />
+           <scale x="1" y="1" z="1" />
         </transformation>
 
     </transformations>
@@ -106,16 +106,12 @@
 
     <primitives>
 
-      <primitive id="rect1">
-          <rectangle x1="1" y1="1" x2="2" y2="2" />
+      <primitive id="quad">
+          <rectangle x1="0" y1="1" x2="0" y2="1" />
       </primitive>
 
-      <primitive id="triang">
-          <triangle x1="1" y1="1" z1="0" x2="5" y2="1" z2="0" x3="3" y3="3" z3="0" />
-      </primitive>
-
-      <primitive id="sphere">
-        <sphere radius="0.5" slices="20" stacks="10" />
+      <primitive id="triangle">
+          <triangle x1="-0.5" y1="0" z1="0" x2="0" y2="1" z2="0" x3="0.5" y3="0" z3="0" />
       </primitive>
 
       <primitive id="torus">
@@ -132,48 +128,303 @@
 
     <components>
 
-        <component id="cube">
+        <component id="table">
             <!-- bloco "transformation" obrigatorio -->
             <transformation>
 
             </transformation>
 
             <children>
-                <componentref id="face1" />
-                <componentref id="face2" />
-                <componentref id="face3" />
-                <componentref id="face4" />
-                <componentref id="top" />
-                <componentref id="bot" />
+                <componentref id="cube" />
+                <componentref id="legs" />
             </children>
+
+        </component>
+
+        <component id="cube">
+
+          <transformation>
+              <translate x="1" y="1.5" z="2" />
+              <scale x="1.8" y="0.2" z="3" />
+          </transformation>
+
+          <children>
+            <componentref id="face1"/>
+            <componentref id="face2"/>
+            <componentref id="face3"/>
+            <componentref id="face4"/>
+            <componentref id="face5"/>
+            <componentref id="face6"/>
+          </children>
 
         </component>
 
         <component id="face1">
 
           <transformation>
-              <translate x="0.5" y="0" z="0.5" />
-              <rotate axis="z" angle="180" />
+              <translate x="0" y="0" z="0.5" />
           </transformation>
 
           <children>
-            <primitiveref id="rect"/>
+            <primitiveref id="quad"/>
           </children>
 
         </component>
 
-        <component id="bot">
+        <component id="face2">
 
           <transformation>
-              <rotate axis="x" angle="180" />
-              <translate x="0.5" y="0" z="0.5" />
+            <translate x="0" y="0" z="-0.5" />
+            <rotate axis="y" angle="180" />
           </transformation>
 
           <children>
-            <primitiveref id="rect"/>
+            <primitiveref id="quad"/>
           </children>
 
         </component>
+
+        <component id="face3">
+
+          <transformation>
+              <translate x="-0.5" y="0" z="0" />
+              <rotate axis="y" angle="-90" />
+          </transformation>
+
+          <children>
+            <primitiveref id="quad"/>
+          </children>
+
+        </component>
+
+        <component id="face4">
+
+          <transformation>
+              <translate x="0.5" y="0" z="0" />
+              <rotate axis="y" angle="90" />
+          </transformation>
+
+          <children>
+            <primitiveref id="quad"/>
+          </children>
+
+        </component>
+
+        <component id="face5">
+
+          <transformation>
+              <translate x="0" y="-0.5" z="0" />
+              <rotate axis="x" angle="90" />
+          </transformation>
+
+          <children>
+            <primitiveref id="quad"/>
+          </children>
+
+        </component>
+
+        <component id="face6">
+
+          <transformation>
+              <translate x="0" y="0.5" z="0" />
+              <rotate axis="x" angle="-90" />
+          </transformation>
+
+          <children>
+            <primitiveref id="quad"/>
+          </children>
+
+        </component>
+
+        <component id="legs">
+
+          <transformation>
+
+          </transformation>
+
+          <children>
+            <componentref id="leg1"/>
+            <componentref id="leg2"/>
+            <componentref id="leg3"/>
+            <componentref id="leg4"/>
+          </children>
+
+        </component>
+
+        <component id="leg1">
+
+          <transformation>
+              <translate x="0.2" y="0" z="3.4" />
+              <rotate axis="x" angle="-90" />
+              <scale x="0.1" y="0.1" z="1.5" />
+          </transformation>
+
+          <children>
+            <primitiveref id="cylinder"/>
+          </children>
+        </component>
+
+          <component id="leg2">
+
+            <transformation>
+                <translate x="0.2" y="0" z="0.6" />
+                <rotate axis="x" angle="-90" />
+                <scale x="0.1" y="0.1" z="1.5" />
+            </transformation>
+
+            <children>
+              <primitiveref id="cylinder"/>
+            </children>
+          </component>
+
+            <component id="leg3">
+
+              <transformation>
+                  <translate x="1.8" y="0" z="3.4" />
+                  <rotate axis="x" angle="-90" />
+                  <scale x="0.1" y="0.1" z="1.5" />
+              </transformation>
+
+              <children>
+                <primitiveref id="cylinder"/>
+              </children>
+            </component>
+
+              <component id="leg4">
+
+                <transformation>
+                    <translate x="1.8" y="0" z="0.6" />
+                    <rotate axis="x" angle="-90" />
+                    <scale x="0.1" y="0.1" z="1.5" />
+                </transformation>
+
+                <children>
+                  <primitiveref id="cylinder"/>
+                </children>
+              </component>
+
+              <component id="torus1">
+
+                <transformation>
+                    <translate x="1" y="1.75" z="3" />
+                    <rotate axis="x" angle="-90" />
+                    <scale x="0.3" y="0.3" z="0.3" />
+                </transformation>
+
+                <children>
+                  <primitiveref id="torus"/>
+                </children>
+              </component>
+
+              <component id="pyramid">
+
+                <transformation>
+                </transformation>
+
+                <children>
+                  <componentref id="triangle1"/>
+                  <componentref id="triangle2"/>
+                  <componentref id="triangle3"/>
+                  <componentref id="triangle4"/>
+                </children>
+              </component>
+
+            </component>
+
+            <component id="triangle1">
+
+              <transformation>
+                  <translate x="0.8" y="1.6" z="0.7" />
+                  <rotate axis="x" angle="30" />
+              </transformation>
+
+              <children>
+                <primitiveref id="triangle"/>
+              </children>
+            </component>
+
+              <component id="triangle2">
+
+                <transformation>
+                    <translate x="0.8" y="1.6" z="1.7" />
+                    <rotate axis="x" angle="-30" />
+                    <rotate axis="y" angle="180" />
+                </transformation>
+
+                <children>
+                  <primitiveref id="triangle"/>
+                </children>
+              </component>
+
+                <component id="triangle3">
+
+                  <transformation>
+                      <translate x="0.3" y="1.6" z="1.2" />
+                      <rotate axis="z" angle="-30" />
+                      <rotate axis="y" angle="90" />
+                  </transformation>
+
+                  <children>
+                    <primitiveref id="triangle"/>
+                  </children>
+                </component>
+
+                  <component id="triangle4">
+
+                    <transformation>
+                        <translate x="1.3" y="1.6" z="1.2" />
+                        <rotate axis="z" angle="30" />
+                        <rotate axis="y" angle="-90" />
+                    </transformation>
+
+                    <children>
+                      <primitiveref id="triangle"/>
+                    </children>
+                  </component>
+
+                  <component id="leftwall">
+
+                    <transformation>
+                      <scale x="7" y="5" z="7" />
+                      <translate x="0" y="0.5" z="0.5" />
+                      <rotate axis="y" angle="90" />
+                      <rotate axis="z" angle="180" />
+                    </transformation>
+
+                    <children>
+                      <primitiveref id="quad"/>
+                    </children>
+                  </component>
+
+                  <component id="righttwall">
+
+                    <transformation>
+                      <scale x="7" y="5" z="7" />
+                      <translate x="0" y="0.5" z="0.5" />
+                      <rotate axis="z" angle="90" />
+                      <rotate axis="z" angle="180" />
+                    </transformation>
+
+                    <children>
+                      <primitiveref id="quad"/>
+                    </children>
+                  </component>
+
+                  <component id="floor">
+
+                    <transformation>
+                      <scale x="7" y="7" z="7" />
+                      <translate x="0.5" y="0" z="0.5" />
+                      <rotate axis="x" angle="-90" />
+                      <rotate axis="z" angle="180" />
+                    </transformation>
+
+                    <children>
+                      <primitiveref id="quad"/>
+                    </children>
+                  </component>
+
+
 
     </components>
 
