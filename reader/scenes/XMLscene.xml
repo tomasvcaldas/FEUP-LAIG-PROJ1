@@ -1,6 +1,6 @@
 <dsx>
 
-    <globals background ="0.5 0.3 0 0.5" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
+    <globals background ="0 0.5 0.5 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
 
     <list>
       <elem id="rect" coords="0 0 1" />
@@ -56,20 +56,20 @@
 
         <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <omni id="ss" enabled="tt" >
-            <location x="ff" y="ff" z="ff" w="ff" />
-            <ambient r="ff" g="ff" b="ff" a="ff" />
-            <diffuse r="ff" g="ff" b="ff" a="ff" />
-            <specular r="ff" g="ff" b="ff" a="ff" />
+        <omni id="omni1" enabled="1" >
+            <location x="4" y="4" z="4" w="0.2" />
+            <ambient r="0.8" g="0.8" b="0.8" a="0.8" />
+            <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
+            <specular r="1" g="1" b="0" a="1" />
         </omni>
 
-        <spot id="ss" enabled="tt" angle="ff" exponent="ff">
+        <spot id="spot1" enabled="0" angle="40" exponent="0.5">
             <!-- atencao, "target" e' diferente de "direction" -->
-            <target x="ff" y="ff" z="ff" />
-            <location x="ff" y="ff" z="ff" />
-            <ambient r="ff" g="ff" b="ff" a="ff" />
-            <diffuse r="ff" g="ff" b="ff" a="ff" />
-            <specular r="ff" g="ff" b="ff" a="ff" />
+            <target x="3" y="3" z="0.5" />
+            <location x="4" y="2" z="2" />
+            <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
+            <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
+            <specular r="0.5" g="0.5" b="0.5" a="0.5" />
         </spot>
     </lights>
 
@@ -78,12 +78,12 @@
 
         <!-- Deve existir um ou mais blocos "material" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <material id="ss" >
-            <emission r="ff" g="ff" b="ff" a="ff" />
-            <ambient r="ff" g="ff" b="ff" a="ff" />
-            <diffuse r="ff" g="ff" b="ff" a="ff" />
-            <specular r="ff" g="ff" b="ff" a="ff" />
-            <shininess value="ff" />
+        <material id="material1" >
+            <emission r="0.2" g="0.2" b="0.2" a="0.2" />
+            <ambient r="0.7" g="0.7" b="0.7" a="0.7" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+            <shininess value="120" />
         </material>
 
     </materials>
@@ -125,7 +125,7 @@
       <primitive id="cylinder">
         <cylinder base="0.5" top="0.5" height="1" slices="50" stacks="20" />
       </primitive>
-      
+
 
     </primitives>
 

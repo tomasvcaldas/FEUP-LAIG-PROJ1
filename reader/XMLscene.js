@@ -25,41 +25,41 @@ XMLscene.prototype.init = function (application) {
     this.brick = "../resources/images/brick.jpg";
     this.wood = "../resources/images/wood.jpg";
     this.boia = "../resources/images/boia.jpg";
-    this.floor = "../resources/images/tijoleira.jpg";
+    this.floor = "../resources/images/carpet3.jpg";
     this.wall ="../resources/images/wall.jpg"
 
     this.tableAppearance = new CGFappearance(this);
-  	this.tableAppearance.setAmbient(0.3,0.3,0.3,1);
+  	this.tableAppearance.setAmbient(0.7,0.7,0.7,0.7);
   	this.tableAppearance.setDiffuse(0.7,0.7,0.7,1);
-  	this.tableAppearance.setSpecular(0.5,0.5,0.5,1);
+  	this.tableAppearance.setSpecular(1,1,1,1);
   	this.tableAppearance.setShininess(120);
   	this.tableAppearance.loadTexture(this.wood);
 
     this.legAppearance = new CGFappearance(this);
-    this.legAppearance.setAmbient(0.3,0.3,0.3,1);
+    this.legAppearance.setAmbient(0.7,0.7,0.7,0.7);
     this.legAppearance.setDiffuse(0.7,0.7,0.7,1);
-    this.legAppearance.setSpecular(0.5,0.5,0.5,1);
+    this.legAppearance.setSpecular(1,1,1,1);
     this.legAppearance.setShininess(120);
     this.legAppearance.loadTexture(this.wood);
 
     this.torusAppearance = new CGFappearance(this);
-    this.torusAppearance.setAmbient(0.3,0.3,0.3,1);
+    this.torusAppearance.setAmbient(0.7,0.7,0.7,0.7);
     this.torusAppearance.setDiffuse(0.7,0.7,0.7,1);
-    this.torusAppearance.setSpecular(0.5,0.5,0.5,1);
+    this.torusAppearance.setSpecular(1,1,1,1);
     this.torusAppearance.setShininess(120);
     this.torusAppearance.loadTexture(this.boia);
 
     this.floorAppearance = new CGFappearance(this);
-  	this.floorAppearance.setAmbient(0.3,0.3,0.3,1);
-  	this.floorAppearance.setDiffuse(0.40,0.25,0.15,1);
-  	this.floorAppearance.setSpecular(0.2,0.2,0.2,1);
-  	this.floorAppearance.setShininess(100);
+  	this.floorAppearance.setAmbient(0.7,0.7,0.7,0.7);
+  	this.floorAppearance.setDiffuse(0.7,0.7,0.7,1);
+  	this.floorAppearance.setSpecular(1,1,1,1);
+  	this.floorAppearance.setShininess(120);
     this.floorAppearance.loadTexture(this.floor);
 
     this.backgroundAppearance = new CGFappearance(this);
-    this.backgroundAppearance.setAmbient(0.3,0.3,0.3,1);
+    this.backgroundAppearance.setAmbient(0.7,0.7,0.7,0.7);
     this.backgroundAppearance.setDiffuse(0.7,0.7,0.7,1);
-    this.backgroundAppearance.setSpecular(0.5,0.5,0.5,1);
+    this.backgroundAppearance.setSpecular(1,1,1,1);
     this.backgroundAppearance.setShininess(120);
     this.backgroundAppearance.loadTexture(this.wall);
 
