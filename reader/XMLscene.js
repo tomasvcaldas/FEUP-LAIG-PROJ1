@@ -105,7 +105,7 @@ XMLscene.prototype.display = function () {
   this.cube.display();
   this.popMatrix();
 
-  this.cylinder = new MyCylinder(this,15,20,1);
+  this.cylinder = new CreateCylinder(this,0.5,0.5,1,50,20);
 
   //Perna da mesa 2
   this.pushMatrix();
