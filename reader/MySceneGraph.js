@@ -111,7 +111,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 				var x2 = prim[0].attributes.getNamedItem("x2").value;
 				var y2 = prim[0].attributes.getNamedItem("y2").value
 
-				this.objects[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new MyQuad(this.scene,x1,y1,x2,y2);
+				//this.objects[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new MyQuad(this.scene,x1,y1,x2,y2);
 				}
 
 				if(prim[0].tagName == 'triangle' ){
@@ -125,7 +125,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 					var ty3 = prim[0].attributes.getNamedItem("y3").value;
 					var tz3 = prim[0].attributes.getNamedItem("z3").value;
 
-					this.objects[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new Triangle(this.scene,tx1,ty1,tz1,tx2,ty2,tz2,tx3,ty3,tz3);
+					//this.objects[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new Triangle(this.scene,tx1,ty1,tz1,tx2,ty2,tz2,tx3,ty3,tz3);
 				}
 
 				if(prim[0].tagName == 'cylinder' ){
@@ -142,7 +142,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 					var radius = prim[0].attributes.getNamedItem("radius").value;
 					var slices = prim[0].attributes.getNamedItem("slices").value;
 					var stacks = prim[0].attributes.getNamedItem("stacks").value;
-					this.objects[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new Sphere(this.scene,radius,slices,stacks);
+					//this.objects[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new Sphere(this.scene,radius,slices,stacks);
 				}
 
 				if(prim[0].tagName == 'torus' ){
@@ -157,9 +157,9 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 					var slices = prim[0].attributes.getNamedItem("slices").value;
 					var loops = prim[0].attributes.getNamedItem("loops").value;
 
-					
 
-					this.objects[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new Torus(this.scene, inner, outer, slices, loops);
+
+					//this.objects[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new Torus(this.scene, inner, outer, slices, loops);
 				}
 
 
@@ -177,52 +177,55 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 	this.components=[];
 
+	var nrcomps = tempComp[0].children; //ha 7 componentes
 
-	for(var i = 0; i < tempComp[0].children.length ; i++){
-		var comp = tempComp[0].children[i].children;
+	for(var i = 0; i < nrcomps.length; i++){
+		console.log("Read component with id " + nrcomps[i].attributes.getNamedItem('id').value);
+		var idcomp = nrcomps[i].children;
 
-		for(var j = 0; j < comp.length; j++){
-			var compChild1 = tempComp[0].children[i].children[j].children;
+		for(var j = 0; j < idcomp.length; j++){
 
-			if(comp[j].tagName == 'transformation'){
-				for(var k = 0; k < compChild1.length; k++){
-					if(compChild1[k].tagName == 'transformationref'){
+			if(idcomp[j].tagName == 'transformation'){
+
+				var childComp = idcomp[j].children;
+
+				for(var k = 0; k < childComp.length; k++){
+					if(childComp[k].tagName == 'transformationref'){
 						console.log("Read transformationref item with id value: "
-						 + compChild1[k].attributes.getNamedItem("id").value + ".");
+						 + childComp[k].attributes.getNamedItem("id").value + ".");
 					}
-					if(compChild1[k].tagName == 'translate'){
+					if(childComp[k].tagName == 'translate'){
 						console.log("Read translate item with x y z values: "
-						+ compChild1[k].attributes.getNamedItem("x").value + " "
-						+ compChild1[k].attributes.getNamedItem("y").value + " "
-						+ compChild1[k].attributes.getNamedItem("z").value + ".");
+						+ childComp[k].attributes.getNamedItem("x").value + " "
+						+ childComp[k].attributes.getNamedItem("y").value + " "
+						+ childComp[k].attributes.getNamedItem("z").value + ".");
 					}
-					if(compChild1[k].tagName == 'rotate'){
+					if(childComp[k].tagName == 'rotate'){
 						console.log("Read rotate item with axis angle values: "
-						+ compChild1[k].attributes.getNamedItem("axis").value + " "
-						+ compChild1[k].attributes.getNamedItem("angle").value + ".");
+						+ childComp[k].attributes.getNamedItem("axis").value + " "
+						+ childComp[k].attributes.getNamedItem("angle").value + ".");
 					}
-					if(compChild1[k].tagName == 'scale'){
+					if(childComp[k].tagName == 'scale'){
 						console.log("Read scale item with x y z values: "
-						+ compChild1[k].attributes.getNamedItem("x").value + " "
-						+ compChild1[k].attributes.getNamedItem("y").value + " "
-						+ compChild1[k].attributes.getNamedItem("z").value + ".");
+						+ childComp[k].attributes.getNamedItem("x").value + " "
+						+ childComp[k].attributes.getNamedItem("y").value + " "
+						+ childComp[k].attributes.getNamedItem("z").value + ".");
 					}
 				}
 			}
 
-			if(comp[j].tagName == 'materials'){
-				console.log("Read material item with id value: " + compChild1[0].attributes.getNamedItem("id").value + ".");
+			if(idcomp[j].tagName == 'materials'){
+				console.log("Read material item with id value: " + childComp[0].attributes.getNamedItem("id").value + ".");
 			}
 
-			if(comp[j].tagName == 'texture'){
-				console.log("Read texture item with id value: " + comp[j].attributes.getNamedItem("id").value + ".");
+			if(idcomp[j].tagName == 'texture'){
+				console.log("Read texture item with id value: " + childComp[j].attributes.getNamedItem("id").value + ".");
 			}
 
-			if(comp[j].tagName == 'children'){
-				console.log("Read componentref item with id value: " + compChild1[0].attributes.getNamedItem("id").value + ".");
-
+			if(idcomp[j].tagName == 'children'){
+				var idprimref = idcomp[j].children[0];
+				console.log("Read primitiveref with id" + idprimref.attributes.getNamedItem("id").value);
 			}
-
 
 		}
 

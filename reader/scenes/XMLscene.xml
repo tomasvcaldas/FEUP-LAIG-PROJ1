@@ -110,37 +110,34 @@
 
       <primitive id="triang">
           <triangle x1="1" y1="1" z1="0" x2="5" y2="1" z2="0" x3="3" y3="3" z3="0" />
-    </primitive>
+      </primitive>
 
-    <primitive id="sphere">
+      <primitive id="sphere">
       <sphere radius="0.5" slices="20" stacks="10" />
-    </primitive>
+      </primitive>
 
-    <primitive id="torus">
+      <primitive id="torus">
       <torus inner="0.5" outer="1" slices="20" loops="10" />
-    </primitive>
+      </primitive>
 
-  </primitives>
+    </primitives>
 
 
     <components>
 
         <component id="cube">
-
             <!-- bloco "transformation" obrigatorio -->
             <transformation>
 
             </transformation>
 
             <children>
-
                 <componentref id="face1" />
                 <componentref id="face2" />
                 <componentref id="face3" />
                 <componentref id="face4" />
                 <componentref id="top" />
                 <componentref id="bot" />
-
             </children>
 
         </component>
@@ -150,58 +147,6 @@
           <transformation>
               <translate x="0.5" y="0" z="0.5" />
               <rotate axis="z" angle="180" />
-          </transformation>
-
-          <children>
-            <primitiveref id="rect1"/>
-          </children>
-
-
-        </component>
-
-        <component id="face2">
-
-          <transformation>
-              <rotate axis="x" angle="90" />
-              <translate x="0.5" y="0.5" z="1" />
-          </transformation>
-
-          <children>
-            <primitiveref id="rect2"/>
-          </children>
-
-        </component>
-
-        <component id="face3">
-
-          <transformation>
-            <rotate axis="z" angle="-90" />
-            <translate x="1" y="0.5" z="0.5" />
-          </transformation>
-
-          <children>
-            <primitiveref id="rect"/>
-          </children>
-
-        </component>
-
-        <component id="face4">
-
-          <transformation>
-            <translate x="0.5" y="0" z="0.5" />
-            <rotate axis="x" angle="90" />
-          </transformation>
-
-          <children>
-            <primitiveref id="rect"/>
-          </children>
-
-        </component>
-
-        <component id="top">
-
-          <transformation>
-              <translate x="0.5" y="1" z="0.5" />
           </transformation>
 
           <children>

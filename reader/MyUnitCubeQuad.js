@@ -6,7 +6,7 @@
 function MyUnitCubeQuad(scene) {
 	CGFobject.call(this,scene);
 
-	this.quad=new MyQuad(this.scene);
+	this.quad=new MyQuad(this.scene, 0, 1, 0, 1);
 	this.quad.initBuffers();
 };
 
@@ -51,4 +51,3 @@ MyUnitCubeQuad.prototype.display = function() {
 	this.quad.display();
 	this.scene.popMatrix();
 	};
-
