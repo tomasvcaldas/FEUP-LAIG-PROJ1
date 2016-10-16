@@ -19,11 +19,11 @@ XMLscene.prototype.init = function (application) {
     this.gl.enable(this.gl.DEPTH_TEST);
 	this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
-	
+
 	  this.enableTextures(true);
 
     this.brick = "../resources/images/brick.jpg";
-    this.wood = "../resources/images/penis.jpg";
+    this.wood = "../resources/images/wood.jpg";
     this.orange = "../resources/images/orange.jpg";
 
 
@@ -105,7 +105,7 @@ XMLscene.prototype.display = function () {
   this.cube.display();
   this.popMatrix();
 
-  this.cylinder = new MyCylinder(this,15,20);
+  this.cylinder = new MyCylinder(this,15,20,1);
 
   //Perna da mesa 2
   this.pushMatrix();
@@ -185,7 +185,7 @@ XMLscene.prototype.display = function () {
   this.torusAppearance.apply();
   this.torus.display();
   this.popMatrix();
-  
+
 
 	this.setDefaultAppearance();
 
