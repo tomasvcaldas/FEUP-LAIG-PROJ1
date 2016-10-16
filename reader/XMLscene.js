@@ -67,7 +67,91 @@ XMLscene.prototype.display = function () {
 
 	// Draw axis
 	this.axis.display();
+  this.cube = new MyUnitCubeQuad(this);
 
+  //Cubo para fazer o tampo da mesa
+  this.pushMatrix();
+  this.translate(1,1.5,2);
+  this.scale(1.8,0.2,3);
+  this.cube.display();
+  this.popMatrix();
+
+  this.cylinder = new MyCylinder(this,15,20);
+
+  //Perna da mesa 2
+  this.pushMatrix();
+  this.translate(0.2,0,0.6);
+  this.rotate(-Math.PI/2, 1, 0, 0);
+  this.scale(0.1, 0.1, 1.5);
+  this.cylinder.display();
+  this.popMatrix();
+
+  //Perna da mesa 1
+  this.pushMatrix();
+  this.translate(0.2,0,3.4);
+  this.rotate(-Math.PI/2, 1, 0, 0);
+  this.scale(0.1, 0.1, 1.5);
+  this.cylinder.display();
+  this.popMatrix();
+
+  //Perna da mesa 3
+  this.pushMatrix();
+  this.translate(1.8,0,3.4);
+  this.rotate(-Math.PI/2, 1, 0, 0);
+  this.scale(0.1, 0.1, 1.5);
+  this.cylinder.display();
+  this.popMatrix();
+
+  //Perna da mesa 4
+  this.pushMatrix();
+  this.translate(1.8,0,0.6);
+  this.rotate(-Math.PI/2, 1, 0, 0);
+  this.scale(0.1, 0.1, 1.5);
+  this.cylinder.display();
+  this.popMatrix();
+
+  this.triangle = new Triangle(this, -0.5,0,0,0,1,0,0.5,0,0);
+
+  //Triangulo1
+  this.pushMatrix();
+  this.translate(0.8,1.6,0.7);
+  this.rotate(Math.PI/6, 1,0,0);
+  this.triangle.display();
+  this.popMatrix();
+
+  //Triangulo2
+  this.pushMatrix();
+  this.translate(0.8,1.6,1.7);
+  this.rotate(Math.PI/6, -1,0,0);
+  this.rotate(Math.PI, 0,1,0);
+  this.triangle.display();
+  this.popMatrix();
+
+  //Triangulo3
+  this.pushMatrix();
+  this.translate(0.3,1.6,1.2);
+  this.rotate(Math.PI/6,0,0,-1);
+  this.rotate(Math.PI/2, 0,1,0);
+  this.triangle.display();
+  this.popMatrix();
+
+  //Triangulo4
+  this.pushMatrix();
+  this.translate(1.3,1.6,1.2);
+  this.rotate(Math.PI/6,0,0,1);
+  this.rotate(Math.PI/2, 0,-1,0);
+  this.triangle.display();
+  this.popMatrix();
+
+
+  this.torus = new Torus(this,0.5,1,20,10);
+
+  this.pushMatrix();
+  this.translate(1,1.75,3);
+  this.rotate(-Math.PI/2,1,0,0);
+  this.scale(0.3,0.3,0.3);
+  this.torus.display();
+  this.popMatrix();
 
 	this.setDefaultAppearance();
 
