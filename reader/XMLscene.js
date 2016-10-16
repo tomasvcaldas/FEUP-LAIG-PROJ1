@@ -24,7 +24,9 @@ XMLscene.prototype.init = function (application) {
 
     this.brick = "../resources/images/brick.jpg";
     this.wood = "../resources/images/wood.jpg";
-    this.orange = "../resources/images/boia.jpg";
+    this.boia = "../resources/images/boia.jpg";
+    this.floor = "../resources/images/tijoleira.jpg";
+    this.wall ="../resources/images/wall.jpg"
 
     this.tableAppearance = new CGFappearance(this);
   	this.tableAppearance.setAmbient(0.3,0.3,0.3,1);
@@ -45,7 +47,7 @@ XMLscene.prototype.init = function (application) {
     this.torusAppearance.setDiffuse(0.7,0.7,0.7,1);
     this.torusAppearance.setSpecular(0.5,0.5,0.5,1);
     this.torusAppearance.setShininess(120);
-    this.torusAppearance.loadTexture(this.orange);
+    this.torusAppearance.loadTexture(this.boia);
 
     this.floorAppearance = new CGFappearance(this);
   	this.floorAppearance.setAmbient(0.3,0.3,0.3,1);
@@ -53,6 +55,13 @@ XMLscene.prototype.init = function (application) {
   	this.floorAppearance.setSpecular(0.2,0.2,0.2,1);
   	this.floorAppearance.setShininess(100);
     this.floorAppearance.loadTexture(this.floor);
+
+    this.backgroundAppearance = new CGFappearance(this);
+    this.backgroundAppearance.setAmbient(0.3,0.3,0.3,1);
+    this.backgroundAppearance.setDiffuse(0.7,0.7,0.7,1);
+    this.backgroundAppearance.setSpecular(0.5,0.5,0.5,1);
+    this.backgroundAppearance.setShininess(120);
+    this.backgroundAppearance.loadTexture(this.wall);
 
 	this.axis=new CGFaxis(this);
 
@@ -104,7 +113,7 @@ XMLscene.prototype.display = function () {
 	this.applyViewMatrix();
 
 	// Draw axis
-	this.axis.display();
+	//this.axis.display();
   this.cube = new MyUnitCubeQuad(this);
 
   //Cubo para fazer o tampo da mesa
@@ -196,7 +205,6 @@ XMLscene.prototype.display = function () {
   this.torus.display();
   this.popMatrix();
 
-
   this.floor = new MyQuad(this);
 
   this.pushMatrix();
@@ -208,7 +216,27 @@ XMLscene.prototype.display = function () {
   this.floor.display();
   this.popMatrix();
 
+//Parede da esquerda
+  this.background = new MyQuad(this);
+  this.pushMatrix();
+  this.scale(7,5,7);
+  this.translate(0,0.5,0.5);
+  this.rotate(Math.PI/2,0,1,0);
+  this.rotate(Math.PI,0,0,1);
+  this.backgroundAppearance.apply();
+  this.background.display();
+  this.popMatrix();
 
+//Parede da direita
+  this.background = new MyQuad(this);
+  this.pushMatrix();
+  this.scale(7,5,7);
+  this.translate(0.5,0.5,0);
+  this.rotate(Math.PI/2,0,0,1);
+  this.rotate(Math.PI,0,0,1);
+  this.backgroundAppearance.apply();
+  this.background.display();
+  this.popMatrix();
 
 	this.setDefaultAppearance();
 
