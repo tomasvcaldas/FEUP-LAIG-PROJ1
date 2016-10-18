@@ -146,18 +146,16 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 				}
 
 				if(prim[0].tagName == 'torus' ){
-					console.log("Read torus item with inner outer slices loops values: "
+					/*console.log("Read torus item with inner outer slices loops values: "
 					+ prim[0].attributes.getNamedItem("inner").value + " "
 					+ prim[0].attributes.getNamedItem("outer").value + " "
 					+ prim[0].attributes.getNamedItem("slices").value + " "
 					+ prim[0].attributes.getNamedItem("loops").value + "."
-					)
+				)*/
 					var inner = prim[0].attributes.getNamedItem("inner").value;
 					var outer = prim[0].attributes.getNamedItem("outer").value;
 					var slices = prim[0].attributes.getNamedItem("slices").value;
 					var loops = prim[0].attributes.getNamedItem("loops").value;
-
-
 
 					//this.objects[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new Torus(this.scene, inner, outer, slices, loops);
 				}

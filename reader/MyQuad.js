@@ -5,10 +5,10 @@
  */
 function MyQuad(scene, minS , maxS , minT , maxT ) {
 	CGFobject.call(this,scene);
-	this.minS = minS;
-	this.maxS = maxS;
-	this.minT = minT;
-	this.maxT = maxT;
+	this.minS = minS || 0;
+	this.maxS = maxS || 1;
+	this.minT = minT || 0;
+	this.maxT = maxT || 1;
 
 	this.initBuffers();
 };
