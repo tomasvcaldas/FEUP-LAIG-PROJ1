@@ -99,7 +99,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		return "primitives element is missing.";
 	}
 
-	this.primitives=[];
+
 
 
 	for(var i = 0; i < tempPrim[0].children.length ; i++){
@@ -112,7 +112,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 			var x2 = prim[0].attributes.getNamedItem("x2").value;
 			var y2 = prim[0].attributes.getNamedItem("y2").value;
 
-			this.primitives[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new MyQuad(this.scene,x1,y1,x2,y2);
+			this.primitive[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new MyQuad(this.scene,x1,y1,x2,y2);
 		}
 
 		if(prim[0].tagName == 'triangle' ){
@@ -126,7 +126,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 			var ty3 = prim[0].attributes.getNamedItem("y3").value;
 			var tz3 = prim[0].attributes.getNamedItem("z3").value;
 
-			this.primitives[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new Triangle(this.scene,tx1,ty1,tz1,tx2,ty2,tz2,tx3,ty3,tz3);
+			this.primitive[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new Triangle(this.scene,tx1,ty1,tz1,tx2,ty2,tz2,tx3,ty3,tz3);
 		}
 
 		if(prim[0].tagName == 'cylinder' ){
@@ -138,14 +138,14 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 			var slices = prim[0].attributes.getNamedItem("slices").value;
 			var stacks = prim[0].attributes.getNamedItem("stacks").value;
 
-			this.primitives[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new CreateCylinder(this.scene,base, top, height, slices, stacks);
+			this.primitive[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new CreateCylinder(this.scene,base, top, height, slices, stacks);
 		}
 
 		if(prim[0].tagName == 'sphere' ){
 			var radius = prim[0].attributes.getNamedItem("radius").value;
 			var slices = prim[0].attributes.getNamedItem("slices").value;
 			var stacks = prim[0].attributes.getNamedItem("stacks").value;
-			this.primitives[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new MySphere(this.scene,radius,slices,stacks);
+			this.primitive[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new MySphere(this.scene,radius,slices,stacks);
 		}
 
 		if(prim[0].tagName == 'torus' ){
@@ -155,7 +155,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 			var slices = prim[0].attributes.getNamedItem("slices").value;
 			var loops = prim[0].attributes.getNamedItem("loops").value;
 
-			this.primitives[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new Torus(this.scene, inner, outer, slices, loops);
+			this.primitive[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new Torus(this.scene, inner, outer, slices, loops);
 		}
 
 
@@ -175,9 +175,9 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 	var nrcomps = tempComp[0].children;
 	console.log("TAMANHo: " + nrcomps.length);
-
+	console.log("TAMANHO: "+ numNodes.length);
 	for(var i = 0; i < numNodes.length; i++){
-		console.log(numNodes[i].children.length);
+		//console.log(numNodes[i].children.length);
 		var tempNode = numNodes[i];
 		var nodeChilren = tempNode.getElementsByTagName('children'); //dame o children
 		var listChildren = nodeChilren[0].children; //dame o dentro do children

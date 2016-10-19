@@ -105,20 +105,20 @@ XMLscene.prototype.onGraphLoaded = function ()
 XMLscene.prototype.createGraph = function(initialNode){
   var material = null;
   if(initialNode != null){
-    var node = this.graph.nodes[initialNode];
-
+    var newNode = this.graph.nodes[initialNode];
+    console.log(this.graph.nodes[initialNode]);
     /*if(node.material != null)
     material = node.material;
     if(material != null)
     this.applyMaterial(material);*/
 
-    if(node.primitive != null)
-    node.primitive.display();
-
-    for(var i = 0; i < node.children.length; i++){
+    if(newNode.primitive != null)
+    newNode.primitive.display();
+    //console.log("OIOIOIO" + newNode.componentId.length);
+    for(var i = 0; i < newNode.componentId.length; i++){
       this.pushMatrix();
       //this.applyMaterial(material);
-      this.createGraph(node.children[i]);
+      this.createGraph(newNode.componentId[i]);
       this.popMatrix();
     }
   }
@@ -287,6 +287,7 @@ XMLscene.prototype.display = function () {
 	// This is one possible way to do it
 	if (this.graph.loadedOk)
 	{
+    this.createGraph("table");
 		this.lights[0].update();
 	};
 
