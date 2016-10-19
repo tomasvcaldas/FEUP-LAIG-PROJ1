@@ -102,6 +102,28 @@ XMLscene.prototype.onGraphLoaded = function ()
     this.lights[0].enable();
 };
 
+XMLscene.prototype.createGraph = function(initialNode){
+  var material = null;
+  if(initialNode != null){
+    var node = this.graph.nodes[initialNode];
+
+    /*if(node.material != null)
+    material = node.material;
+    if(material != null)
+    this.applyMaterial(material);*/
+
+    if(node.primitive != null)
+    node.primitive.display();
+
+    for(var i = 0; i < node.children.length; i++){
+      this.pushMatrix();
+      //this.applyMaterial(material);
+      this.createGraph(node.children[i]);
+      this.popMatrix();
+    }
+  }
+};
+
 XMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
 
@@ -115,7 +137,7 @@ XMLscene.prototype.display = function () {
 
 	// Apply transformations corresponding to the camera position relative to the origin
 	this.applyViewMatrix();
-
+/*
 	// Draw axis
 	//this.axis.display();
   this.cube = new MyUnitCubeQuad(this);
@@ -220,7 +242,7 @@ XMLscene.prototype.display = function () {
   this.torus.display();
   this.popMatrix();
 
-  /*this.floor = new MyQuad(this);
+  this.floor = new MyQuad(this);
 
   this.default.apply();
 
@@ -231,7 +253,7 @@ XMLscene.prototype.display = function () {
   this.rotate(Math.PI,0,0,1);
   this.floorAppearance.apply();
   this.floor.display();
-  this.popMatrix();*/
+  this.popMatrix();
 
   this.default.apply();
 
@@ -254,7 +276,7 @@ XMLscene.prototype.display = function () {
   this.rotate(Math.PI,0,0,1);
   this.backgroundAppearance.apply();
   this.background.display();
-  this.popMatrix();
+  this.popMatrix();*/
 
 	this.setDefaultAppearance();
 
@@ -268,9 +290,9 @@ XMLscene.prototype.display = function () {
 		this.lights[0].update();
 	};
 
- for(var key in this.graph.objects){
-   this.graph.objects[key].display();
- }
+ /*for(var key in this.graph.primitives){
+   this.graph.primitives[key].display();
+ }*/
 
 
 };
