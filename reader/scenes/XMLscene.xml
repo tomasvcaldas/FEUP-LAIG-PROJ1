@@ -1,452 +1,529 @@
-  <dsx>
-
-      <globals background ="0 0.5 0.5 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
-
-      <list>
-        <elem id="rect" coords="0 0 1" />
-      </list>
-
+<dsx>
+
+  <globals background ="0 0.5 0.5 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
 
-      <!-- deve definir-se um objeto para raiz do grafo , assim -->
-      <!-- como o comprimento dos tres eixos (cilindros) -->
-      <scene root="root" axis_length="3" />
+  <list>
+    <elem id="rect" coords="0 0 1" />
+  </list>
+
+
+  <!-- deve definir-se um objeto para raiz do grafo , assim -->
+  <!-- como o comprimento dos tres eixos (cilindros) -->
+  <scene root="root" axis_length="3" />
+
+  <views default="p1" >
+
+    <!-- declaracao obrigatoria de pelo menos uma vista; -->
+    <!-- se varias vistas declaradas, o default e' a -->
+    <!-- primeira vista; de cada vez que se pressione a tecla v/V, -->
+    <!-- a vista muda para a proxima da lista; da -->
+    <!-- ultima vista da lista volta 'a primeira -->
+    <perspective id="p1" near="0.1" far="500" angle="22">
+      <from x="15" y="20" z="35" />
+      <to x="5" y="5" z="5" />
+    </perspective>
+
+  </views>
+
+  <illumination doublesided="1" local="1" >
+
+    <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
+    <background r="0.1" g="0.1" b="0.2" a="1" />
+
+  </illumination>
+
+  <textures>
+
+    <!-- Deve existir um ou mais blocos "texture" -->
+    <!-- Os identificadores "id" nao podem ser repetidos -->
+    <!-- length_s e length_t sao fatores de escala de textura:-->
+    <!-- Exemplo length_s=3.0: uma ocorrencia da textura, em -->
+    <!-- comprimento, deve cobrir um comprimento igual -->
+    <!-- a 3 unidades;  -->
+    <!-- Exemplo length_t=0.4, uma ocorrencia da textura, em -->
+    <!-- largura, deve cobrir uma largura igual a 0.4 unidades.  -->
+    <!-- Transf. Geometr. do tipo escalamento sobre os -->
+    <!-- objetos respetivos podem a violar esta regra.         -->
+    <!-- Nao necessario aplicar fatores de escala em  -->
+    <!-- quadricas (esfera, ciclindro...) -->
+    <texture id="floor" file="resources\\images\\carpet3.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="wood" file="resources\\images\\wood.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="boia" file="resources\\images\\boia.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="wall" file="resources\\images\\wall.jpg" length_s="1.0" length_t="1.0" />
+
+
+  </textures>
+
+  <lights>
+
+    <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
+    <!-- Os identificadores "id" nao podem ser repetidos -->
+    <omni id="omni1" enabled="1" >
+      <location x="4" y="4" z="4" w="0.2" />
+      <ambient r="0.8" g="0.8" b="0.8" a="0.8" />
+      <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
+      <specular r="1" g="1" b="0" a="1" />
+    </omni>
+
+    <spot id="spot1" enabled="0" angle="40" exponent="0.5">
+      <!-- atencao, "target" e' diferente de "direction" -->
+      <target x="3" y="3" z="0.5" />
+      <location x="4" y="2" z="2" />
+      <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
+      <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
+      <specular r="0.5" g="0.5" b="0.5" a="0.5" />
+    </spot>
+  </lights>
+
+
+  <materials>
+
+    <!-- Deve existir um ou mais blocos "material" -->
+    <!-- Os identificadores "id" nao podem ser repetidos -->
+    <material id="material1" >
+      <emission r="0.2" g="0.2" b="0.2" a="0.2" />
+      <ambient r="0.7" g="0.7" b="0.7" a="0.7" />
+      <diffuse r="0.7" g="0.7" b="0.7" a="1" />
+      <specular r="1" g="1" b="1" a="1" />
+      <shininess value="120" />
+    </material>
+
+  </materials>
+
+
+  <transformations>
+
+    <!-- Deve existir um ou mais blocos "transformation" -->
+    <!-- Os identificadores "id" nao podem ser repetidos -->
+
+    <transformation id="sample">
+      <scale x="1" y="1" z="1" />
+    </transformation>
+
+    <transformation id="torus">
+      <!-- instrucoes a usar sem limite nem ordem -->
+      <!-- deve existir pelo menos uma transformacao -->
+      <translate x="1" y="1.75" z="3" />
+      <rotate axis="x" angle="-90" />
+      <scale x="0.3" y="0.3" z="0.3" />
+    </transformation>
+
+    <transformation id="cube">
+      <translate x="1" y="1.5" z="2" />
+      <scale x="1.8" y="0.2" z="3" />
+    </transformation>
+
+    <transformation id="face1">
+      <translate x="0" y="0" z="0.5" />
+    </transformation>
+
+    <transformation id="face2">
+      <translate x="0" y="0" z="-0.5" />
+      <rotate axis="y" angle="180" />
+    </transformation>
+
+    <transformation id="face3">
+      <translate x="-0.5" y="0" z="0" />
+      <rotate axis="y" angle="-90" />
+    </transformation>
+
+    <transformation id="face4">
+      <translate x="0.5" y="0" z="0" />
+      <rotate axis="y" angle="90" />
+    </transformation>
+
+    <transformation id="face5">
+      <translate x="0" y="-0.5" z="0" />
+      <rotate axis="x" angle="90" />
+    </transformation>
+
+    <transformation id="face6">
+      <translate x="0" y="0.5" z="0" />
+      <rotate axis="x" angle="-90" />
+    </transformation>
+
+    <transformation id="leg1">
+      <translate x="0.2" y="0" z="3.4" />
+      <rotate axis="x" angle="-90" />
+      <scale x="0.1" y="0.1" z="1.5" />
+    </transformation>7
+
+    <transformation id="leg2">
+      <translate x="0.2" y="0" z="0.6" />
+      <rotate axis="x" angle="-90" />
+      <scale x="0.1" y="0.1" z="1.5" />
+    </transformation>
+
+    <transformation id="leg3">
+      <translate x="1.8" y="0" z="3.4" />
+      <rotate axis="x" angle="-90" />
+      <scale x="0.1" y="0.1" z="1.5" />
+    </transformation>
+
+    <transformation id="leg4">
+      <translate x="1.8" y="0" z="0.6" />
+      <rotate axis="x" angle="-90" />
+      <scale x="0.1" y="0.1" z="1.5" />
+    </transformation>
+
+    <transformation id="triangle1">
+      <translate x="0.8" y="1.6" z="0.7" />
+      <rotate axis="x" angle="30" />
+    </transformation>
+
+    <transformation id="triangle2">
+      <translate x="0.8" y="1.6" z="1.7" />
+      <rotate axis="x" angle="-30" />
+      <rotate axis="y" angle="180" />
+    </transformation>
+
+    <transformation id="triangle3">
+      <translate x="0.3" y="1.6" z="1.2" />
+      <rotate axis="z" angle="-30" />
+      <rotate axis="y" angle="90" />
+    </transformation>
+
+    <transformation id="triangle4">
+      <translate x="1.3" y="1.6" z="1.2" />
+      <rotate axis="z" angle="30" />
+      <rotate axis="y" angle="-90" />
+    </transformation>
+
+    <transformation id="rightwall">
+      <scale x="7" y="5" z="7" />
+      <translate x="0" y="0.5" z="0.5" />
+      <rotate axis="z" angle="90" />
+      <rotate axis="z" angle="180" />
+    </transformation>
+
+    <transformation id="leftwall">
+      <scale x="7" y="5" z="7" />
+      <translate x="0" y="0.5" z="0.5" />
+      <rotate axis="y" angle="90" />
+      <rotate axis="z" angle="180" />
+    </transformation>
+
+    <transformation id="floor">
+      <scale x="7" y="7" z="7" />
+      <translate x="0.5" y="0" z="0.5" />
+      <rotate axis="x" angle="-90" />
+      <rotate axis="z" angle="180" />
+    </transformation>
+
+  </transformations>
+
+
+  <primitives>
+
+    <primitive id="quad">
+      <rectangle x1="0" y1="1" x2="0" y2="1" />
+    </primitive>
+
+    <primitive id="triangle">
+      <triangle x1="-0.5" y1="0" z1="0" x2="0" y2="1" z2="0" x3="0.5" y3="0" z3="0" />
+    </primitive>
+
+    <primitive id="torus">
+      <torus inner="0.5" outer="1" slices="20" loops="10" />
+    </primitive>
+
+    <primitive id="cylinder">
+      <cylinder base="0.5" top="0.5" height="1" slices="50" stacks="20" />
+    </primitive>
+
+    <primitive id="sphere">
+      <sphere radius="1" slices="50" stacks="20" />
+    </primitive>
+
+
+  </primitives>
+
+
+  <components>
+
+    <component id="start">
+      <!-- bloco "transformation" obrigatorio -->
+      <transformation>
+        <transformationref id="sample"/>
+      </transformation>
+
+      <children>
+        <componentref id="table" />
+        <componentref id="torus1" />
+        <componentref id="pyramid"/>
+        <componentref id="rightwall"/>
+        <componentref id="leftwall"/>
+        <componentref id="floor"/>
+      </children>
+
+    </component>
+
+    <component id="table">
+      <!-- bloco "transformation" obrigatorio -->
+      <transformation>
+        <transformationref id="sample"/>
+      </transformation>
 
-      <views default="p1" >
+      <children>
+        <componentref id="cube" />
+        <componentref id="legs" />
+      </children>
 
-          <!-- declaracao obrigatoria de pelo menos uma vista; -->
-          <!-- se varias vistas declaradas, o default e' a -->
-          <!-- primeira vista; de cada vez que se pressione a tecla v/V, -->
-          <!-- a vista muda para a proxima da lista; da -->
-          <!-- ultima vista da lista volta 'a primeira -->
-          <perspective id="p1" near="0.1" far="500" angle="22">
-              <from x="15" y="20" z="35" />
-              <to x="5" y="5" z="5" />
-          </perspective>
+    </component>
 
-      </views>
+    <component id="cube">
+
+      <transformation>
+        <transformationref id="cube"/>
+      </transformation>
 
-      <illumination doublesided="1" local="1" >
+      <children>
+        <componentref id="face1"/>
+        <componentref id="face2"/>
+        <componentref id="face3"/>
+        <componentref id="face4"/>
+        <componentref id="face5"/>
+        <componentref id="face6"/>
+      </children>
 
-          <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
-          <background r="0.1" g="0.1" b="0.2" a="1" />
+    </component>
 
-      </illumination>
+    <component id="face1">
 
-      <textures>
+      <transformation>
+        <transformationref id="face1"/>
+      </transformation>
 
-          <!-- Deve existir um ou mais blocos "texture" -->
-          <!-- Os identificadores "id" nao podem ser repetidos -->
-          <!-- length_s e length_t sao fatores de escala de textura:-->
-          <!-- Exemplo length_s=3.0: uma ocorrencia da textura, em -->
-          <!-- comprimento, deve cobrir um comprimento igual -->
-          <!-- a 3 unidades;  -->
-          <!-- Exemplo length_t=0.4, uma ocorrencia da textura, em -->
-          <!-- largura, deve cobrir uma largura igual a 0.4 unidades.  -->
-          <!-- Transf. Geometr. do tipo escalamento sobre os -->
-          <!-- objetos respetivos podem a violar esta regra.         -->
-          <!-- Nao necessario aplicar fatores de escala em  -->
-          <!-- quadricas (esfera, ciclindro...) -->
-          <texture id="floor" file="resources\\images\\carpet3.jpg" length_s="1.0" length_t="1.0" />
-          <texture id="wood" file="resources\\images\\wood.jpg" length_s="1.0" length_t="1.0" />
-          <texture id="boia" file="resources\\images\\boia.jpg" length_s="1.0" length_t="1.0" />
-          <texture id="wall" file="resources\\images\\wall.jpg" length_s="1.0" length_t="1.0" />
+      <children>
+        <primitiveref id="quad"/>
+      </children>
 
+    </component>
 
-      </textures>
+    <component id="face2">
 
-      <lights>
+      <transformation>
+        <transformationref id="face2"/>
+      </transformation>
 
-          <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
-          <!-- Os identificadores "id" nao podem ser repetidos -->
-          <omni id="omni1" enabled="1" >
-              <location x="4" y="4" z="4" w="0.2" />
-              <ambient r="0.8" g="0.8" b="0.8" a="0.8" />
-              <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
-              <specular r="1" g="1" b="0" a="1" />
-          </omni>
+      <children>
+        <primitiveref id="quad"/>
+      </children>
 
-          <spot id="spot1" enabled="0" angle="40" exponent="0.5">
-              <!-- atencao, "target" e' diferente de "direction" -->
-              <target x="3" y="3" z="0.5" />
-              <location x="4" y="2" z="2" />
-              <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
-              <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
-              <specular r="0.5" g="0.5" b="0.5" a="0.5" />
-          </spot>
-      </lights>
+    </component>
 
+    <component id="face3">
 
-      <materials>
+      <transformation>
+        <transformationref id="face3"/>
+      </transformation>
 
-          <!-- Deve existir um ou mais blocos "material" -->
-          <!-- Os identificadores "id" nao podem ser repetidos -->
-          <material id="material1" >
-              <emission r="0.2" g="0.2" b="0.2" a="0.2" />
-              <ambient r="0.7" g="0.7" b="0.7" a="0.7" />
-              <diffuse r="0.7" g="0.7" b="0.7" a="1" />
-              <specular r="1" g="1" b="1" a="1" />
-              <shininess value="120" />
-          </material>
+      <children>
+        <primitiveref id="quad"/>
+      </children>
 
-      </materials>
+    </component>
 
+    <component id="face4">
 
-      <transformations>
+      <transformation>
+        <transformationref id="face4"/>
+      </transformation>
 
-          <!-- Deve existir um ou mais blocos "transformation" -->
-          <!-- Os identificadores "id" nao podem ser repetidos -->
-          <transformation id="torus">
-             <!-- instrucoes a usar sem limite nem ordem -->
-             <!-- deve existir pelo menos uma transformacao -->
-             <translate x="1" y="1.75" z="3" />
-             <rotate axis="x" angle="-90" />
-             <scale x="0.3" y="0.3" z="0.3" />
-          </transformation>
+      <children>
+        <primitiveref id="quad"/>
+      </children>
 
-      </transformations>
+    </component>
 
+    <component id="face5">
 
-      <primitives>
+      <transformation>
+        <transformationref id="face5"/>
+      </transformation>
 
-        <primitive id="quad">
-            <rectangle x1="0" y1="1" x2="0" y2="1" />
-        </primitive>
+      <children>
+        <primitiveref id="quad"/>
+      </children>
 
-        <primitive id="triangle">
-            <triangle x1="-0.5" y1="0" z1="0" x2="0" y2="1" z2="0" x3="0.5" y3="0" z3="0" />
-        </primitive>
+    </component>
 
-        <primitive id="torus">
-          <torus inner="0.5" outer="1" slices="20" loops="10" />
-        </primitive>
+    <component id="face6">
 
-        <primitive id="cylinder">
-          <cylinder base="0.5" top="0.5" height="1" slices="50" stacks="20" />
-        </primitive>
+      <transformation>
+        <transformationref id="face6"/>
+      </transformation>
 
-        <primitive id="sphere">
-          <sphere radius="1" slices="50" stacks="20" />
-        </primitive>
+      <children>
+        <primitiveref id="quad"/>
+      </children>
 
+    </component>
 
-      </primitives>
+    <component id="legs">
 
+      <transformation>
+        <transformationref id="sample"/>
+      </transformation>
 
-      <components>
+      <children>
+        <componentref id="leg1"/>
+        <componentref id="leg2"/>
+        <componentref id="leg3"/>
+        <componentref id="leg4"/>
+      </children>
 
-        <component id="start">
-            <!-- bloco "transformation" obrigatorio -->
-            <transformation>
-                <transformationref id="torus"/>
-            </transformation>
+    </component>
 
-            <children>
-                <componentref id="table" />
-                <componentref id="torus1" />
-                <componentref id="pyramid"/>
-                <componentref id="rightwall"/>
-                <componentref id="leftwall"/>
-                <componentref id="floor"/>
-            </children>
+    <component id="leg1">
 
-        </component>
+      <transformation>
+        <transformationref id="leg1"/>
+      </transformation>
 
-          <component id="table">
-              <!-- bloco "transformation" obrigatorio -->
-              <transformation>
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+    </component>
 
-              </transformation>
+    <component id="leg2">
 
-              <children>
-                  <componentref id="cube" />
-                  <componentref id="legs" />
-              </children>
+      <transformation>
+        <transformationref id="leg2"/>
+      </transformation>
 
-          </component>
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+    </component>
 
-          <component id="cube">
+    <component id="leg3">
 
-            <transformation>
+      <transformation>
+        <transformationref id="leg3"/>
+      </transformation>
 
-                <translate x="1" y="1.5" z="2" />
-                <scale x="1.8" y="0.2" z="3" />
-            </transformation>
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+    </component>
 
-            <children>
-              <componentref id="face1"/>
-              <componentref id="face2"/>
-              <componentref id="face3"/>
-              <componentref id="face4"/>
-              <componentref id="face5"/>
-              <componentref id="face6"/>
-            </children>
+    <component id="leg4">
 
-          </component>
+      <transformation>
+        <transformationref id="leg4"/>
+      </transformation>
 
-          <component id="face1">
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+    </component>
 
-            <transformation>
-                <translate x="0" y="0" z="0.5" />
-            </transformation>
+    <component id="torus1">
 
-            <children>
-              <primitiveref id="quad"/>
-            </children>
+      <transformation>
+        <transformationref id="torus"/>
+      </transformation>
 
-          </component>
+      <children>
+        <primitiveref id="torus"/>
+      </children>
+    </component>
 
-          <component id="face2">
+    <component id="pyramid">
 
-            <transformation>
-              <translate x="0" y="0" z="-0.5" />
-              <rotate axis="y" angle="180" />
-            </transformation>
+      <transformation>
+        <transformationref id="sample"/>
+      </transformation>
 
-            <children>
-              <primitiveref id="quad"/>
-            </children>
+      <children>
+        <componentref id="triangle1"/>
+        <componentref id="triangle2"/>
+        <componentref id="triangle3"/>
+        <componentref id="triangle4"/>
+      </children>
+    </component>
 
-          </component>
 
-          <component id="face3">
+    <component id="triangle1">
 
-            <transformation>
-                <translate x="-0.5" y="0" z="0" />
-                <rotate axis="y" angle="-90" />
-            </transformation>
+      <transformation>
+        <transformationref id="triangle1"/>
+      </transformation>
 
-            <children>
-              <primitiveref id="quad"/>
-            </children>
+      <children>
+        <primitiveref id="triangle"/>
+      </children>
+    </component>
 
-          </component>
+    <component id="triangle2">
 
-          <component id="face4">
+      <transformation>
+        <transformationref id="triangle2"/>
+      </transformation>
 
-            <transformation>
-                <translate x="0.5" y="0" z="0" />
-                <rotate axis="y" angle="90" />
-            </transformation>
+      <children>
+        <primitiveref id="triangle"/>
+      </children>
+    </component>
 
-            <children>
-              <primitiveref id="quad"/>
-            </children>
+    <component id="triangle3">
 
-          </component>
+      <transformation>
+        <transformationref id="triangle3"/>
+      </transformation>
 
-          <component id="face5">
+      <children>
+        <primitiveref id="triangle"/>
+      </children>
+    </component>
 
-            <transformation>
-                <translate x="0" y="-0.5" z="0" />
-                <rotate axis="x" angle="90" />
-            </transformation>
+    <component id="triangle4">
 
-            <children>
-              <primitiveref id="quad"/>
-            </children>
+      <transformation>
+        <transformationref id="triangle4"/>
+      </transformation>
 
-          </component>
+      <children>
+        <primitiveref id="triangle"/>
+      </children>
+    </component>
 
-          <component id="face6">
+    <component id="leftwall">
 
-            <transformation>
-                <translate x="0" y="0.5" z="0" />
-                <rotate axis="x" angle="-90" />
-            </transformation>
+      <transformation>
+        <transformationref id="leftwall"/>
+      </transformation>
 
-            <children>
-              <primitiveref id="quad"/>
-            </children>
+      <children>
+        <primitiveref id="quad"/>
+      </children>
+    </component>
 
-          </component>
+    <component id="rightwall">
 
-          <component id="legs">
+      <transformation>
+        <transformationref id="rightwall"/>
+      </transformation>
 
-            <transformation>
+      <children>
+        <primitiveref id="quad"/>
+      </children>
+    </component>
 
-            </transformation>
+    <component id="floor">
 
-            <children>
-              <componentref id="leg1"/>
-              <componentref id="leg2"/>
-              <componentref id="leg3"/>
-              <componentref id="leg4"/>
-            </children>
+      <transformation>
+        <transformationref id="floor"/>
+      </transformation>
 
-          </component>
+      <children>
+        <primitiveref id="quad"/>
+      </children>
+    </component>
 
-          <component id="leg1">
 
-            <transformation>
-                <translate x="0.2" y="0" z="3.4" />
-                <rotate axis="x" angle="-90" />
-                <scale x="0.1" y="0.1" z="1.5" />
-            </transformation>
 
-            <children>
-              <primitiveref id="cylinder"/>
-            </children>
-          </component>
+  </components>
 
-            <component id="leg2">
-
-              <transformation>
-                  <translate x="0.2" y="0" z="0.6" />
-                  <rotate axis="x" angle="-90" />
-                  <scale x="0.1" y="0.1" z="1.5" />
-              </transformation>
-
-              <children>
-                <primitiveref id="cylinder"/>
-              </children>
-            </component>
-
-              <component id="leg3">
-
-                <transformation>
-                    <translate x="1.8" y="0" z="3.4" />
-                    <rotate axis="x" angle="-90" />
-                    <scale x="0.1" y="0.1" z="1.5" />
-                </transformation>
-
-                <children>
-                  <primitiveref id="cylinder"/>
-                </children>
-              </component>
-
-                <component id="leg4">
-
-                  <transformation>
-                      <translate x="1.8" y="0" z="0.6" />
-                      <rotate axis="x" angle="-90" />
-                      <scale x="0.1" y="0.1" z="1.5" />
-                  </transformation>
-
-                  <children>
-                    <primitiveref id="cylinder"/>
-                  </children>
-                </component>
-
-                <component id="torus1">
-
-                  <transformation>
-                      <transformationref id="torus"/>
-                  </transformation>
-
-                  <children>
-                    <primitiveref id="torus"/>
-                  </children>
-                </component>
-
-                <component id="pyramid">
-
-                  <transformation>
-                  </transformation>
-
-                  <children>
-                    <componentref id="triangle1"/>
-                    <componentref id="triangle2"/>
-                    <componentref id="triangle3"/>
-                    <componentref id="triangle4"/>
-                  </children>
-                </component>
-
-
-              <component id="triangle1">
-
-                <transformation>
-                    <translate x="0.8" y="1.6" z="0.7" />
-                    <rotate axis="x" angle="30" />
-                </transformation>
-
-                <children>
-                  <primitiveref id="triangle"/>
-                </children>
-              </component>
-
-                <component id="triangle2">
-
-                  <transformation>
-                      <translate x="0.8" y="1.6" z="1.7" />
-                      <rotate axis="x" angle="-30" />
-                      <rotate axis="y" angle="180" />
-                  </transformation>
-
-                  <children>
-                    <primitiveref id="triangle"/>
-                  </children>
-                </component>
-
-                  <component id="triangle3">
-
-                    <transformation>
-                        <translate x="0.3" y="1.6" z="1.2" />
-                        <rotate axis="z" angle="-30" />
-                        <rotate axis="y" angle="90" />
-                    </transformation>
-
-                    <children>
-                      <primitiveref id="triangle"/>
-                    </children>
-                  </component>
-
-                    <component id="triangle4">
-
-                      <transformation>
-                          <translate x="1.3" y="1.6" z="1.2" />
-                          <rotate axis="z" angle="30" />
-                          <rotate axis="y" angle="-90" />
-                      </transformation>
-
-                      <children>
-                        <primitiveref id="triangle"/>
-                      </children>
-                    </component>
-
-                    <component id="leftwall">
-
-                      <transformation>
-                        <scale x="7" y="5" z="7" />
-                        <translate x="0" y="0.5" z="0.5" />
-                        <rotate axis="y" angle="90" />
-                        <rotate axis="z" angle="180" />
-                      </transformation>
-
-                      <children>
-                        <primitiveref id="quad"/>
-                      </children>
-                    </component>
-
-                    <component id="rightwall">
-
-                      <transformation>
-                        <scale x="7" y="5" z="7" />
-                        <translate x="0" y="0.5" z="0.5" />
-                        <rotate axis="z" angle="90" />
-                        <rotate axis="z" angle="180" />
-                      </transformation>
-
-                      <children>
-                        <primitiveref id="quad"/>
-                      </children>
-                    </component>
-
-                      <component id="floor">
-
-                      <transformation>
-                        <scale x="7" y="7" z="7" />
-                        <translate x="0.5" y="0" z="0.5" />
-                        <rotate axis="x" angle="-90" />
-                        <rotate axis="z" angle="180" />
-                      </transformation>
-
-                      <children>
-                        <primitiveref id="quad"/>
-                      </children>
-                    </component>
-
-
-
-      </components>
-
-  </dsx>
+</dsx>

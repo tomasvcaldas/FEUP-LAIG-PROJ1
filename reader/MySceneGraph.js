@@ -269,15 +269,16 @@ this.transformations=[];
 var nrcomps = tempComp[0].children;
 
 for(var i = 0; i < numNodes.length; i++){
-	//console.log(numNodes[i].children.length);
+
 	var tempNode = numNodes[i];
 	var nodeTransformation = tempNode.getElementsByTagName('transformation'); //dame o children
 	var transformationRef = nodeTransformation[0].children[0]; //dame o dentro do children
-	console.log("asdasd" + transformationRef);
+	//console.log("asdasd" + transformationRef);
 	//var transformationLength = transformationRef.length; //tamanho do que está dentro do children
 	var nodeTransformationRef = transformationRef.attributes.getNamedItem("id").value;
+	console.log("OI"+nodeTransformationRef);
 //	var nodeTransformation = tempNode.attributes.getNamedItem("id").value; // id do component
-	console.log("ID TRANSFORMATION:" + nodeTransformationRef);
+	//console.log("ID TRANSFORMATION:" + nodeTransformationRef);
 	var node  =  new MyNode();
 
 	/*for(var j = 0; j < listChildrenLength; j++){/*
