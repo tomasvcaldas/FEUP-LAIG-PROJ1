@@ -106,7 +106,7 @@ XMLscene.prototype.createGraph = function(initialNode){
   var material = null;
   if(initialNode != null){
     var newNode = this.graph.nodes[initialNode];
-    console.log(this.graph.nodes[initialNode]);
+  //  console.log(this.graph.nodes[initialNode]);
     /*if(node.material != null)
     material = node.material;
     if(material != null)

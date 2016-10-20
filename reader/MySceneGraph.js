@@ -179,8 +179,8 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	for(var i = 0; i < numNodes.length; i++){
 		//console.log(numNodes[i].children.length);
 		var tempNode = numNodes[i];
-		var nodeChilren = tempNode.getElementsByTagName('children'); //dame o children
-		var listChildren = nodeChilren[0].children; //dame o dentro do children
+		var nodeChildren = tempNode.getElementsByTagName('children'); //dame o children
+		var listChildren = nodeChildren[0].children; //dame o dentro do children
 		var listChildrenLength = listChildren.length; //tamanho do que está dentro do children
 		var nodeId = tempNode.attributes.getNamedItem("id").value; // id do component
 		var node  =  new MyNode();
@@ -266,8 +266,41 @@ if (tempTransf == null  || tempTransf.length==0) {
 }
 
 this.transformations=[];
+var nrcomps = tempComp[0].children;
 
-for(var i = 0; i < tempTransf[0].children.length ; i++){
+for(var i = 0; i < numNodes.length; i++){
+	//console.log(numNodes[i].children.length);
+	var tempNode = numNodes[i];
+	var nodeTransformation = tempNode.getElementsByTagName('transformation'); //dame o children
+	var transformationRef = nodeTransformation[0].children[0]; //dame o dentro do children
+	console.log("asdasd" + transformationRef);
+	//var transformationLength = transformationRef.length; //tamanho do que está dentro do children
+	var nodeTransformationRef = transformationRef.attributes.getNamedItem("id").value;
+//	var nodeTransformation = tempNode.attributes.getNamedItem("id").value; // id do component
+	console.log("ID TRANSFORMATION:" + nodeTransformationRef);
+	var node  =  new MyNode();
+
+	/*for(var j = 0; j < listChildrenLength; j++){/*
+		if(listChildren[j].tagName == "componentref"){
+			node.componentId.push(listChildren[j].attributes.getNamedItem("id").value); //se for component criar um node
+		}
+		else {
+			if(listChildren[j].tagName == "primitiveref"){
+				console.log(this.primitive);
+				node.primitive = this.primitive[listChildren[j].attributes.getNamedItem("id").value]; //se for primitiva vai adicionar a que tiver id igual
+			}
+			else {
+				return "Erro na tagName de children ";
+			}
+		}
+	}
+	this.nodes[nodeId] = node;*/
+}
+
+
+
+
+/*for(var i = 0; i < tempTransf[0].children.length ; i++){
 
 
 
@@ -298,7 +331,7 @@ if(transf[j].tagName =='scale'){
 );
 }
 }
-}
+}*/
 
 
 //-----------------------------------------------------------------------------//

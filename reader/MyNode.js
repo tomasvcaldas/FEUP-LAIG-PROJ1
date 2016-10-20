@@ -9,4 +9,5 @@
    this.texture = null;
    this.componentId =[];
    this.primitive = null;
+   this.transformations = {};
  }

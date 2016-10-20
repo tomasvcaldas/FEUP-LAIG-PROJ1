@@ -95,10 +95,12 @@
 
           <!-- Deve existir um ou mais blocos "transformation" -->
           <!-- Os identificadores "id" nao podem ser repetidos -->
-          <transformation id="sample">
+          <transformation id="torus">
              <!-- instrucoes a usar sem limite nem ordem -->
              <!-- deve existir pelo menos uma transformacao -->
-             <scale x="1" y="1" z="1" />
+             <translate x="1" y="1.75" z="3" />
+             <rotate axis="x" angle="-90" />
+             <scale x="0.3" y="0.3" z="0.3" />
           </transformation>
 
       </transformations>
@@ -135,7 +137,7 @@
         <component id="start">
             <!-- bloco "transformation" obrigatorio -->
             <transformation>
-
+                <transformationref id="torus"/>
             </transformation>
 
             <children>
@@ -165,6 +167,7 @@
           <component id="cube">
 
             <transformation>
+
                 <translate x="1" y="1.5" z="2" />
                 <scale x="1.8" y="0.2" z="3" />
             </transformation>
@@ -327,9 +330,7 @@
                 <component id="torus1">
 
                   <transformation>
-                      <translate x="1" y="1.75" z="3" />
-                      <rotate axis="x" angle="-90" />
-                      <scale x="0.3" y="0.3" z="0.3" />
+                      <transformationref id="torus"/>
                   </transformation>
 
                   <children>
