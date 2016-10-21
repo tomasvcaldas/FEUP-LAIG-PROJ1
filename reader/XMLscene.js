@@ -111,14 +111,17 @@ XMLscene.prototype.createGraph = function(initialNode){
     material = node.material;
     if(material != null)
     this.applyMaterial(material);*/
-
+    this.multMatrix(newNode.mat);
     if(newNode.primitive != null)
     newNode.primitive.display();
+
     //console.log("OIOIOIO" + newNode.componentId.length);
     for(var i = 0; i < newNode.componentId.length; i++){
       this.pushMatrix();
+
       //this.applyMaterial(material);
       this.createGraph(newNode.componentId[i]);
+
       this.popMatrix();
     }
   }
@@ -287,7 +290,7 @@ XMLscene.prototype.display = function () {
 	// This is one possible way to do it
 	if (this.graph.loadedOk)
 	{
-    this.createGraph("table");
+    this.createGraph("start");
 		this.lights[0].update();
 	};
 

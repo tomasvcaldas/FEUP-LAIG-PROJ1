@@ -191,7 +191,7 @@
 
     <transformation id="rightwall">
       <scale x="7" y="5" z="7" />
-      <translate x="0" y="0.5" z="0.5" />
+      <translate x="0.5" y="0.5" z="0" />
       <rotate axis="z" angle="90" />
       <rotate axis="z" angle="180" />
     </transformation>

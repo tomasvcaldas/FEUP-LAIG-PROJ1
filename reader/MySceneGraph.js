@@ -8,6 +8,11 @@ function MySceneGraph(filename, scene) {
 
 	this.primitive={};
 	this.nodes = {};
+	this.transformations = {};
+	this.transfid = {};
+	this.comp = {};
+
+	this.degToRad= Math.PI / 180.0;
 
 	// File reading
 	this.reader = new CGFXMLreader();
@@ -42,6 +47,8 @@ MySceneGraph.prototype.onXMLReady=function()
 	// As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
 	this.scene.onGraphLoaded();
 };
+
+
 
 
 
@@ -130,8 +137,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		}
 
 		if(prim[0].tagName == 'cylinder' ){
-
-
 			var base = prim[0].attributes.getNamedItem("base").value;
 			var top = prim[0].attributes.getNamedItem("top").value;
 			var height = prim[0].attributes.getNamedItem("height").value;
@@ -149,7 +154,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		}
 
 		if(prim[0].tagName == 'torus' ){
-
 			var inner = prim[0].attributes.getNamedItem("inner").value;
 			var outer = prim[0].attributes.getNamedItem("outer").value;
 			var slices = prim[0].attributes.getNamedItem("slices").value;
@@ -158,136 +162,53 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 			this.primitive[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new Torus(this.scene, inner, outer, slices, loops);
 		}
 
-
 	}
+
+
 
 	//-----------------------------------------------------------------------------//
-	//COMPONENTES -----------------------------------------------------------------//
+	//TRANSFORMATIONS -------------------------------------------------------------//
 	//-----------------------------------------------------------------------------//
 
-	var tempComp=rootElement.getElementsByTagName('components');
-	var numNodes = tempComp[0].getElementsByTagName('component');
-	if (tempComp == null  || tempComp.length==0) {
-		return "components element is missing.";
+	var tempTransf=rootElement.getElementsByTagName('transformations');
+	if (tempTransf == null  || tempTransf.length==0) {
+		return "transformations element is missing.";
 	}
 
-	this.components=[];
+	/*for (var i = 0;  i < this.transfid.length; i++){
 
-	var nrcomps = tempComp[0].children;
-	console.log("TAMANHo: " + nrcomps.length);
-	console.log("TAMANHO: "+ numNodes.length);
-	for(var i = 0; i < numNodes.length; i++){
-		//console.log(numNodes[i].children.length);
-		var tempNode = numNodes[i];
-		var nodeChildren = tempNode.getElementsByTagName('children'); //dame o children
-		var listChildren = nodeChildren[0].children; //dame o dentro do children
-		var listChildrenLength = listChildren.length; //tamanho do que está dentro do children
-		var nodeId = tempNode.attributes.getNamedItem("id").value; // id do component
-		var node  =  new MyNode();
-
-		for(var j = 0; j < listChildrenLength; j++){
-			if(listChildren[j].tagName == "componentref"){
-				node.componentId.push(listChildren[j].attributes.getNamedItem("id").value); //se for component criar um node
-			}
-			else {
-				if(listChildren[j].tagName == "primitiveref"){
-					console.log(this.primitive);
-					node.primitive = this.primitive[listChildren[j].attributes.getNamedItem("id").value]; //se for primitiva vai adicionar a que tiver id igual
-				}
-				else {
-					return "Erro na tagName de children ";
-				}
-			}
-		}
-		this.nodes[nodeId] = node;
-	}
-
-
-
-	/*for(var i = 0; i < nrcomps.length; i++){
-	console.log("Read component with id " + nrcomps[i].attributes.getNamedItem('id').value);
-	var idcomp = nrcomps[i].children;
-
-	for(var j = 0; j < idcomp.length; j++){
-
-	if(idcomp[j].tagName == 'transformation'){
-
-	var childComp = idcomp[j].children;
-
-	for(var k = 0; k < childComp.length; k++){
-	if(childComp[k].tagName == 'transformationref'){
-	console.log("Read transformationref item with id value: "
-	+ childComp[k].attributes.getNamedItem("id").value + ".");
-}
-if(childComp[k].tagName == 'translate'){
-console.log("Read translate item with x y z values: "
-+ childComp[k].attributes.getNamedItem("x").value + " "
-+ childComp[k].attributes.getNamedItem("y").value + " "
-+ childComp[k].attributes.getNamedItem("z").value + ".");
-}
-if(childComp[k].tagName == 'rotate'){
-console.log("Read rotate item with axis angle values: "
-+ childComp[k].attributes.getNamedItem("axis").value + " "
-+ childComp[k].attributes.getNamedItem("angle").value + ".");
-}
-if(childComp[k].tagName == 'scale'){
-console.log("Read scale item with x y z values: "
-+ childComp[k].attributes.getNamedItem("x").value + " "
-+ childComp[k].attributes.getNamedItem("y").value + " "
-+ childComp[k].attributes.getNamedItem("z").value + ".");
-}
-}
-}
-
-if(idcomp[j].tagName == 'materials'){
-console.log("Read material item with id value: " + childComp[0].attributes.getNamedItem("id").value + ".");
-}
-
-if(idcomp[j].tagName == 'texture'){
-console.log("Read texture item with id value: " + childComp[j].attributes.getNamedItem("id").value + ".");
-}
-
-if(idcomp[j].tagName == 'children'){
-var idprimref = idcomp[j].children[0];
-console.log("Read primitiveref with id" + idprimref.attributes.getNamedItem("id").value);
-}
-
-}
-
+	console.log("oi" + this.transfid[i]);
 }*/
 
-//-----------------------------------------------------------------------------//
-//TRANSFORMATIONS -------------------------------------------------------------//
-//-----------------------------------------------------------------------------//
-
-var tempTransf=rootElement.getElementsByTagName('transformations');
-if (tempTransf == null  || tempTransf.length==0) {
-	return "transformations element is missing.";
+var transfLength = tempTransf[0].children.length;
+for(var i = 0; i < transfLength; i++){
+	var id = tempTransf[0].children[i].attributes.getNamedItem("id").value;
+	this.transformations[id]  = this.getTransformationMatrix(tempTransf[0].children[i]);
 }
 
-this.transformations=[];
-var nrcomps = tempComp[0].children;
+//-----------------------------------------------------------------------------//
+//COMPONENTES -----------------------------------------------------------------//
+//-----------------------------------------------------------------------------//
+
+var tempComp=rootElement.getElementsByTagName('components');
+var numNodes = tempComp[0].getElementsByTagName('component');
+if (tempComp == null  || tempComp.length==0) {
+	return "components element is missing.";
+}
+
+this.components=[];
 
 for(var i = 0; i < numNodes.length; i++){
-
 	var tempNode = numNodes[i];
-	var nodeTransformation = tempNode.getElementsByTagName('transformation'); //dame o children
-	var transformationRef = nodeTransformation[0].children[0]; //dame o dentro do children
-	//console.log("asdasd" + transformationRef);
-	//var transformationLength = transformationRef.length; //tamanho do que está dentro do children
-	var nodeTransformationRef = transformationRef.attributes.getNamedItem("id").value;
-	console.log("OI"+nodeTransformationRef);
-//	var nodeTransformation = tempNode.attributes.getNamedItem("id").value; // id do component
-	//console.log("ID TRANSFORMATION:" + nodeTransformationRef);
-	var node  =  new MyNode();
+	var nodeChildren = tempNode.getElementsByTagName('children'); //dame o children
+	var listChildren = nodeChildren[0].children; //dame o dentro do children
 
-	/*for(var j = 0; j < listChildrenLength; j++){/*
+	for(var j = 0; j < listChildren.length; j++){
 		if(listChildren[j].tagName == "componentref"){
 			node.componentId.push(listChildren[j].attributes.getNamedItem("id").value); //se for component criar um node
 		}
 		else {
 			if(listChildren[j].tagName == "primitiveref"){
-				console.log(this.primitive);
 				node.primitive = this.primitive[listChildren[j].attributes.getNamedItem("id").value]; //se for primitiva vai adicionar a que tiver id igual
 			}
 			else {
@@ -295,45 +216,15 @@ for(var i = 0; i < numNodes.length; i++){
 			}
 		}
 	}
-	this.nodes[nodeId] = node;*/
+
+	var node = new MyNode();
+	var nodeId = tempNode.attributes.getNamedItem("id").value; // id do component
+	var nodeTransformation =  tempNode.getElementsByTagName('transformation');
+	var idTransf1 =  nodeTransformation[0].children[0].attributes.getNamedItem("id").value;
+	node.mat = this.transformations[idTransf1];
+
+	this.nodes[nodeId] = node;
 }
-
-
-
-
-/*for(var i = 0; i < tempTransf[0].children.length ; i++){
-
-
-
-	console.log("Read transformation with id " + tempTransf[0].children[i].attributes.getNamedItem("id").value);
-	var transf = tempTransf[0].children[i].children;
-
-	for(var j=0; j < transf.length; j++){
-		if(transf[j].tagName =='translate'){
-			console.log("Read transformation: translation item with x y z values: "
-			+ transf[j].attributes.getNamedItem("x").value + " "
-			+ transf[j].attributes.getNamedItem("y").value + " "
-			+ transf[j].attributes.getNamedItem("z").value + " "
-		);
-	}
-
-	if(transf[j].tagName =='rotate'){
-		console.log("Read transformation: rotation item with axis angle values: "
-		+ transf[j].attributes.getNamedItem("axis").value + " "
-		+ transf[j].attributes.getNamedItem("angle").value + " "
-	);
-}
-
-if(transf[j].tagName =='scale'){
-	console.log("Read transformation: scaling item with x y z values: "
-	+ transf[j].attributes.getNamedItem("x").value + " "
-	+ transf[j].attributes.getNamedItem("y").value + " "
-	+ transf[j].attributes.getNamedItem("z").value + " "
-);
-}
-}
-}*/
-
 
 //-----------------------------------------------------------------------------//
 //ILLUMINATION-----------------------------------------------------------------//
@@ -602,6 +493,59 @@ for(var i = 0; i < lights.children.length; i++){
 }
 
 };
+
+MySceneGraph.prototype.getTransformationMatrix = function(transformationElement) {
+	var matrix = mat4.create();
+	console.log(transformationElement);
+	for (var i = 0; i < transformationElement.children.length ; i++) {
+		var transformation = transformationElement.children[i];
+		var transformationName = transformation.tagName;
+
+
+		switch (transformationName) {
+			case 'translate':
+
+			var translateCoords;
+
+			translateCoords = this.getPoint3Element(transformation);
+			mat4.translate(matrix, matrix, translateCoords.toArray());
+			break;
+
+			case 'rotate':
+			var rotationAxis, angle, rotation;
+
+			rotationAxis = this.reader.getString(transformation, 'axis');
+			angle = this.reader.getFloat(transformation, 'angle');
+
+			if (rotationAxis == 'x') rotation = [1, 0, 0];
+			else if (rotationAxis == 'y') rotation = [0, 1, 0];
+			else if (rotationAxis == 'z') rotation = [0, 0, 1];
+
+			mat4.rotate(matrix, matrix, angle*this.degToRad, rotation);
+			break;
+
+			case 'scale':
+			var scaleCoords;
+
+			scaleCoords = this.getPoint3Element(transformation);
+			mat4.scale(matrix, matrix, scaleCoords.toArray());
+			break;
+		}
+	}
+	return matrix;
+};
+
+MySceneGraph.prototype.getPoint3Element = function(element) {
+	if (element == null){
+		this.onXMLError("Error loading 'Point3' element .");
+		return 1;
+	}
+
+	var res = new Point3(this.reader.getFloat(element, 'x'), this.reader.getFloat(element, 'y'),
+	this.reader.getFloat(element, 'z'));
+
+	return res;
+}
 
 /*
 * Callback to be executed on any read error
