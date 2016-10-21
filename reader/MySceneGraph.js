@@ -202,6 +202,7 @@ for(var i = 0; i < numNodes.length; i++){
 	var tempNode = numNodes[i];
 	var nodeChildren = tempNode.getElementsByTagName('children'); //dame o children
 	var listChildren = nodeChildren[0].children; //dame o dentro do children
+		var node = new MyNode();
 
 	for(var j = 0; j < listChildren.length; j++){
 		if(listChildren[j].tagName == "componentref"){
@@ -217,7 +218,7 @@ for(var i = 0; i < numNodes.length; i++){
 		}
 	}
 
-	var node = new MyNode();
+
 	var nodeId = tempNode.attributes.getNamedItem("id").value; // id do component
 	var nodeTransformation =  tempNode.getElementsByTagName('transformation');
 	var idTransf1 =  nodeTransformation[0].children[0].attributes.getNamedItem("id").value;
