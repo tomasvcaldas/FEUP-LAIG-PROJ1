@@ -196,19 +196,17 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	if (tempText == null  || tempText.length==0) {
 		return "Textures element is missing.";
 	}
-
 	for(var i= 0; i < tempText[0].children.length; i++){
 		var currentText = tempText[0].children;
 		var textureID = currentText[i].attributes.getNamedItem("id").value
 		var file = currentText[i].attributes.getNamedItem("file").value;
+		var textureF = new CGFtexture(this.scene, file);
 		var lengths = currentText[i].attributes.getNamedItem("length_s").value;
 		var lengtht = currentText[i].attributes.getNamedItem("length_t").value;
 
-		var newTexture = new Texture(textureID, file, lengths, lengtht);
+		var newTexture = new Texture(textureID, textureF, lengths, lengtht);
 
 		this.textures[textureID] = newTexture;
-
-
 
 
 	}
@@ -277,6 +275,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 			newMaterial.setDiffuse(diffuse[0],diffuse[1],diffuse[2],diffuse[3]);
 			newMaterial.setSpecular(specular[0],specular[1],specular[2],specular[3]);
 			newMaterial.setShininess(shininess);
+			newMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
 			this.materials[matID] = newMaterial;
 
@@ -327,7 +326,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		var idTransf1 =  nodeTransformation[0].children[0].attributes.getNamedItem("id").value;
 		node.mat = this.transformations[idTransf1];
 
-		this.nodes[nodeId] = node;
+
 
 		//materiais
 
@@ -336,15 +335,18 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 
 		for (var j = 0; j < loadMaterialsList.length; j++){
-
 			var idmaterial = loadMaterialsList[j].attributes.getNamedItem("id").value;
-			//console.log("oi" + loadMaterialsList[i].attributes.getNamedItem("id").value);
-			//console.log(this.materials[idmaterial]);
-			if(idmaterial != "inherit"){
-				node.material.push(this.materials[idmaterial]);
-			}
-
+			node.material.push(this.materials[idmaterial]);
 	}
+
+	//textures
+
+	var loadTextures = tempNode.getElementsByTagName('texture')[0];
+	var idtextures  = this.reader.getString(loadTextures, 'id', true);
+	node.texture = this.textures[idtextures];
+	this.nodes[nodeId] = node;
+
+
 }
 
 	//-----------------------------------------------------------------------------//
@@ -359,13 +361,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 	this.illumination=[];
 	var illumination = tempIlum[0];
-	/*if(illumination.attributes.length > 0) console.log("Illumination attributes: ");
-	for(var i = 0; i <illumination.attributes.length; i++){
-	console.log( i ++  illumination.attributes[i].value );
-
-}*/
-/*console.log("Read illumination: doublesided - " + illumination.attributes.getNamedItem("doublesided").value +
-" and local: - " + illumination.attributes.getNamedItem("local").value);*/
 
 for(var i=0; i < illumination.children.length; i++){
 	if(illumination.children[i].tagName =='ambient'){

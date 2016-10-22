@@ -33,31 +33,14 @@
   </illumination>
 
   <textures>
-
-    <!-- Deve existir um ou mais blocos "texture" -->
-    <!-- Os identificadores "id" nao podem ser repetidos -->
-    <!-- length_s e length_t sao fatores de escala de textura:-->
-    <!-- Exemplo length_s=3.0: uma ocorrencia da textura, em -->
-    <!-- comprimento, deve cobrir um comprimento igual -->
-    <!-- a 3 unidades;  -->
-    <!-- Exemplo length_t=0.4, uma ocorrencia da textura, em -->
-    <!-- largura, deve cobrir uma largura igual a 0.4 unidades.  -->
-    <!-- Transf. Geometr. do tipo escalamento sobre os -->
-    <!-- objetos respetivos podem a violar esta regra.         -->
-    <!-- Nao necessario aplicar fatores de escala em  -->
-    <!-- quadricas (esfera, ciclindro...) -->
-    <texture id="floor" file="resources\\images\\carpet3.jpg" length_s="1.0" length_t="1.0" />
-    <texture id="wood" file="resources\\images\\wood.jpg" length_s="1.0" length_t="1.0" />
-    <texture id="boia" file="resources\\images\\boia.jpg" length_s="1.0" length_t="1.0" />
-    <texture id="wall" file="resources\\images\\wall.jpg" length_s="1.0" length_t="1.0" />
-
+    <texture id="floor" file="./resources/images/carpet3.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="wood" file="./resources/images/wood.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="boia" file="./resources/images/boia.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="wall" file="./resources/images/ines.jpg" length_s="1.0" length_t="1.0" />
 
   </textures>
 
   <lights>
-
-    <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
-    <!-- Os identificadores "id" nao podem ser repetidos -->
     <omni id="omni1" enabled="1" >
       <location x="4" y="4" z="4" w="0.2" />
       <ambient r="0.8" g="0.8" b="0.8" a="0.8" />
@@ -66,7 +49,6 @@
     </omni>
 
     <spot id="spot1" enabled="0" angle="40" exponent="0.5">
-      <!-- atencao, "target" e' diferente de "direction" -->
       <target x="3" y="3" z="0.5" />
       <location x="4" y="2" z="2" />
       <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
@@ -193,7 +175,8 @@
       <scale x="7" y="5" z="7" />
       <translate x="0.5" y="0.5" z="0" />
       <rotate axis="z" angle="90" />
-      <rotate axis="z" angle="180" />
+      <rotate axis="z" angle="90" />
+
     </transformation>
 
     <transformation id="leftwall">
@@ -260,10 +243,12 @@
           <material id="material1" />
       </materials>
 
+      <texture id="none" />
+
     </component>
 
     <component id="table">
-      <!-- bloco "transformation" obrigatorio -->
+
       <transformation>
         <transformationref id="sample"/>
       </transformation>
@@ -276,6 +261,8 @@
       <materials>
           <material id="inherit" />
       </materials>
+
+      <texture id="wood" />
 
     </component>
 
@@ -298,6 +285,8 @@
           <material id="inherit" />
       </materials>
 
+      <texture id="wood" />
+
     </component>
 
     <component id="face1">
@@ -313,6 +302,8 @@
       <materials>
           <material id="inherit" />
       </materials>
+
+      <texture id="inherit" />
 
     </component>
 
@@ -330,6 +321,8 @@
           <material id="inherit" />
       </materials>
 
+      <texture id="inherit" />
+
     </component>
 
     <component id="face3">
@@ -345,6 +338,8 @@
       <materials>
           <material id="inherit" />
       </materials>
+
+      <texture id="inherit" />
 
     </component>
 
@@ -362,6 +357,8 @@
           <material id="inherit" />
       </materials>
 
+      <texture id="inherit" />
+
     </component>
 
     <component id="face5">
@@ -378,6 +375,8 @@
           <material id="inherit" />
       </materials>
 
+      <texture id="inherit" />
+
     </component>
 
     <component id="face6">
@@ -393,6 +392,8 @@
       <materials>
           <material id="inherit" />
       </materials>
+
+      <texture id="inherit" />
 
     </component>
 
@@ -413,6 +414,8 @@
           <material id="inherit" />
       </materials>
 
+      <texture id="wood" />
+
     </component>
 
     <component id="leg1">
@@ -428,6 +431,8 @@
       <materials>
           <material id="inherit" />
       </materials>
+
+      <texture id="inherit" />
 
     </component>
 
@@ -445,6 +450,8 @@
           <material id="inherit" />
       </materials>
 
+      <texture id="inherit" />
+
     </component>
 
     <component id="leg3">
@@ -460,6 +467,8 @@
       <materials>
           <material id="inherit" />
       </materials>
+
+      <texture id="inherit" />
 
     </component>
 
@@ -477,6 +486,8 @@
           <material id="inherit" />
       </materials>
 
+      <texture id="inherit" />
+
     </component>
 
     <component id="torus1">
@@ -492,6 +503,8 @@
       <materials>
           <material id="material1" />
       </materials>
+
+      <texture id="boia" />
 
     </component>
 
@@ -512,6 +525,8 @@
           <material id="material1" />
       </materials>
 
+      <texture id="boia" />
+
     </component>
 
 
@@ -529,6 +544,8 @@
           <material id="inherit" />
       </materials>
 
+      <texture id="inherit" />
+
     </component>
 
     <component id="triangle2">
@@ -544,6 +561,8 @@
       <materials>
           <material id="inherit" />
       </materials>
+
+      <texture id="inherit" />
 
     </component>
 
@@ -561,6 +580,8 @@
           <material id="inherit" />
       </materials>
 
+      <texture id="inherit" />
+
     </component>
 
     <component id="triangle4">
@@ -576,6 +597,8 @@
       <materials>
           <material id="inherit" />
       </materials>
+
+      <texture id="inherit" />
 
     </component>
 
@@ -593,6 +616,8 @@
           <material id="material1" />
       </materials>
 
+      <texture id="wall" />
+
     </component>
 
     <component id="rightwall">
@@ -609,6 +634,8 @@
           <material id="material1" />
       </materials>
 
+      <texture id="wall" />
+
     </component>
 
     <component id="floor">
@@ -623,6 +650,8 @@
       <materials>
           <material id="material1" />
       </materials>
+
+      <texture id="floor" />
 
     </component>
 
