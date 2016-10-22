@@ -1,6 +1,7 @@
 
-  function XMLscene() {
+  function XMLscene(myInterface) {
     CGFscene.call(this);
+    this.myInterface=myInterface;
   }
 
   XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -25,6 +26,7 @@
     this.materials = new Stack(null);
     this.textures = new Stack(null);
 
+    this.lightsBoolean=[];
 
     this.axis=new CGFaxis(this);
 
@@ -57,8 +59,7 @@
   XMLscene.prototype.onGraphLoaded = function ()
   {
     this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
-    this.lights[0].setVisible(true);
-    this.lights[0].enable();
+    this.loadLights();
   };
 
   XMLscene.prototype.createGraph = function(initialNode){
@@ -276,3 +277,43 @@
 
 
   };
+
+  XMLscene.prototype.loadLights = function () {
+
+  var index = 0;
+
+  for(var i=0; i < this.graph.omniLights.length; i++, index++){
+
+    //Percorrer vetor de luzes omni
+    var omni = this.graph.omniLights[i];
+    this.lights[index].setPosition(omni.location.x, omni.location.y, omni.location.z, omni.location.w);
+    this.lights[index].setAmbient(omni.ambient.r, omni.ambient.g, omni.ambient.b, omni.ambient.a);
+    this.lights[index].setDiffuse(omni.diffuse.r, omni.diffuse.g, omni.diffuse.b, omni.diffuse.a);
+    this.lights[index].setSpecular(omni.specular.r, omni.specular.g, omni.specular.b, omni.specular.a);
+
+    if (omni.enabled) this.lights[index].enable();
+    this.lights[index].setVisible(true);
+    this.lights[index].update();
+
+    this.lightsBoolean[index] = omni.enabled;
+
+    this.myInterface.addLight("omni",index, omni.id);
+  }
+
+    for(var i=0; i < this.graph.spotLights.length;i++,index++){
+    //Percorrer vetor de luzes spot
+    var spot = this.graph.spotLights[i];
+    this.lights[index].setPosition(spot.location.x, spot.location.y, spot.location.z, spot.location.w);
+    this.lights[index].setAmbient(spot.ambient.r, spot.ambient.g, spot.ambient.b, spot.ambient.a);
+    this.lights[index].setDiffuse(spot.diffuse.r, spot.diffuse.g, spot.diffuse.b, spot.diffuse.a);
+    this.lights[index].setSpecular(spot.specular.r, spot.specular.g, spot.specular.b, spot.specular.a);
+
+    if (spot.enabled) this.lights[index].enable();
+    this.lights[index].setVisible(true);
+    this.lights[index].update();
+
+    this.lightsBoolean[index] = spot.enabled;
+    this.myInterface.addLight("spot",index, spot.id);
+  }
+
+};

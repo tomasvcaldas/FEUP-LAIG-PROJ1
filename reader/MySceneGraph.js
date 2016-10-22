@@ -12,6 +12,8 @@ function MySceneGraph(filename, scene) {
 	this.comp = {};
 	this.materials = {};
 	this.textures = {};
+	this.omniLights=[];
+	this.spotLights=[];
 
 	this.degToRad= Math.PI / 180.0;
 
@@ -458,81 +460,36 @@ for(var i = 0; i < lights.children.length; i++){
 	var lightsChild = lights.children[i];
 
 	if(lightsChild.tagName == 'omni'){
-		console.log("Read omni item with id enable values: " + lightsChild.attributes.getNamedItem("id").value + " " +	lightsChild.attributes.getNamedItem("enabled").value + ".");
-		for(var j = 0; j < lightsChild.children.length; j++){
-			if(lightsChild.children[j].tagName == 'location'){
-				console.log("Read location item with x y z w values: " +
-				lightsChild.children[j].attributes.getNamedItem("x").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("y").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("z").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("w").value + ".");
-			}
-			if(lightsChild.children[j].tagName == 'ambient'){
-				console.log("Read ambient item with r g b a values: " +
-				lightsChild.children[j].attributes.getNamedItem("r").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("g").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("b").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("a").value + ".");
-			}
-			if(lightsChild.children[j].tagName == 'diffuse'){
-				console.log("Read diffuse item with r g b a values: " +
-				lightsChild.children[j].attributes.getNamedItem("r").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("g").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("b").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("a").value + ".");
-			}
-			if(lightsChild.children[j].tagName == 'specular'){
-				console.log("Read specular item with r g b a values: " +
-				lightsChild.children[j].attributes.getNamedItem("r").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("g").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("b").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("a").value + ".");
-			}
-		}
+		var id = this.reader.getString(lightsChild, 'id');
+		var enabled = this.reader.getBoolean(lightsChild,'enabled');
+
+		var locationEl = lightsChild.getElementsByTagName('location')[0];
+		var location = new Point3W(this.reader.getFloat(locationEl, 'x'), this.reader.getFloat(locationEl, 'y'),
+            this.reader.getFloat(locationEl, 'z'), this.reader.getFloat(locationEl, 'w'));
+
+		var ambient = this.getColor(lightsChild.getElementsByTagName('ambient')[0]);
+		var diffuse = this.getColor(lightsChild.getElementsByTagName('diffuse')[0]);
+		var specular = this.getColor(lightsChild.getElementsByTagName('specular')[0]);
+
+		this.omniLights.push(new Omni(id,enabled,location,ambient,diffuse,specular));
+
 	}
 
-	if(lightsChild.tagName == 'spot'){
-		console.log("Read spot item with id enable angle exponent values: " +
-		lightsChild.attributes.getNamedItem("id").value + " " +
-		lightsChild.attributes.getNamedItem("enabled").value + " " +
-		lightsChild.attributes.getNamedItem("angle").value + " " +
-		lightsChild.attributes.getNamedItem("exponent").value + ".");
 
-		for(var j = 0; j < lightsChild.children.length; j++){
-			if(lightsChild.children[j].tagName == 'target'){
-				console.log("Read target item with x y z values: " +
-				lightsChild.children[j].attributes.getNamedItem("x").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("y").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("z").value + ".");
-			}
-			if(lightsChild.children[j].tagName == 'location'){
-				console.log("Read location item with x y z values: " +
-				lightsChild.children[j].attributes.getNamedItem("x").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("y").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("z").value + ".");
-			}
-			if(lightsChild.children[j].tagName == 'ambient'){
-				console.log("Read ambient item with r g b a values: " +
-				lightsChild.children[j].attributes.getNamedItem("r").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("g").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("b").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("a").value + ".");
-			}
-			if(lightsChild.children[j].tagName == 'diffuse'){
-				console.log("Read diffuse item with r g b a values: " +
-				lightsChild.children[j].attributes.getNamedItem("r").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("g").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("b").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("a").value + ".");
-			}
-			if(lightsChild.children[j].tagName == 'specular'){
-				console.log("Read specular item with r g b a values: " +
-				lightsChild.children[j].attributes.getNamedItem("r").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("g").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("b").value + " " +
-				lightsChild.children[j].attributes.getNamedItem("a").value + ".");
-			}
-		}
+	if(lightsChild.tagName == 'spot'){
+		var id = this.reader.getString(lightsChild,'id');
+		var enabled = this.reader.getBoolean(lightsChild,'enabled');
+		var angle = this.reader.getFloat(lightsChild,'angle');
+		var exponent = this.reader.getFloat(lightsChild,'exponent');
+		var target = this.getPoint3Element(lightsChild.getElementsByTagName('target')[0]);
+		var location = this.getPoint3Element(lightsChild.getElementsByTagName('location')[0]);
+		var ambient = this.getColor(lightsChild.getElementsByTagName('ambient')[0]);
+		var diffuse = this.getColor(lightsChild.getElementsByTagName('diffuse')[0]);
+		var specular = this.getColor(lightsChild.getElementsByTagName('specular')[0]);
+
+		this.spotLights.push(new Spot(id, enabled, angle,exponent, target, location, ambient, diffuse, specular));
+
+
 	}
 }
 
@@ -587,6 +544,18 @@ MySceneGraph.prototype.getPoint3Element = function(element) {
 
 	var res = new Point3(this.reader.getFloat(element, 'x'), this.reader.getFloat(element, 'y'),
 	this.reader.getFloat(element, 'z'));
+
+	return res;
+}
+
+MySceneGraph.prototype.getColor = function(element) {
+	if (element == null){
+		this.onXMLError("Error loading color element .");
+		return 1;
+	}
+
+	var res = new Color(this.reader.getFloat(element, 'r'), this.reader.getFloat(element, 'g'),
+	this.reader.getFloat(element, 'b'),this.reader.getFloat(element, 'a'));
 
 	return res;
 }
