@@ -1,4 +1,3 @@
-
 function MySceneGraph(filename, scene) {
 	this.loadedOk = null;
 
