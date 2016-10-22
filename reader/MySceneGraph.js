@@ -9,8 +9,9 @@ function MySceneGraph(filename, scene) {
 	this.primitive={};
 	this.nodes = {};
 	this.transformations = {};
-	this.transfid = {};
 	this.comp = {};
+	this.materials = {};
+	this.textures = {};
 
 	this.degToRad= Math.PI / 180.0;
 
@@ -175,73 +176,192 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		return "transformations element is missing.";
 	}
 
-	/*for (var i = 0;  i < this.transfid.length; i++){
+	var transfLength = tempTransf[0].children.length;
+	for(var i = 0; i < transfLength; i++){
+		var id = tempTransf[0].children[i].attributes.getNamedItem("id").value;
 
-	console.log("oi" + this.transfid[i]);
-}*/
+		this.transformations[id]  = this.getTransformationMatrix(tempTransf[0].children[i]);
 
-var transfLength = tempTransf[0].children.length;
-for(var i = 0; i < transfLength; i++){
-	var id = tempTransf[0].children[i].attributes.getNamedItem("id").value;
-	this.transformations[id]  = this.getTransformationMatrix(tempTransf[0].children[i]);
-}
 
-//-----------------------------------------------------------------------------//
-//COMPONENTES -----------------------------------------------------------------//
-//-----------------------------------------------------------------------------//
-
-var tempComp=rootElement.getElementsByTagName('components');
-var numNodes = tempComp[0].getElementsByTagName('component');
-if (tempComp == null  || tempComp.length==0) {
-	return "components element is missing.";
-}
-
-this.components=[];
-
-for(var i = 0; i < numNodes.length; i++){
-	var tempNode = numNodes[i];
-	var nodeChildren = tempNode.getElementsByTagName('children'); //dame o children
-	var listChildren = nodeChildren[0].children; //dame o dentro do children
-		var node = new MyNode();
-
-	for(var j = 0; j < listChildren.length; j++){
-		if(listChildren[j].tagName == "componentref"){
-			node.componentId.push(listChildren[j].attributes.getNamedItem("id").value); //se for component criar um node
-		}
-		else {
-			if(listChildren[j].tagName == "primitiveref"){
-				node.primitive = this.primitive[listChildren[j].attributes.getNamedItem("id").value]; //se for primitiva vai adicionar a que tiver id igual
-			}
-			else {
-				return "Erro na tagName de children ";
-			}
-		}
 	}
 
 
-	var nodeId = tempNode.attributes.getNamedItem("id").value; // id do component
-	var nodeTransformation =  tempNode.getElementsByTagName('transformation');
-	var idTransf1 =  nodeTransformation[0].children[0].attributes.getNamedItem("id").value;
-	node.mat = this.transformations[idTransf1];
 
-	this.nodes[nodeId] = node;
+	//-----------------------------------------------------------------------------//
+	//TEXTURES---------------------------------------------------------------------//
+	//-----------------------------------------------------------------------------//
+
+	var tempText = rootElement.getElementsByTagName('textures');
+
+	if (tempText == null  || tempText.length==0) {
+		return "Textures element is missing.";
+	}
+
+	for(var i= 0; i < tempText[0].children.length; i++){
+		var currentText = tempText[0].children;
+		var textureID = currentText[i].attributes.getNamedItem("id").value
+		var file = currentText[i].attributes.getNamedItem("file").value;
+		var lengths = currentText[i].attributes.getNamedItem("length_s").value;
+		var lengtht = currentText[i].attributes.getNamedItem("length_t").value;
+
+		var newTexture = new Texture(textureID, file, lengths, lengtht);
+
+		this.textures[textureID] = newTexture;
+
+
+
+
+	}
+
+
+	//-----------------------------------------------------------------------------//
+	//MATERIALS--------------------------------------------------------------------//
+	//-----------------------------------------------------------------------------//
+
+	var materialsList=rootElement.getElementsByTagName('materials');
+	if (materialsList == null  || materialsList.length==0) {
+		return "Materials element is missing.";
+	}
+
+
+	for(var i = 0; i < materialsList[0].children.length ; i++)
+	{
+		var currentMat = materialsList[0].children[i];
+		var matID = currentMat.attributes.getNamedItem("id").value;
+		var emission = [];
+		var ambient = [];
+		var diffuse = [];
+		var specular = [];
+		var shininess;
+
+		for(var j = 0; j < currentMat.children.length; j++){
+
+			if(currentMat.children[j].tagName == 'emission'){
+
+				emission[0] = currentMat.children[i].attributes.getNamedItem("r").value;
+				emission[1] = currentMat.children[i].attributes.getNamedItem("g").value;
+				emission[2] = currentMat.children[i].attributes.getNamedItem("g").value;
+				emission[3] = currentMat.children[i].attributes.getNamedItem("a").value;
+			}
+
+			if(currentMat.children[j].tagName == 'ambient'){
+				ambient[0] = currentMat.children[i].attributes.getNamedItem("r").value;
+				ambient[1] = currentMat.children[i].attributes.getNamedItem("g").value;
+				ambient[2] = currentMat.children[i].attributes.getNamedItem("g").value;
+				ambient[3] = currentMat.children[i].attributes.getNamedItem("a").value;
+			}
+
+			if(currentMat.children[j].tagName == 'diffuse'){
+
+				diffuse[0] = currentMat.children[i].attributes.getNamedItem("r").value;
+				diffuse[1] = currentMat.children[i].attributes.getNamedItem("g").value;
+				diffuse[2] = currentMat.children[i].attributes.getNamedItem("g").value;
+				diffuse[3] = currentMat.children[i].attributes.getNamedItem("a").value;
+			}
+
+			if(currentMat.children[j].tagName == 'specular'){
+
+				specular[0] = currentMat.children[i].attributes.getNamedItem("r").value;
+				specular[1] = currentMat.children[i].attributes.getNamedItem("g").value;
+				specular[2] = currentMat.children[i].attributes.getNamedItem("g").value;
+				specular[3] = currentMat.children[i].attributes.getNamedItem("a").value;
+			}
+
+			if(currentMat.children[j].tagName == 'shininess'){
+				shininess = this.reader.getFloat(currentMat.getElementsByTagName('shininess')[0], 'value');
+			}
+
+			var newMaterial = new CGFappearance(this.scene);
+			newMaterial.setEmission(emission[0],emission[1],emission[2],emission[3]);
+			newMaterial.setAmbient(ambient[0],ambient[1],ambient[2],ambient[3]);
+			newMaterial.setDiffuse(diffuse[0],diffuse[1],diffuse[2],diffuse[3]);
+			newMaterial.setSpecular(specular[0],specular[1],specular[2],specular[3]);
+			newMaterial.setShininess(shininess);
+
+			this.materials[matID] = newMaterial;
+
+
+
+		}
+
+
+
+
+
+	}
+	//-----------------------------------------------------------------------------//
+	//COMPONENTES -----------------------------------------------------------------//
+	//-----------------------------------------------------------------------------//
+
+	var tempComp=rootElement.getElementsByTagName('components');
+	var numNodes = tempComp[0].getElementsByTagName('component');
+	if (tempComp == null  || tempComp.length==0) {
+		return "components element is missing.";
+	}
+
+	this.components=[];
+
+	for(var i = 0; i < numNodes.length; i++){
+		var tempNode = numNodes[i];
+		var nodeChildren = tempNode.getElementsByTagName('children'); //dame o children
+		var listChildren = nodeChildren[0].children; //dame o dentro do children
+		var node = new MyNode();
+
+		for(var j = 0; j < listChildren.length; j++){
+			if(listChildren[j].tagName == "componentref"){
+				node.componentId.push(listChildren[j].attributes.getNamedItem("id").value); //se for component criar um node
+			}
+			else {
+				if(listChildren[j].tagName == "primitiveref"){
+					node.primitive = this.primitive[listChildren[j].attributes.getNamedItem("id").value]; //se for primitiva vai adicionar a que tiver id igual
+				}
+				else {
+					return "Erro na tagName de children ";
+				}
+			}
+		}
+
+
+		var nodeId = tempNode.attributes.getNamedItem("id").value; // id do component
+		var nodeTransformation =  tempNode.getElementsByTagName('transformation');
+		var idTransf1 =  nodeTransformation[0].children[0].attributes.getNamedItem("id").value;
+		node.mat = this.transformations[idTransf1];
+
+		this.nodes[nodeId] = node;
+
+		//materiais
+
+		var loadMaterials = tempNode.getElementsByTagName('materials');
+		var loadMaterialsList = loadMaterials[0].children;
+
+
+		for (var j = 0; j < loadMaterialsList.length; j++){
+
+			var idmaterial = loadMaterialsList[j].attributes.getNamedItem("id").value;
+			//console.log("oi" + loadMaterialsList[i].attributes.getNamedItem("id").value);
+			//console.log(this.materials[idmaterial]);
+			if(idmaterial != "inherit"){
+				node.material.push(this.materials[idmaterial]);
+			}
+
+	}
 }
 
-//-----------------------------------------------------------------------------//
-//ILLUMINATION-----------------------------------------------------------------//
-//-----------------------------------------------------------------------------//
+	//-----------------------------------------------------------------------------//
+	//ILLUMINATION-----------------------------------------------------------------//
+	//-----------------------------------------------------------------------------//
 
-var tempIlum = rootElement.getElementsByTagName('illumination');
+	var tempIlum = rootElement.getElementsByTagName('illumination');
 
-if (tempIlum == null  || tempIlum.length==0) {
-	return "Illumination element is missing.";
-}
+	if (tempIlum == null  || tempIlum.length==0) {
+		return "Illumination element is missing.";
+	}
 
-this.illumination=[];
-var illumination = tempIlum[0];
-/*if(illumination.attributes.length > 0) console.log("Illumination attributes: ");
-for(var i = 0; i <illumination.attributes.length; i++){
-console.log( i ++  illumination.attributes[i].value );
+	this.illumination=[];
+	var illumination = tempIlum[0];
+	/*if(illumination.attributes.length > 0) console.log("Illumination attributes: ");
+	for(var i = 0; i <illumination.attributes.length; i++){
+	console.log( i ++  illumination.attributes[i].value );
 
 }*/
 /*console.log("Read illumination: doublesided - " + illumination.attributes.getNamedItem("doublesided").value +
@@ -263,79 +383,7 @@ for(var i=0; i < illumination.children.length; i++){
 	}
 }
 
-//-----------------------------------------------------------------------------//
-//TEXTURES---------------------------------------------------------------------//
-//-----------------------------------------------------------------------------//
 
-var tempText = rootElement.getElementsByTagName('textures');
-
-if (tempText == null  || tempText.length==0) {
-	return "Textures element is missing.";
-}
-
-this.text=[];
-var text = tempText[0].children;
-
-for(var i=0; i < text.length; i++){
-	console.log("Read texture with id= " +text[i].attributes.getNamedItem("id").value +
-	" file = " + text[i].attributes.getNamedItem("file").value +
-	" length_s = " + text[i].attributes.getNamedItem("length_s").value +
-	" length_t = " + text[i].attributes.getNamedItem("length_t").value);
-}
-
-//-----------------------------------------------------------------------------//
-//MATERIALS--------------------------------------------------------------------//
-//-----------------------------------------------------------------------------//
-
-var tempMat=rootElement.getElementsByTagName('materials');
-if (tempMat == null  || tempMat.length==0) {
-	return "Materials element is missing.";
-}
-
-this.materials=[];
-
-for(var i = 0; i < tempMat[0].children.length ; i++)
-{
-
-
-	console.log("Read material with id " + tempMat[0].children[i].attributes.getNamedItem("id").value);
-	var mats = tempMat[0].children[i].children;
-
-	for(var j=0; j < mats.length; j++){
-		if(mats[j].tagName =='emission'){
-			console.log("Material: emission with r = " +
-			mats[j].attributes.getNamedItem("r").value + " and g = "
-			+ mats[j].attributes.getNamedItem("g").value + " and b = "
-			+ mats[j].attributes.getNamedItem("b").value + " and a = "
-			+ mats[j].attributes.getNamedItem("b").value);
-		}
-		if(mats[j].tagName =='ambient'){
-			console.log("Materia: ambient with r = " +
-			mats[j].attributes.getNamedItem("r").value + " and g = "
-			+ mats[j].attributes.getNamedItem("g").value + " and b = "
-			+ mats[j].attributes.getNamedItem("b").value + " and a = "
-			+ mats[j].attributes.getNamedItem("b").value);
-		}
-		if(mats[j].tagName =='diffuse'){
-			console.log("Material: diffuse with r = " +
-			mats[j].attributes.getNamedItem("r").value + " and g = "
-			+ mats[j].attributes.getNamedItem("g").value + " and b = "
-			+ mats[j].attributes.getNamedItem("b").value + " and a = "
-			+ mats[j].attributes.getNamedItem("b").value);
-		}
-		if(mats[j].tagName =='specular'){
-			console.log("Material: specular with r = " +
-			mats[j].attributes.getNamedItem("r").value + " and g = "
-			+ mats[j].attributes.getNamedItem("g").value + " and b = "
-			+ mats[j].attributes.getNamedItem("b").value + " and a = "
-			+ mats[j].attributes.getNamedItem("b").value);
-		}
-		if(mats[j].tagName =='shininess'){
-			console.log("Material: shininess with value = " +
-			mats[j].attributes.getNamedItem("value").value);
-		}
-	}
-}
 
 //-----------------------------------------------------------------------------//
 //SCENE------------------------------------------------------------------------//
@@ -497,7 +545,7 @@ for(var i = 0; i < lights.children.length; i++){
 
 MySceneGraph.prototype.getTransformationMatrix = function(transformationElement) {
 	var matrix = mat4.create();
-	console.log(transformationElement);
+
 	for (var i = 0; i < transformationElement.children.length ; i++) {
 		var transformation = transformationElement.children[i];
 		var transformationName = transformation.tagName;

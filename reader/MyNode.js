@@ -4,11 +4,9 @@
  */
  function MyNode(){
 
-   this.material = null;
+   this.material = [];
    this.mat = null;
    this.texture = null;
    this.componentId =[];
    this.primitive = null;
-   this.transformation = null;
-   this.transformationId = [];
  }

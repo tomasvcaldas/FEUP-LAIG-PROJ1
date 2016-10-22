@@ -106,16 +106,14 @@ XMLscene.prototype.createGraph = function(initialNode){
   var material = null;
   if(initialNode != null){
     var newNode = this.graph.nodes[initialNode];
-  //  console.log(this.graph.nodes[initialNode]);
-    /*if(node.material != null)
-    material = node.material;
+    if(newNode.material != null)
+    material = newNode.material[0];
     if(material != null)
-    this.applyMaterial(material);*/
+    //this.applyMaterial(material);
+    material.apply();
     this.multMatrix(newNode.mat);
     if(newNode.primitive != null)
     newNode.primitive.display();
-
-    //console.log("OIOIOIO" + newNode.componentId.length);
     for(var i = 0; i < newNode.componentId.length; i++){
       this.pushMatrix();
 
