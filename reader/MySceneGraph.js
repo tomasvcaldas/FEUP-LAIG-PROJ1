@@ -57,6 +57,7 @@ MySceneGraph.prototype.onXMLReady=function()
 /*
 * Example of method that parses elements of one block and stores information in a specific data structure
 */
+
 MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 	var elems =  rootElement.getElementsByTagName('globals');
@@ -75,28 +76,21 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	this.cullface = this.reader.getItem(globals, 'cullface', ["back","front","none", "frontandback"]);
 	this.cullorder = this.reader.getItem(globals, 'cullorder', ["ccw","cw"]);
 
-	console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");
+	//console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");
 
 	//-----------------------------------------------------------------------------//
-	//LISTAS ----------------------------------------------------------------------//
+	//VIEWS------------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------//
-	var tempList=rootElement.getElementsByTagName('list');
 
-	if (tempList == null  || tempList.length==0) {
-		return "list element is missing.";
+	var scene = rootElement.getElementsByTagName('scene')[0];
+
+	if (scene == null) {
+			this.onXMLError("Error loading scene, No Scene Tag");
+			return 1;
 	}
 
-	this.list=[];
-	// iterate over every element
-	var nnodes=tempList[0].children.length;
-	for (var i=0; i< nnodes; i++)
-	{
-		var e=tempList[0].children[i];
-
-		// process each element and store its information
-		this.list[e.id]=e.attributes.getNamedItem("coords").value;
-		console.log("Read list item id "+ e.id+" with value "+this.list[e.id]);
-	}
+	this.root = this.reader.getString(scene, 'root');
+	this.axis_length = this.reader.getFloat(scene, 'axis_length');
 
 	//-----------------------------------------------------------------------------//
 	//PRIMITIVAS ------------------------------------------------------------------//
@@ -107,9 +101,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	if (tempPrim == null  || tempPrim.length==0) {
 		return "primitives element is missing.";
 	}
-
-
-
 
 	for(var i = 0; i < tempPrim[0].children.length ; i++){
 
@@ -375,26 +366,6 @@ var ambient = this.getColor(illum.getElementsByTagName('ambient')[0]);
 var background = this.getColor(illum.getElementsByTagName('background')[0]);
 
 this.illumination = new Illumination(doublesided,local,ambient,background);
-
-
-
-//-----------------------------------------------------------------------------//
-//SCENE------------------------------------------------------------------------//
-//-----------------------------------------------------------------------------//
-
-var tempScene=rootElement.getElementsByTagName('scene');
-
-if (tempScene == null  || tempScene.length==0) {
-	return "scene element is missing.";
-}
-
-this.sceneLine=[];
-
-var sceneLine = tempScene[0];
-
-console.log("Read scene item with root axis_length values: " +
-sceneLine.attributes.getNamedItem("root").value + " " +
-sceneLine.attributes.getNamedItem("axis_length").value + ".");
 
 //-----------------------------------------------------------------------------//
 //VIEWS------------------------------------------------------------------------//
