@@ -437,6 +437,7 @@ for(var i=0; i < views.children.length;i++){
 
 	this.perspectives.push(new CGFcamera(angle*this.degToRad,near,far,vec3.fromValues(xfrom,yfrom,zfrom),vec3.fromValues(xto,yto,zto)));
 }
+}
 
 
 //-----------------------------------------------------------------------------//
@@ -543,7 +544,7 @@ MySceneGraph.prototype.getPoint3Element = function(element) {
 	this.reader.getFloat(element, 'z'));
 
 	return res;
-}
+};
 
 MySceneGraph.prototype.getColor = function(element) {
 	if (element == null){
@@ -555,7 +556,7 @@ MySceneGraph.prototype.getColor = function(element) {
 	this.reader.getFloat(element, 'b'),this.reader.getFloat(element, 'a'));
 
 	return res;
-}
+};
 
 /*
 * Callback to be executed on any read error
