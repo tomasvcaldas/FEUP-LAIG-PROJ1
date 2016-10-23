@@ -44,9 +44,10 @@
 
   <textures>
     <texture id="floor" file="./resources/images/carpet3.jpg" length_s="1.0" length_t="1.0" />
-    <texture id="wood" file="./resources/images/wood.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="wood" file="./resources/images/metal.jpg" length_s="1.0" length_t="1.0" />
     <texture id="boia" file="./resources/images/boia.jpg" length_s="1.0" length_t="1.0" />
-    <texture id="wall" file="./resources/images/ines.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="wall" file="./resources/images/wall1.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="sand" file="./resources/images/areia.jpg" length_s="1.0" length_t="1.0" />
 
   </textures>
 
@@ -591,7 +592,7 @@
           <material id="inherit" />
       </materials>
 
-      <texture id="boia" />
+      <texture id="sand" />
 
     </component>
 
@@ -721,8 +722,6 @@
       <texture id="floor" />
 
     </component>
-
-
 
   </components>
 

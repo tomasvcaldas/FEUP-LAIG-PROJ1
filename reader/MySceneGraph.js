@@ -75,28 +75,8 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	this.cullface = this.reader.getItem(globals, 'cullface', ["back","front","none", "frontandback"]);
 	this.cullorder = this.reader.getItem(globals, 'cullorder', ["ccw","cw"]);
 
-	console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");
+	//console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");
 
-	//-----------------------------------------------------------------------------//
-	//LISTAS ----------------------------------------------------------------------//
-	//-----------------------------------------------------------------------------//
-	var tempList=rootElement.getElementsByTagName('list');
-
-	if (tempList == null  || tempList.length==0) {
-		return "list element is missing.";
-	}
-
-	this.list=[];
-	// iterate over every element
-	var nnodes=tempList[0].children.length;
-	for (var i=0; i< nnodes; i++)
-	{
-		var e=tempList[0].children[i];
-
-		// process each element and store its information
-		this.list[e.id]=e.attributes.getNamedItem("coords").value;
-		console.log("Read list item id "+ e.id+" with value "+this.list[e.id]);
-	}
 
 	//-----------------------------------------------------------------------------//
 	//PRIMITIVAS ------------------------------------------------------------------//
@@ -107,9 +87,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	if (tempPrim == null  || tempPrim.length==0) {
 		return "primitives element is missing.";
 	}
-
-
-
 
 	for(var i = 0; i < tempPrim[0].children.length ; i++){
 
@@ -392,9 +369,9 @@ this.sceneLine=[];
 
 var sceneLine = tempScene[0];
 
-console.log("Read scene item with root axis_length values: " +
-sceneLine.attributes.getNamedItem("root").value + " " +
-sceneLine.attributes.getNamedItem("axis_length").value + ".");
+//console.log("Read scene item with root axis_length values: " +
+//sceneLine.attributes.getNamedItem("root").value + " " +
+//sceneLine.attributes.getNamedItem("axis_length").value + ".");
 
 //-----------------------------------------------------------------------------//
 //VIEWS------------------------------------------------------------------------//
