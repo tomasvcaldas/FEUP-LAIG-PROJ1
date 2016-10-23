@@ -38,11 +38,16 @@ MyInterface.prototype.addLight = function(type,i, name) {
 
 
 MyInterface.prototype.processKeyDown = function(event) {
-
+	CGFinterface.prototype.processKeyboard.call(this,event);
     switch (event.keyCode) {
         case (86):
         case (118): //v maiusculo ou minusculo
             this.scene.updateView();
             break;
+				case(77):
+				case(109):
+						this.scene.updateMaterials();
+						break;
     };
+
 };

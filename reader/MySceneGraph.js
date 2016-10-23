@@ -15,6 +15,8 @@ function MySceneGraph(filename, scene) {
 	this.spotLights=[];
 	this.perspectives=[];
 
+	this.maxMaterial = 0;
+
 	this.degToRad= Math.PI / 180.0;
 
 	// File reading
@@ -212,25 +214,43 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	//MATERIALS--------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------//
 
-	var materialsList=rootElement.getElementsByTagName('materials');
-	if (materialsList == null  || materialsList.length==0) {
-		return "Materials element is missing.";
+	var materials1 = rootElement.getElementsByTagName('materials');
+	if(materials1 == null || materials1.length <1){
+		return "materials element is missing.";
+	}
+
+	var listMaterials = materials1[0].getElementsByTagName('material');
+	var i=0;
+	for(i; i< listMaterials.length;i++){
+		var tagAmbient, tagDiffuse, tagSpecular, tagEmission, tagShininess;
+		tagAmbient = listMaterials[i].getElementsByTagName('ambient')[0];
+		tagDiffuse = listMaterials[i].getElementsByTagName('diffuse')[0];
+		tagSpecular = listMaterials[i].getElementsByTagName('specular')[0];
+		tagEmission = listMaterials[i].getElementsByTagName('emission')[0];
+		tagShininess = listMaterials[i].getElementsByTagName('shininess')[0];
+
+		var id, emission, ambient, diffuse, specular, shininess;
+		id = this.reader.getString(listMaterials[i], 'id', true);
+		emission = new Color(this.reader.getFloat(tagEmission, 'r', true),this.reader.getFloat(tagEmission, 'g', true),this.reader.getFloat(tagEmission, 'b', true),this.reader.getFloat(tagEmission, 'a', true));
+		ambient = new Color(this.reader.getFloat(tagAmbient, 'r', true),this.reader.getFloat(tagAmbient, 'g', true),this.reader.getFloat(tagAmbient, 'b', true),this.reader.getFloat(tagAmbient, 'a', true));
+		diffuse = new Color(this.reader.getFloat(tagDiffuse, 'r', true),this.reader.getFloat(tagDiffuse, 'g', true),this.reader.getFloat(tagDiffuse, 'b', true),this.reader.getFloat(tagDiffuse, 'a', true));
+		specular = new Color(this.reader.getFloat(tagSpecular, 'r', true),this.reader.getFloat(tagSpecular, 'g', true),this.reader.getFloat(tagSpecular, 'b', true),this.reader.getFloat(tagSpecular, 'a', true));
+
+		shininess = this.reader.getFloat(tagShininess, 'value', true);
+
+		var material = new Material(id, emission, ambient, diffuse, specular, shininess);
+
+		this.materials[id] = material;
 	}
 
 
-	for(var i = 0; i < materialsList[0].children.length ; i++)
-	{
-		var currentMat = materialsList[0].children[i];
-		var matID = currentMat.attributes.getNamedItem("id").value;
-		var emission = [];
-		var ambient = [];
-		var diffuse = [];
-		var specular = [];
-		var shininess;
 
-		for(var j = 0; j < currentMat.children.length; j++){
 
-			if(currentMat.children[j].tagName == 'emission'){
+
+
+		//this.materials[id] = newMaterial;
+
+			/*if(currentMat.children[j].tagName == 'emission'){
 
 				emission[0] = currentMat.children[i].attributes.getNamedItem("r").value;
 				emission[1] = currentMat.children[i].attributes.getNamedItem("g").value;
@@ -272,18 +292,10 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 			newMaterial.setSpecular(specular[0],specular[1],specular[2],specular[3]);
 			newMaterial.setShininess(shininess);
 			newMaterial.setTextureWrap('REPEAT', 'REPEAT');
-
-			this.materials[matID] = newMaterial;
-
-
-
-		}
+			this.materials[matID] = newMaterial;*/
 
 
 
-
-
-	}
 	//-----------------------------------------------------------------------------//
 	//COMPONENTES -----------------------------------------------------------------//
 	//-----------------------------------------------------------------------------//
@@ -329,10 +341,15 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		var loadMaterials = tempNode.getElementsByTagName('materials');
 		var loadMaterialsList = loadMaterials[0].children;
 
+		if(loadMaterialsList.length -1 > this.maxMaterial  ){
+			this.maxMaterial = loadMaterialsList.length -1;
+		}
 
 		for (var j = 0; j < loadMaterialsList.length; j++){
+
 			var idmaterial = loadMaterialsList[j].attributes.getNamedItem("id").value;
-			node.material.push(this.materials[idmaterial]);
+
+			node.material.push(idmaterial);
 	}
 
 	//textures

@@ -91,8 +91,18 @@
       <ambient r="0.7" g="0.7" b="0.7" a="0.7" />
       <diffuse r="0.7" g="0.7" b="0.7" a="1" />
       <specular r="1" g="1" b="1" a="1" />
-      <shininess value="120" />
+      <shininess value="0.1" />
     </material>
+
+    <material id="material2" >
+      <emission r="0" g="0" b="0" a="0" />
+      <ambient r="0" g="0" b="0" a="0" />
+      <diffuse r="0" g="0" b="0" a="1" />
+      <specular r="1" g="1" b="1" a="1" />
+      <shininess value="9" />
+    </material>
+
+
 
   </materials>
 
@@ -525,7 +535,7 @@
       </children>
 
       <materials>
-          <material id="material1" />
+          <material id="inherit" />
       </materials>
 
       <texture id="boia" />
@@ -546,7 +556,7 @@
       </children>
 
       <materials>
-          <material id="material1" />
+          <material id="inherit" />
       </materials>
 
       <texture id="boia" />
@@ -637,7 +647,7 @@
       </children>
 
       <materials>
-          <material id="material1" />
+          <material id="inherit" />
       </materials>
 
       <texture id="wall" />
@@ -655,7 +665,8 @@
       </children>
 
       <materials>
-          <material id="material1" />
+          <material id="inherit" />
+
       </materials>
 
       <texture id="wall" />
@@ -672,7 +683,7 @@
         <primitiveref id="quad"/>
       </children>
       <materials>
-          <material id="material1" />
+          <material id="inherit" />
       </materials>
 
       <texture id="floor" />

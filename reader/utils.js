@@ -10,15 +10,13 @@ class Point3 {
 	}
 }
 
-class Material{
-	constructor(id, emission, ambient, diffuse, specular, shininess){
-		this.id = id;
-		this.emission = parseFloat(emission);
-		this.ambient = parseFloat(ambient);
-		this.diffuse = parseFloat(diffuse);
-		this.specular = parseFloat(specular);
-		this.shiniess = parseInt(shininess);
-	}
+function Material(id, emission, ambient, diffuse, specular, shininess){
+    this.id = id;
+    this.emission = emission;
+    this.ambient = ambient;
+    this.diffuse = diffuse;
+    this.specular = specular;
+    this.shininess = shininess;
 }
 
 class Color{
