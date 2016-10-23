@@ -21,6 +21,49 @@ class Material{
 	}
 }
 
+class Color{
+	constructor(r,g,b,a){
+		this.r=r;
+		this.g=g;
+		this.b=b;
+		this.a=a;
+	}
+}
+
+class Omni{
+	constructor(id,enabled,location,ambient,diffuse,specular){
+		this.id=id;
+		this.enabled=enabled;
+		this.location=location;
+		this.ambient=ambient;
+		this.diffuse=diffuse;
+		this.specular=specular;
+	}
+}
+
+class Spot{
+	constructor(id,enabled,angle,exponent,target,location,ambient,diffuse,specular){
+		this.id=id;
+		this.enabled=enabled;
+		this.angle=angle;
+		this.exponent=exponent;
+		this.target=target;
+		this.location=location;
+		this.ambient=ambient;
+		this.diffuse=diffuse;
+		this.specular=specular;
+	}
+}
+
+class Point3W{
+	constructor(x,y,z,w){
+		this.x=x;
+		this.y=y;
+		this.z=z;
+		this.w=w;
+	}
+}
+
 class Texture{
 	constructor(id, file, lengths, lengtht){
 		this.id = id;
