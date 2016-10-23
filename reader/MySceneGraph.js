@@ -79,7 +79,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	//console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");
 
 	//-----------------------------------------------------------------------------//
-	//VIEWS------------------------------------------------------------------------//
+	//SCENE------------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------//
 
 	var scene = rootElement.getElementsByTagName('scene')[0];
@@ -366,6 +366,7 @@ var ambient = this.getColor(illum.getElementsByTagName('ambient')[0]);
 var background = this.getColor(illum.getElementsByTagName('background')[0]);
 
 this.illumination = new Illumination(doublesided,local,ambient,background);
+
 
 //-----------------------------------------------------------------------------//
 //VIEWS------------------------------------------------------------------------//
