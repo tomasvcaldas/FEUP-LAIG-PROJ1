@@ -36,6 +36,7 @@ MyInterface.prototype.addLight = function(type,i, name) {
        this.spot.add(this.scene.lightsBoolean, i, this.scene.lightsBoolean[i]).name(name);
 };
 
+
 MyInterface.prototype.processKeyDown = function(event) {
 
     switch (event.keyCode) {

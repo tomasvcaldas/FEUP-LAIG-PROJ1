@@ -1,4 +1,3 @@
-
 function MySceneGraph(filename, scene) {
 	this.loadedOk = null;
 
@@ -51,9 +50,6 @@ MySceneGraph.prototype.onXMLReady=function()
 	// As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
 	this.scene.onGraphLoaded();
 };
-
-
-
 
 
 /*
@@ -169,7 +165,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	}
 
 
-
 	//-----------------------------------------------------------------------------//
 	//TRANSFORMATIONS -------------------------------------------------------------//
 	//-----------------------------------------------------------------------------//
@@ -185,9 +180,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 		this.transformations[id]  = this.getTransformationMatrix(tempTransf[0].children[i]);
 
-
 	}
-
 
 
 	//-----------------------------------------------------------------------------//
@@ -414,6 +407,20 @@ if (tempViews == null  || tempViews.length==0) {
 this.views=[];
 
 var views = tempViews[0];
+
+for(var i=0; i < views.children.length;i++){
+
+	var id = this.reader.getString(views.children[i],'id');
+	var near = this.reader.getFloat(views.children[i],'near');
+	var far = this.reader.getFloat(views.children[i],'far');
+	var angle = this.reader.getFloat(views.children[i],'angle');
+	var xfrom = this.reader.getFloat(views.children[i].children[0],'x');
+	var yfrom = this.reader.getFloat(views.children[i].children[0],'y');
+	var zfrom = this.reader.getFloat(views.children[i].children[0],'z');
+	var xto = this.reader.getFloat(views.children[i].children[1],'x');
+	var yto = this.reader.getFloat(views.children[i].children[1],'y');
+	var zto = this.reader.getFloat(views.children[i].children[1],'z');
+
 
 for(var i=0; i < views.children.length;i++){
 

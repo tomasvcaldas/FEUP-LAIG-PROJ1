@@ -27,6 +27,10 @@
     this.textures = new Stack(null);
 
     this.lightsBoolean=[];
+
+    this.viewIndex=0;
+
+
     this.viewIndex=0;
     this.axis=new CGFaxis(this);
 
@@ -60,7 +64,12 @@
   {
     this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
     this.loadLights();
+
     this.updateView();
+
+
+    this.updateView();
+
   };
 
   XMLscene.prototype.createGraph = function(initialNode){
@@ -304,7 +313,9 @@
 
     for(var i=0; i < this.graph.spotLights.length;i++,index++){
     //Percorrer vetor de luzes spot
+
     console.log(this.graph.spotLights[i]);
+
     var spot = this.graph.spotLights[i];
 
     this.lights[index].setPosition(spot.location.x, spot.location.y, spot.location.z, spot.location.w);
@@ -341,3 +352,4 @@ XMLscene.prototype.updateView = function () {
 
     this.viewIndex = (++this.viewIndex) % this.graph.perspectives.length;
 };
+

@@ -42,10 +42,15 @@ class Omni{
 }
 
 class Spot{
+
 	constructor(id,enabled,angle,exponent,target,location,ambient,diffuse,specular){
 		this.id=id;
 		this.enabled=enabled;
 		this.angle=angle;
+
+	constructor(id,enabled,exponent,target,location,ambient,diffuse,specular){
+		this.id=id;
+		this.enabled=enabled;
 		this.exponent=exponent;
 		this.target=target;
 		this.location=location;
