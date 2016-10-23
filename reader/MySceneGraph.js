@@ -1,4 +1,3 @@
-
 function MySceneGraph(filename, scene) {
 	this.loadedOk = null;
 
@@ -15,6 +14,7 @@ function MySceneGraph(filename, scene) {
 	this.omniLights=[];
 	this.spotLights=[];
 	this.perspectives=[];
+
 
 	this.degToRad= Math.PI / 180.0;
 

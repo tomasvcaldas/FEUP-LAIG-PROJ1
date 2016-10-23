@@ -27,7 +27,9 @@
     this.textures = new Stack(null);
 
     this.lightsBoolean=[];
+
     this.viewIndex=0;
+
     this.axis=new CGFaxis(this);
 
   };
@@ -60,7 +62,9 @@
   {
     this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
     this.loadLights();
+
     this.updateView();
+
   };
 
   XMLscene.prototype.createGraph = function(initialNode){
@@ -340,3 +344,4 @@ XMLscene.prototype.updateView = function () {
 
     this.viewIndex = (++this.viewIndex) % this.graph.perspectives.length;
 };
+
