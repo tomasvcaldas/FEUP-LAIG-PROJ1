@@ -54,18 +54,12 @@ XMLscene.prototype.initCameras = function () {
   this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
 };
 
-XMLscene.prototype.setDefaultAppearance = function () {
-  this.setAmbient(0.2, 0.4, 0.8, 1.0);
-  this.setDiffuse(0.2, 0.4, 0.8, 1.0);
-  this.setSpecular(0.2, 0.4, 0.8, 1.0);
-  this.setShininess(10.0);
-};
-
 // Handler called when the graph is finally loaded.
 // As loading is asynchronous, this may be called already after the application has started the run loop
 XMLscene.prototype.onGraphLoaded = function ()
 {
-  this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
+  this.gl.clearColor(this.graph.illumination.background.r,this.graph.illumination.background.g,this.graph.illumination.background.b,this.graph.illumination.background.a );
+  this.setGlobalAmbientLight(this.graph.illumination.ambient.r,this.graph.illumination.ambient.g,this.graph.illumination.ambient.b,this.graph.illumination.ambient.a);
   this.loadLights();
 
   this.updateView();
@@ -77,7 +71,6 @@ XMLscene.prototype.createGraph = function(initialNode){
 
   var material = null;
   var appearance = new CGFappearance(this);
-
 
   if(initialNode != null){
     var newNode = this.graph.nodes[initialNode];
@@ -96,10 +89,7 @@ XMLscene.prototype.createGraph = function(initialNode){
       appearance.setDiffuse(material.diffuse.r,material.diffuse.g,material.diffuse.b,material.diffuse.a);
       appearance.setSpecular(material.specular.r,material.specular.g,material.specular.b,material.specular.a);
       appearance.setShininess(material.shininess);
-
-
     }
-    //console.log(appearance);
 
     if(newNode.texture != "none" && newNode.texture!= "inherit" && newNode.texture != null){
 
@@ -109,7 +99,7 @@ XMLscene.prototype.createGraph = function(initialNode){
     }
     if(newNode.texture != null){
       if(newNode.texture == "inherit"){
-        this.textures.push(this.textures.tpo());
+        this.textures.push(this.textures.top());
       }
     }
     this.textures.pop();

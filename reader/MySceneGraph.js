@@ -243,11 +243,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		this.materials[id] = material;
 	}
 
-
-
-
-
-
 		//this.materials[id] = newMaterial;
 
 			/*if(currentMat.children[j].tagName == 'emission'){
@@ -362,34 +357,24 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 }
 
-	//-----------------------------------------------------------------------------//
-	//ILLUMINATION-----------------------------------------------------------------//
-	//-----------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------//
+//ILLUMINATION-----------------------------------------------------------------//
+//-----------------------------------------------------------------------------//
 
-	var tempIlum = rootElement.getElementsByTagName('illumination');
+var tempIlum = rootElement.getElementsByTagName('illumination');
 
-	if (tempIlum == null  || tempIlum.length==0) {
-		return "Illumination element is missing.";
-	}
-
-	this.illumination=[];
-	var illumination = tempIlum[0];
-
-for(var i=0; i < illumination.children.length; i++){
-	if(illumination.children[i].tagName =='ambient'){
-		console.log("Read ambient with values r = " + illumination.children[i].attributes.getNamedItem("r").value +
-		" g = " +illumination.children[i].attributes.getNamedItem("g").value +
-		" b = " +illumination.children[i].attributes.getNamedItem("b").value +
-		" a = " +illumination.children[i].attributes.getNamedItem("a").value);
-	}
-
-	if(illumination.children[i].tagName =='background'){
-		console.log("Read background with values r = " + illumination.children[i].attributes.getNamedItem("r").value +
-		" g = " +illumination.children[i].attributes.getNamedItem("g").value +
-		" g = " +illumination.children[i].attributes.getNamedItem("b").value +
-		" g = " +illumination.children[i].attributes.getNamedItem("a").value);
-	}
+if (tempIlum == null  || tempIlum.length==0) {
+	return "Illumination element is missing.";
 }
+
+var illum = tempIlum[0];
+
+var doublesided = this.reader.getBoolean(illum,'doublesided');
+var local = this.reader.getBoolean(illum,'local');
+var ambient = this.getColor(illum.getElementsByTagName('ambient')[0]);
+var background = this.getColor(illum.getElementsByTagName('background')[0]);
+
+this.illumination = new Illumination(doublesided,local,ambient,background);
 
 
 
@@ -438,23 +423,9 @@ for(var i=0; i < views.children.length;i++){
 	var yto = this.reader.getFloat(views.children[i].children[1],'y');
 	var zto = this.reader.getFloat(views.children[i].children[1],'z');
 
-
-for(var i=0; i < views.children.length;i++){
-
-	var id = this.reader.getString(views.children[i],'id');
-	var near = this.reader.getFloat(views.children[i],'near');
-	var far = this.reader.getFloat(views.children[i],'far');
-	var angle = this.reader.getFloat(views.children[i],'angle');
-	var xfrom = this.reader.getFloat(views.children[i].children[0],'x');
-	var yfrom = this.reader.getFloat(views.children[i].children[0],'y');
-	var zfrom = this.reader.getFloat(views.children[i].children[0],'z');
-	var xto = this.reader.getFloat(views.children[i].children[1],'x');
-	var yto = this.reader.getFloat(views.children[i].children[1],'y');
-	var zto = this.reader.getFloat(views.children[i].children[1],'z');
-
 	this.perspectives.push(new CGFcamera(angle*this.degToRad,near,far,vec3.fromValues(xfrom,yfrom,zfrom),vec3.fromValues(xto,yto,zto)));
 }
-}
+
 
 
 //-----------------------------------------------------------------------------//

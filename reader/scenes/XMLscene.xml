@@ -72,12 +72,43 @@
       <specular r="1.0" g="1.0" b="1.0" a="1.0" />
     </omni>
 
+    <omni id="omni4" enabled="1" >
+      <location x="6" y="10" z="4" w="5" />
+      <ambient r="0.2" g="0.2" b="02" a="1" />
+      <diffuse r="0" g="0" b="1" a="1" />
+      <specular r="0" g="0" b="1" a="1" />
+    </omni>
+
     <spot id="spot1" enabled="1" angle="40" exponent="0.5">
       <target x="1" y="1" z="0.5" />
-      <location x="4" y="2" z="2" />
-      <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
+      <location x="4" y="2" z="7" />
+      <ambient r="1" g="0" b="0" a="1" />
       <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
       <specular r="0.5" g="0.5" b="0.5" a="0.5" />
+    </spot>
+
+    <spot id="spot2" enabled="0" angle="60" exponent="0.5">
+      <target x="1" y="1" z="0.5" />
+      <location x="4" y="2" z="7" />
+      <ambient r="0" g="1" b="" a="1" />
+      <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
+      <specular r="0.5" g="0.5" b="0.5" a="0.5" />
+    </spot>
+
+    <spot id="spot3" enabled="0" angle="90" exponent="0.5">
+      <target x="1" y="1" z="0.5" />
+      <location x="4" y="2" z="7" />
+      <ambient r="0" g="0" b="1" a="1" />
+      <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
+      <specular r="0.5" g="0.5" b="0.5" a="0.5" />
+    </spot>
+
+    <spot id="spot4" enabled="0" angle="20" exponent="0.5">
+      <target x="1" y="1" z="0.5" />
+      <location x="4" y="2" z="7" />
+      <ambient r="0.5" g="0.5" b="0.5" a="1" />
+      <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
+      <specular r="0.2" g="0.2" b="0.2" a="0.2" />
     </spot>
   </lights>
 
@@ -99,7 +130,7 @@
       <ambient r="0" g="0" b="0" a="0" />
       <diffuse r="0" g="0" b="0" a="1" />
       <specular r="1" g="1" b="1" a="1" />
-      <shininess value="9" />
+      <shininess value="8" />
     </material>
 
 

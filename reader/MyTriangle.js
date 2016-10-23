@@ -41,5 +41,54 @@ Triangle.prototype.initBuffers = function() {
         0, 0, 1,
     ];
 
-    this.initGLBuffers();
-};
+    var properties = this.getVectorsProperties(this.makeVector(this.point3, this.point2),
+            this.makeVector(this.point3, this.point1));
+
+
+        this.baseTexCoords = [
+          properties[0] - properties[1] * Math.cos(properties[2]), properties[1] * Math.sin(properties[2]),
+          0, 1,
+          properties[0], 1,
+        ];
+
+        this.texCoords = [
+          properties[0] - properties[1] * Math.cos(properties[2]), 1 - properties[1] * Math.sin(properties[2]),
+          0, 1,
+          properties[0], 1,
+        ];
+
+        this.initGLBuffers();
+    };
+
+
+    Triangle.prototype.makeVector = function(point1, point2) {
+        return new Point3(this.x2 - this.x1, this.y2 - this.y1, this.z2 - this.z1)
+    }
+
+    Triangle.prototype.dotProduct = function(point1, point2) {
+        return (this.x1 * this.x2) + (this.y1 * this.y2) + (this.z1 * this.z2);
+    }
+
+    Triangle.prototype.calculateLength = function(vec) {
+        return Math.sqrt((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z));
+    }
+
+    Triangle.prototype.getVectorsProperties = function(vec1, vec2) {
+        var length1 = this.calculateLength(vec1);
+        var length2 = this.calculateLength(vec2);
+        var dot = this.dotProduct(vec1, vec2);
+        var angle = Math.acos(dot / (length1 * length2));
+
+        return [length1, length2, angle];
+    }
+
+
+    Triangle.prototype.setTextureCoords = function(length_s, length_t) {
+      this.texCoords = [
+        this.baseTexCoords[0] / length_s, 1-(this.baseTexCoords[1] / length_t),
+        0, 1,
+        this.baseTexCoords[4] / length_s, 1
+      ];
+
+        this.initGLBuffers();
+    };

@@ -89,3 +89,12 @@ Stack.prototype.pop = function(){
 Stack.prototype.top = function(){
 	return this.stack[this.stack.length - 1];
 }
+
+class Illumination{
+	constructor(doublesided,local,ambient,background){
+		this.doublesided=doublesided;
+		this.local=local;
+		this.ambient=ambient;
+		this.background=background;
+	}
+}
