@@ -26,6 +26,7 @@ XMLscene.prototype.init = function (application) {
   this.materials = new Stack(null);
   this.textures = new Stack(null);
 
+  this.appearance = new CGFappearance(this);
 
 
   this.lightsBoolean=[];
@@ -33,8 +34,6 @@ XMLscene.prototype.init = function (application) {
   this.viewIndex=0;
   this.materialIndex = 0;
 
-
-  this.viewIndex=0;
   this.axis=new CGFaxis(this);
 
 };
@@ -63,14 +62,19 @@ XMLscene.prototype.onGraphLoaded = function ()
   this.loadLights();
 
   this.updateView();
+};
 
-
+XMLscene.prototype.setDefaultAppearance = function () {
+    this.setAmbient(0.2, 0.4, 0.8, 1.0);
+    this.setDiffuse(0.2, 0.4, 0.8, 1.0);
+    this.setSpecular(0.2, 0.4, 0.8, 1.0);
+    this.setShininess(10.0);
 };
 
 XMLscene.prototype.createGraph = function(initialNode){
 
   var material = null;
-  var appearance = new CGFappearance(this);
+
 
   if(initialNode != null){
     var newNode = this.graph.nodes[initialNode];
@@ -78,24 +82,30 @@ XMLscene.prototype.createGraph = function(initialNode){
       this.materials.push(this.graph.materials[newNode.material[this.materialIndex]]);
       material = this.materials.top();
       this.materials.pop();
+      if(material != null){
+        this.appearance.setEmission(material.emission.r, material.emission.g, material.emission.b, material.emission.a);
+        this.appearance.setAmbient(material.ambient.r,material.ambient.g,material.ambient.b,material.ambient.a);
+        this.appearance.setDiffuse(material.diffuse.r,material.diffuse.g,material.diffuse.b,material.diffuse.a);
+        this.appearance.setSpecular(material.specular.r,material.specular.g,material.specular.b,material.specular.a);
+        this.appearance.setShininess(material.shininess);
+
+      
+      }
+
     }
+
     else{
+
       this.materials.push(this.materials.top());
     }
 
-    if(material != null){
-      appearance.setEmission(material.emission.r, material.emission.g, material.emission.b, material.emission.a);
-      appearance.setAmbient(material.ambient.r,material.ambient.g,material.ambient.b,material.ambient.a);
-      appearance.setDiffuse(material.diffuse.r,material.diffuse.g,material.diffuse.b,material.diffuse.a);
-      appearance.setSpecular(material.specular.r,material.specular.g,material.specular.b,material.specular.a);
-      appearance.setShininess(material.shininess);
-    }
+
+
 
     if(newNode.texture != "none" && newNode.texture!= "inherit" && newNode.texture != null){
-
       this.textures.push(newNode.texture.file);
-      appearance.setTexture(this.textures.top());
-      appearance.apply();
+      this.appearance.setTexture(this.textures.top());
+      this.appearance.apply();
     }
     if(newNode.texture != null){
       if(newNode.texture == "inherit"){
@@ -109,6 +119,7 @@ XMLscene.prototype.createGraph = function(initialNode){
     if(newNode.primitive != null){
       this.pushMatrix();
       newNode.primitive.display();
+
       this.popMatrix();
     }
 
@@ -139,11 +150,13 @@ XMLscene.prototype.display = function () {
   this.updateLights();
   this.applyViewMatrix();
 
+  this.setDefaultAppearance();
+
   if (this.graph.loadedOk)
   {
     this.createGraph("start");
 
-  };
+  }
 
 
 };
