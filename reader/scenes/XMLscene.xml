@@ -1,6 +1,6 @@
 <dsx>
 
-  <globals background ="0 0.5 0.5 1" drawmode="fill" shading="gouraud" cullface="none" cullorder="CCW" />
+  
 
   <!-- deve definir-se um objeto para raiz do grafo , assim -->
   <!-- como o comprimento dos tres eixos (cilindros) -->
@@ -38,11 +38,14 @@
   </illumination>
 
   <textures>
-    <texture id="floor" file="./resources/images/carpet3.jpg" length_s="1.0" length_t="1.0" />
-    <texture id="wood" file="./resources/images/metal.jpg" length_s="1.0" length_t="1.0" />
-    <texture id="boia" file="./resources/images/boia.jpg" length_s="1.0" length_t="1.0" />
-    <texture id="wall" file="./resources/images/wall1.jpg" length_s="1.0" length_t="1.0" />
-    <texture id="sand" file="./resources/images/areia.jpg" length_s="1.0" length_t="1.0" />
+
+    <texture id="wood3" file="./resources/images/wood3.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="wood2" file="./resources/images/wood3.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="wood" file="./resources/images/wood3.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="wood4" file="./resources/images/wood4.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="boia" file="./resources/images/tire.png" length_s="1.0" length_t="1.0" />
+    <texture id="metal" file="./resources/images/metal.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="relva" file="./resources/images/relva.jpg" length_s="1.0" length_t="1.0" />
 
   </textures>
 
@@ -143,116 +146,185 @@
       <scale x="1" y="1" z="1" />
     </transformation>
 
-    <transformation id="torus">
-      <!-- instrucoes a usar sem limite nem ordem -->
-      <!-- deve existir pelo menos uma transformacao -->
-      <translate x="1" y="1.75" z="3" />
-      <rotate axis="x" angle="-90" />
-      <scale x="0.3" y="0.3" z="0.3" />
+    <transformation id="postetras">
+      <translate x="5" y="0" z="-3"/>
+      <rotate axis="x" angle="-60"/>
+      <scale x="0.4" y="0.4" z="8" />
     </transformation>
 
-    <transformation id="cube">
-      <translate x="1" y="1.5" z="2" />
-      <scale x="1.8" y="0.2" z="3" />
+    <transformation id="postefrente">
+      <translate x="5" y="0" z="3"/>
+      <rotate axis="x" angle="-120"/>
+      <scale x="0.4" y="0.4" z="8" />
     </transformation>
 
-    <transformation id="face1">
-      <translate x="0" y="0" z="0.5" />
+    <transformation id="postecima">
+      <translate x="-4" y="6" z="0"/>
+      <rotate axis="y" angle="90"/>
+      <rotate axis="z" angle="90"/>
+      <scale x="0.4" y="0.4" z="10" />
     </transformation>
 
-    <transformation id="face2">
-      <translate x="0" y="0" z="-0.5" />
-      <rotate axis="y" angle="180" />
+    <transformation id="fiodireita">
+      <translate x="-2.5" y="2" z="0"/>
+      <rotate axis="x" angle="-90"/>
+      <scale x="0.05" y="0.05" z="4" />
     </transformation>
 
-    <transformation id="face3">
-      <translate x="-0.5" y="0" z="0" />
-      <rotate axis="y" angle="-90" />
+    <transformation id="fioesquerda">
+      <translate x="-0.5" y="2" z="0"/>
+      <rotate axis="x" angle="-90"/>
+      <scale x="0.05" y="0.05" z="4" />
     </transformation>
 
-    <transformation id="face4">
-      <translate x="0.5" y="0" z="0" />
-      <rotate axis="y" angle="90" />
+    <transformation id="pneu">
+      <translate x="-1.5" y="2" z="0"/>
+      <rotate axis="x" angle="-90"/>
+      <scale x="1" y="1" z="1" />
     </transformation>
 
-    <transformation id="face5">
-      <translate x="0" y="-0.5" z="0" />
-      <rotate axis="x" angle="90" />
+    <transformation id="suportetrasdireita">
+      <translate x="-4.2" y="0" z="0"/>
+      <rotate axis="x" angle="-90"/>
+      <scale x="0.5" y="0.5" z="10" />
     </transformation>
 
-    <transformation id="face6">
-      <translate x="0" y="0.5" z="0" />
-      <rotate axis="x" angle="-90" />
+    <transformation id="suportetrasesquerda">
+      <translate x="-8.2" y="0" z="0"/>
+      <rotate axis="x" angle="-90"/>
+      <scale x="0.5" y="0.5" z="10" />
     </transformation>
 
-    <transformation id="leg1">
-      <translate x="0.2" y="0" z="3.4" />
-      <rotate axis="x" angle="-90" />
-      <scale x="0.1" y="0.1" z="1.5" />
-    </transformation>7
-
-    <transformation id="leg2">
-      <translate x="0.2" y="0" z="0.6" />
-      <rotate axis="x" angle="-90" />
-      <scale x="0.1" y="0.1" z="1.5" />
+    <transformation id="suportefrentedireita">
+      <translate x="-4.2" y="0" z="4"/>
+      <rotate axis="x" angle="-90"/>
+      <scale x="0.5" y="0.5" z="10" />
     </transformation>
 
-    <transformation id="leg3">
-      <translate x="1.8" y="0" z="3.4" />
-      <rotate axis="x" angle="-90" />
-      <scale x="0.1" y="0.1" z="1.5" />
+    <transformation id="suportefrenteesquerda">
+      <translate x="-8.2" y="0" z="4"/>
+      <rotate axis="x" angle="-90"/>
+      <scale x="0.5" y="0.5" z="10" />
     </transformation>
 
-    <transformation id="leg4">
-      <translate x="1.8" y="0" z="0.6" />
-      <rotate axis="x" angle="-90" />
-      <scale x="0.1" y="0.1" z="1.5" />
+
+    <transformation id="base">
+      <translate x="-6.2" y="4" z="2"/>
+      <rotate axis="x" angle="-90"/>
+      <scale x="4" y="4" z="4" />
     </transformation>
 
-    <transformation id="triangle1">
-      <translate x="0.8" y="1.6" z="0.7" />
-      <rotate axis="x" angle="30" />
+    <transformation id="basedireita">
+      <translate x="-4.1" y="4" z="0"/>
+      <rotate axis="z" angle="180"/>
+      <scale x="0.3" y="0.3" z="4" />
     </transformation>
 
-    <transformation id="triangle2">
-      <translate x="0.8" y="1.6" z="1.7" />
-      <rotate axis="x" angle="-30" />
-      <rotate axis="y" angle="180" />
+    <transformation id="basetras">
+      <translate x="-4.1" y="4" z="0"/>
+      <rotate axis="z" angle="180"/>
+      <rotate axis="y" angle="90"/>
+      <scale x="0.3" y="0.3" z="4" />
     </transformation>
 
-    <transformation id="triangle3">
-      <translate x="0.3" y="1.6" z="1.2" />
-      <rotate axis="z" angle="-30" />
-      <rotate axis="y" angle="90" />
+    <transformation id="basefrente">
+      <translate x="-4.1" y="4" z="4"/>
+      <rotate axis="z" angle="180"/>
+      <rotate axis="y" angle="90"/>
+      <scale x="0.3" y="0.3" z="2" />
     </transformation>
 
-    <transformation id="triangle4">
-      <translate x="1.3" y="1.6" z="1.2" />
-      <rotate axis="z" angle="30" />
-      <rotate axis="y" angle="-90" />
+    <transformation id="baseesquerda">
+      <translate x="-8.3" y="4" z="0"/>
+      <rotate axis="z" angle="180"/>
+      <scale x="0.3" y="0.3" z="4" />
     </transformation>
 
-    <transformation id="rightwall">
-      <scale x="7" y="5" z="7" />
-      <translate x="0.5" y="0.5" z="0" />
-      <rotate axis="z" angle="90" />
-      <rotate axis="z" angle="90" />
-
+    <transformation id="tetodireita">
+      <translate x="-4.65" y="11" z="2"/>
+      <rotate axis="y" angle="90"/>
+      <rotate axis="x" angle="-35"/>
+      <scale x="4.5" y="5.35" z="4" />
     </transformation>
 
-    <transformation id="leftwall">
-      <scale x="7" y="5" z="7" />
-      <translate x="0" y="0.5" z="0.5" />
-      <rotate axis="y" angle="90" />
-      <rotate axis="z" angle="180" />
+    <transformation id="tetoesquerda">
+      <translate x="-7.7" y="11" z="2"/>
+      <rotate axis="y" angle="90"/>
+      <rotate axis="x" angle="35"/>
+      <scale x="4.5" y="5.35" z="4.5" />
     </transformation>
 
-    <transformation id="floor">
-      <scale x="7" y="7" z="7" />
-      <translate x="0.5" y="0" z="0.5" />
-      <rotate axis="x" angle="-90" />
-      <rotate axis="z" angle="180" />
+    <transformation id="gradedireita">
+      <translate x="-4.1" y="6" z="0"/>
+      <rotate axis="z" angle="180"/>
+      <scale x="0.3" y="0.3" z="4" />
     </transformation>
+
+    <transformation id="gradetras">
+      <translate x="-4.1" y="6" z="0"/>
+      <rotate axis="z" angle="180"/>
+      <rotate axis="y" angle="90"/>
+      <scale x="0.3" y="0.3" z="4" />
+    </transformation>
+
+    <transformation id="gradefrente">
+      <translate x="-4.1" y="6" z="4"/>
+      <rotate axis="z" angle="180"/>
+      <rotate axis="y" angle="90"/>
+      <scale x="0.3" y="0.3" z="2" />
+    </transformation>
+
+    <transformation id="gradeesquerda">
+      <translate x="-8.3" y="6" z="0"/>
+      <rotate axis="z" angle="180"/>
+      <scale x="0.3" y="0.3" z="4" />
+    </transformation>
+
+    <transformation id="cenas">
+      <translate x="-7" y="3.95" z="3.95" />
+      <rotate axis="x" angle="45"/>
+      <scale x="2" y="0.2" z="5.6" />
+    </transformation>
+
+    <transformation id="ladodireito">
+      <translate x="-8" y="2" z="6.4" />
+      <rotate axis="y" angle="90"/>
+      <rotate axis="z" angle="45"/>
+      <scale x="5" y="1" z="1" />
+    </transformation>
+
+    <transformation id="ladoesquerdo">
+      <translate x="-6" y="2" z="6.4" />
+      <rotate axis="y" angle="90"/>
+      <rotate axis="z" angle="45"/>
+      <scale x="5" y="1" z="1" />
+    </transformation>
+
+    <transformation id="relva">
+      <rotate axis="x" angle="-90"/>
+      <scale x="20" y="20" z="20" />
+    </transformation>
+
+    <transformation id="fiodireita1">
+      <translate x="1" y="2" z="0"/>
+      <rotate axis="x" angle="-90"/>
+      <scale x="0.05" y="0.05" z="4" />
+    </transformation>
+
+    <transformation id="fioesquerda1">
+      <translate x="3" y="2" z="0"/>
+      <rotate axis="x" angle="-90"/>
+      <scale x="0.05" y="0.05" z="4" />
+    </transformation>
+
+    <transformation id="pneu1">
+      <translate x="2" y="2" z="0"/>
+      <rotate axis="x" angle="-90"/>
+      <scale x="1" y="1" z="1" />
+    </transformation>
+
+
+
 
   </transformations>
 
@@ -268,7 +340,7 @@
     </primitive>
 
     <primitive id="torus">
-      <torus inner="0.5" outer="1" slices="20" loops="10" />
+      <torus inner="0.3" outer="1" slices="20" loops="10" />
     </primitive>
 
     <primitive id="cylinder">
@@ -286,38 +358,40 @@
   <components>
 
     <component id="start">
+      <transformation>
+        <transformationref id="sample"/>
+      </transformation>
+
+      <children>
+        <componentref id="baloiço" />
+        <componentref id="escorrega"/>
+        <componentref id="relva"/>
+      </children>
+
+      <materials>
+          <material id="material1" />
+      </materials>
+
+      <texture id="none" />
+    </component>
+
+    <component id="baloiço">
       <!-- bloco "transformation" obrigatorio -->
       <transformation>
         <transformationref id="sample"/>
       </transformation>
 
       <children>
-        <componentref id="table" />
-        <componentref id="torus1" />
-        <componentref id="pyramid"/>
-        <componentref id="rightwall"/>
-        <componentref id="leftwall"/>
-        <componentref id="floor"/>
-      </children>
+        <componentref id="postefrente" />
+        <componentref id="postetras" />
+        <componentref id="postecima" />
+        <componentref id="fiodireita" />
+        <componentref id="fioesquerda" />
+        <componentref id="pneu" />
+        <componentref id="fiodireita1" />
+        <componentref id="fioesquerda1" />
+        <componentref id="pneu1" />
 
-      <materials>
-          <material id="material1" />
-          <material id="material2" />
-      </materials>
-
-      <texture id="none" />
-
-    </component>
-
-    <component id="table">
-
-      <transformation>
-        <transformationref id="sample"/>
-      </transformation>
-
-      <children>
-        <componentref id="cube" />
-        <componentref id="legs" />
       </children>
 
       <materials>
@@ -328,37 +402,14 @@
 
     </component>
 
-    <component id="cube">
+    <component id="postefrente">
 
       <transformation>
-        <transformationref id="cube"/>
+        <transformationref id="postefrente"/>
       </transformation>
 
       <children>
-        <componentref id="face1"/>
-        <componentref id="face2"/>
-        <componentref id="face3"/>
-        <componentref id="face4"/>
-        <componentref id="face5"/>
-        <componentref id="face6"/>
-      </children>
-
-      <materials>
-          <material id="inherit" />
-      </materials>
-
-      <texture id="wood" />
-
-    </component>
-
-    <component id="face1">
-
-      <transformation>
-        <transformationref id="face1"/>
-      </transformation>
-
-      <children>
-        <primitiveref id="quad"/>
+        <primitiveref id="cylinder" />
       </children>
 
       <materials>
@@ -366,17 +417,16 @@
       </materials>
 
       <texture id="inherit" />
-
     </component>
 
-    <component id="face2">
+    <component id="postetras">
 
       <transformation>
-        <transformationref id="face2"/>
+        <transformationref id="postetras"/>
       </transformation>
 
       <children>
-        <primitiveref id="quad"/>
+        <primitiveref id="cylinder" />
       </children>
 
       <materials>
@@ -384,17 +434,17 @@
       </materials>
 
       <texture id="inherit" />
-
     </component>
 
-    <component id="face3">
+
+    <component id="postecima">
 
       <transformation>
-        <transformationref id="face3"/>
+        <transformationref id="postecima"/>
       </transformation>
 
       <children>
-        <primitiveref id="quad"/>
+        <primitiveref id="cylinder" />
       </children>
 
       <materials>
@@ -402,164 +452,50 @@
       </materials>
 
       <texture id="inherit" />
-
     </component>
 
-    <component id="face4">
+    <component id="fiodireita">
 
       <transformation>
-        <transformationref id="face4"/>
+        <transformationref id="fiodireita"/>
       </transformation>
 
       <children>
-        <primitiveref id="quad"/>
+        <primitiveref id="cylinder" />
       </children>
 
       <materials>
           <material id="inherit" />
       </materials>
 
-      <texture id="inherit" />
-
+      <texture id="metal" />
     </component>
 
-    <component id="face5">
+    <component id="fioesquerda">
 
       <transformation>
-        <transformationref id="face5"/>
+        <transformationref id="fioesquerda"/>
       </transformation>
 
       <children>
-        <primitiveref id="quad"/>
+        <primitiveref id="cylinder" />
       </children>
 
       <materials>
           <material id="inherit" />
       </materials>
 
-      <texture id="inherit" />
-
+      <texture id="metal" />
     </component>
 
-    <component id="face6">
+    <component id="pneu">
 
       <transformation>
-        <transformationref id="face6"/>
+        <transformationref id="pneu"/>
       </transformation>
 
       <children>
-        <primitiveref id="quad"/>
-      </children>
-
-      <materials>
-          <material id="inherit" />
-      </materials>
-
-      <texture id="inherit" />
-
-    </component>
-
-    <component id="legs">
-
-      <transformation>
-        <transformationref id="sample"/>
-      </transformation>
-
-      <children>
-        <componentref id="leg1"/>
-        <componentref id="leg2"/>
-        <componentref id="leg3"/>
-        <componentref id="leg4"/>
-      </children>
-
-      <materials>
-          <material id="inherit" />
-      </materials>
-
-      <texture id="wood" />
-
-    </component>
-
-    <component id="leg1">
-
-      <transformation>
-        <transformationref id="leg1"/>
-      </transformation>
-
-      <children>
-        <primitiveref id="cylinder"/>
-      </children>
-
-      <materials>
-          <material id="inherit" />
-      </materials>
-
-      <texture id="inherit" />
-
-    </component>
-
-    <component id="leg2">
-
-      <transformation>
-        <transformationref id="leg2"/>
-      </transformation>
-
-      <children>
-        <primitiveref id="cylinder"/>
-      </children>
-
-      <materials>
-          <material id="inherit" />
-      </materials>
-
-      <texture id="inherit" />
-
-    </component>
-
-    <component id="leg3">
-
-      <transformation>
-        <transformationref id="leg3"/>
-      </transformation>
-
-      <children>
-        <primitiveref id="cylinder"/>
-      </children>
-
-      <materials>
-          <material id="inherit" />
-      </materials>
-
-      <texture id="inherit" />
-
-    </component>
-
-    <component id="leg4">
-
-      <transformation>
-        <transformationref id="leg4"/>
-      </transformation>
-
-      <children>
-        <primitiveref id="cylinder"/>
-      </children>
-
-      <materials>
-          <material id="inherit" />
-      </materials>
-
-      <texture id="inherit" />
-
-    </component>
-
-    <component id="torus1">
-
-      <transformation>
-        <transformationref id="torus"/>
-      </transformation>
-
-      <children>
-        <primitiveref id="torus"/>
+        <primitiveref id="torus" />
       </children>
 
       <materials>
@@ -567,39 +503,51 @@
       </materials>
 
       <texture id="boia" />
-
     </component>
 
-    <component id="pyramid">
+    <component id="escorrega">
 
       <transformation>
         <transformationref id="sample"/>
       </transformation>
 
       <children>
-        <componentref id="triangle1"/>
-        <componentref id="triangle2"/>
-        <componentref id="triangle3"/>
-        <componentref id="triangle4"/>
+        <componentref id="suportetrasdireita" />
+        <componentref id="suportetrasesquerda" />
+        <componentref id="suportefrentedireita" />
+        <componentref id="suportefrenteesquerda" />
+        <componentref id="base"/>
+        <componentref id="basedireita"/>
+        <componentref id="baseesquerda"/>
+        <componentref id="basefrente"/>
+        <componentref id="basetras"/>
+        <componentref id="tetodireita"/>
+        <componentref id="tetoesquerda"/>
+        <componentref id="gradedireita"/>
+        <componentref id="gradeesquerda"/>
+        <componentref id="gradefrente"/>
+        <componentref id="gradetras"/>
+        <componentref id="cenas"/>
+        <componentref id="ladodireito"/>
+        <componentref id="ladoesquerdo"/>
+
       </children>
 
       <materials>
           <material id="inherit" />
       </materials>
 
-      <texture id="sand" />
-
+      <texture id="wood" />
     </component>
 
-
-    <component id="triangle1">
+    <component id="suportetrasdireita">
 
       <transformation>
-        <transformationref id="triangle1"/>
+        <transformationref id="suportetrasdireita"/>
       </transformation>
 
       <children>
-        <primitiveref id="triangle"/>
+        <primitiveref id="cylinder" />
       </children>
 
       <materials>
@@ -607,17 +555,16 @@
       </materials>
 
       <texture id="inherit" />
-
     </component>
 
-    <component id="triangle2">
+    <component id="suportetrasesquerda">
 
       <transformation>
-        <transformationref id="triangle2"/>
+        <transformationref id="suportetrasesquerda"/>
       </transformation>
 
       <children>
-        <primitiveref id="triangle"/>
+        <primitiveref id="cylinder" />
       </children>
 
       <materials>
@@ -625,17 +572,16 @@
       </materials>
 
       <texture id="inherit" />
-
     </component>
 
-    <component id="triangle3">
+    <component id="suportefrentedireita">
 
       <transformation>
-        <transformationref id="triangle3"/>
+        <transformationref id="suportefrentedireita"/>
       </transformation>
 
       <children>
-        <primitiveref id="triangle"/>
+        <primitiveref id="cylinder" />
       </children>
 
       <materials>
@@ -643,17 +589,16 @@
       </materials>
 
       <texture id="inherit" />
-
     </component>
 
-    <component id="triangle4">
+    <component id="suportefrenteesquerda">
 
       <transformation>
-        <transformationref id="triangle4"/>
+        <transformationref id="suportefrenteesquerda"/>
       </transformation>
 
       <children>
-        <primitiveref id="triangle"/>
+        <primitiveref id="cylinder" />
       </children>
 
       <materials>
@@ -661,13 +606,12 @@
       </materials>
 
       <texture id="inherit" />
-
     </component>
 
-    <component id="leftwall">
+    <component id="base">
 
       <transformation>
-        <transformationref id="leftwall"/>
+        <transformationref id="base"/>
       </transformation>
 
       <children>
@@ -678,14 +622,86 @@
           <material id="inherit" />
       </materials>
 
-      <texture id="wall" />
+      <texture id="wood2" />
 
     </component>
 
-    <component id="rightwall">
+    <component id="basedireita">
 
       <transformation>
-        <transformationref id="rightwall"/>
+        <transformationref id="basedireita"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="inherit" />
+
+    </component>
+
+    <component id="baseesquerda">
+
+      <transformation>
+        <transformationref id="baseesquerda"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="inherit" />
+
+    </component>
+
+    <component id="basefrente">
+
+      <transformation>
+        <transformationref id="basefrente"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="inherit" />
+
+    </component>
+
+    <component id="basetras">
+
+      <transformation>
+        <transformationref id="basetras"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="inherit" />
+
+    </component>
+
+    <component id="tetodireita">
+
+      <transformation>
+        <transformationref id="tetodireita"/>
       </transformation>
 
       <children>
@@ -694,29 +710,230 @@
 
       <materials>
           <material id="inherit" />
-
       </materials>
 
-      <texture id="wall" />
+      <texture id="wood4" />
 
     </component>
 
-    <component id="floor">
+    <component id="tetoesquerda">
 
       <transformation>
-        <transformationref id="floor"/>
+        <transformationref id="tetoesquerda"/>
       </transformation>
 
       <children>
         <primitiveref id="quad"/>
       </children>
+
       <materials>
           <material id="inherit" />
       </materials>
 
-      <texture id="floor" />
+      <texture id="wood4" />
 
     </component>
+
+    <component id="gradedireita">
+
+      <transformation>
+        <transformationref id="gradedireita"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="wood" />
+
+    </component>
+
+    <component id="gradeesquerda">
+
+      <transformation>
+        <transformationref id="gradeesquerda"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="wood" />
+
+    </component>
+
+    <component id="gradefrente">
+
+      <transformation>
+        <transformationref id="gradefrente"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="wood" />
+      </materials>
+
+      <texture id="inherit" />
+
+    </component>
+
+    <component id="gradetras">
+
+      <transformation>
+        <transformationref id="gradetras"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="wood" />
+      </materials>
+
+      <texture id="inherit" />
+
+    </component>
+
+
+    <component id="cenas">
+
+      <transformation>
+        <transformationref id="cenas"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="wood3" />
+
+    </component>
+
+    <component id="ladodireito">
+
+      <transformation>
+        <transformationref id="ladodireito"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="quad"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="wood" />
+
+    </component>
+
+    <component id="ladoesquerdo">
+
+      <transformation>
+        <transformationref id="ladoesquerdo"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="quad"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="wood" />
+
+    </component>
+
+    <component id="relva">
+
+      <transformation>
+        <transformationref id="relva"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="quad"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+          <material id="material2" />
+      </materials>
+
+      <texture id="relva" />
+
+    </component>
+
+    <component id="fiodireita1">
+
+      <transformation>
+        <transformationref id="fiodireita1"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder" />
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="metal" />
+    </component>
+
+    <component id="fioesquerda1">
+
+      <transformation>
+        <transformationref id="fioesquerda1"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder" />
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="metal" />
+    </component>
+
+    <component id="pneu1">
+
+      <transformation>
+        <transformationref id="pneu1"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="torus" />
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="boia" />
+    </component>
+
+
+
+
 
   </components>
 

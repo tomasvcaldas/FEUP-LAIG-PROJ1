@@ -77,7 +77,9 @@ XMLscene.prototype.createGraph = function(initialNode){
 
 
   if(initialNode != null){
+
     var newNode = this.graph.nodes[initialNode];
+
     if(newNode.material[this.materialIndex] != "inherit"){
       this.materials.push(this.graph.materials[newNode.material[this.materialIndex]]);
       material = this.materials.top();
@@ -89,7 +91,7 @@ XMLscene.prototype.createGraph = function(initialNode){
         this.appearance.setSpecular(material.specular.r,material.specular.g,material.specular.b,material.specular.a);
         this.appearance.setShininess(material.shininess);
 
-      
+
       }
 
     }

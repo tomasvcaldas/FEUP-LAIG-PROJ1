@@ -57,10 +57,9 @@ MySceneGraph.prototype.onXMLReady=function()
 /*
 * Example of method that parses elements of one block and stores information in a specific data structure
 */
-
 MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
-	var elems =  rootElement.getElementsByTagName('globals');
+	/*var elems =  rootElement.getElementsByTagName('globals');
 	if (elems === null) {
 		return "globals element is missing.";
 	}
@@ -76,21 +75,28 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	this.cullface = this.reader.getItem(globals, 'cullface', ["back","front","none", "frontandback"]);
 	this.cullorder = this.reader.getItem(globals, 'cullorder', ["ccw","cw"]);
 
-	//console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");
-
+	console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");
+*/
 	//-----------------------------------------------------------------------------//
-	//SCENE------------------------------------------------------------------------//
+	//LISTAS ----------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------//
+	/*var tempList=rootElement.getElementsByTagName('list');
 
-	var scene = rootElement.getElementsByTagName('scene')[0];
-
-	if (scene == null) {
-			this.onXMLError("Error loading scene, No Scene Tag");
-			return 1;
+	if (tempList == null  || tempList.length==0) {
+		return "list element is missing.";
 	}
 
-	this.root = this.reader.getString(scene, 'root');
-	this.axis_length = this.reader.getFloat(scene, 'axis_length');
+	this.list=[];
+	// iterate over every element
+	var nnodes=tempList[0].children.length;
+	for (var i=0; i< nnodes; i++)
+	{
+		var e=tempList[0].children[i];
+
+		// process each element and store its information
+		this.list[e.id]=e.attributes.getNamedItem("coords").value;
+		console.log("Read list item id "+ e.id+" with value "+this.list[e.id]);
+	}*/
 
 	//-----------------------------------------------------------------------------//
 	//PRIMITIVAS ------------------------------------------------------------------//
@@ -101,6 +107,9 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	if (tempPrim == null  || tempPrim.length==0) {
 		return "primitives element is missing.";
 	}
+
+
+
 
 	for(var i = 0; i < tempPrim[0].children.length ; i++){
 
@@ -234,51 +243,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 		this.materials[id] = material;
 	}
 
-		//this.materials[id] = newMaterial;
 
-			/*if(currentMat.children[j].tagName == 'emission'){
-
-				emission[0] = currentMat.children[i].attributes.getNamedItem("r").value;
-				emission[1] = currentMat.children[i].attributes.getNamedItem("g").value;
-				emission[2] = currentMat.children[i].attributes.getNamedItem("g").value;
-				emission[3] = currentMat.children[i].attributes.getNamedItem("a").value;
-			}
-
-			if(currentMat.children[j].tagName == 'ambient'){
-				ambient[0] = currentMat.children[i].attributes.getNamedItem("r").value;
-				ambient[1] = currentMat.children[i].attributes.getNamedItem("g").value;
-				ambient[2] = currentMat.children[i].attributes.getNamedItem("g").value;
-				ambient[3] = currentMat.children[i].attributes.getNamedItem("a").value;
-			}
-
-			if(currentMat.children[j].tagName == 'diffuse'){
-
-				diffuse[0] = currentMat.children[i].attributes.getNamedItem("r").value;
-				diffuse[1] = currentMat.children[i].attributes.getNamedItem("g").value;
-				diffuse[2] = currentMat.children[i].attributes.getNamedItem("g").value;
-				diffuse[3] = currentMat.children[i].attributes.getNamedItem("a").value;
-			}
-
-			if(currentMat.children[j].tagName == 'specular'){
-
-				specular[0] = currentMat.children[i].attributes.getNamedItem("r").value;
-				specular[1] = currentMat.children[i].attributes.getNamedItem("g").value;
-				specular[2] = currentMat.children[i].attributes.getNamedItem("g").value;
-				specular[3] = currentMat.children[i].attributes.getNamedItem("a").value;
-			}
-
-			if(currentMat.children[j].tagName == 'shininess'){
-				shininess = this.reader.getFloat(currentMat.getElementsByTagName('shininess')[0], 'value');
-			}
-
-			var newMaterial = new CGFappearance(this.scene);
-			newMaterial.setEmission(emission[0],emission[1],emission[2],emission[3]);
-			newMaterial.setAmbient(ambient[0],ambient[1],ambient[2],ambient[3]);
-			newMaterial.setDiffuse(diffuse[0],diffuse[1],diffuse[2],diffuse[3]);
-			newMaterial.setSpecular(specular[0],specular[1],specular[2],specular[3]);
-			newMaterial.setShininess(shininess);
-			newMaterial.setTextureWrap('REPEAT', 'REPEAT');
-			this.materials[matID] = newMaterial;*/
 
 
 
@@ -316,10 +281,23 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 
 		var nodeId = tempNode.attributes.getNamedItem("id").value; // id do component
-		var nodeTransformation =  tempNode.getElementsByTagName('transformation');
-		var idTransf1 =  nodeTransformation[0].children[0].attributes.getNamedItem("id").value;
-		node.mat = this.transformations[idTransf1];
 
+		var nodeTransformation =  tempNode.getElementsByTagName('transformation');
+
+		if(nodeTransformation[0].children[0].tagName == "transformationref"){
+
+			var idTransf1 =  nodeTransformation[0].children[0].attributes.getNamedItem("id").value;
+			node.mat = this.transformations[idTransf1];
+		}
+		else{
+
+			for(var t = 0; t < nodeTransformation[0].children.length; t++){
+				this.getTransformationMatrix(nodeTransformation[0].children[t]);
+
+
+			}
+
+		}
 
 
 		//materiais
@@ -367,6 +345,25 @@ var background = this.getColor(illum.getElementsByTagName('background')[0]);
 
 this.illumination = new Illumination(doublesided,local,ambient,background);
 
+
+
+//-----------------------------------------------------------------------------//
+//SCENE------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------//
+
+var tempScene=rootElement.getElementsByTagName('scene');
+
+if (tempScene == null  || tempScene.length==0) {
+	return "scene element is missing.";
+}
+
+this.sceneLine=[];
+
+var sceneLine = tempScene[0];
+
+console.log("Read scene item with root axis_length values: " +
+sceneLine.attributes.getNamedItem("root").value + " " +
+sceneLine.attributes.getNamedItem("axis_length").value + ".");
 
 //-----------------------------------------------------------------------------//
 //VIEWS------------------------------------------------------------------------//
