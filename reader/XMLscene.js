@@ -26,7 +26,7 @@ XMLscene.prototype.init = function (application) {
   this.materials = new Stack(null);
   this.textures = new Stack(null);
   this.appearance = new CGFappearance(this);
-  this.patch = new MyPatch(this, 2, 1, 10, 10)
+  this.patch = new MyPatch(this, 2, 1, 10, 10);
   this.plane = new MyPlane(this, 5, 5);
 
 
@@ -34,6 +34,8 @@ XMLscene.prototype.init = function (application) {
 
   this.viewIndex=0;
   this.materialIndex = 0;
+  this.setUpdatePeriod(100/6);
+  this.startTime = 0;
 
   this.axis=new CGFaxis(this);
 
@@ -64,7 +66,6 @@ XMLscene.prototype.setDefaultAppearance = function () {
 XMLscene.prototype.createGraph = function(initialNode){
 
   var material = null;
-
 
   if(initialNode != null){
 
@@ -127,6 +128,13 @@ XMLscene.prototype.createGraph = function(initialNode){
 };
 
 
+XMLscene.prototype.update = function(currTime) {
+  if (this.startTime == 0)
+    this.startTime = currTime;
+  this.elapsedTime = (currTime - this.startTime) / 1000;
+};
+
+
 XMLscene.prototype.display = function () {
   // ---- BEGIN Background, camera and axis setup
 
@@ -144,8 +152,7 @@ XMLscene.prototype.display = function () {
 
   this.setDefaultAppearance();
   this.axis.display();
-  this.patch.display();
-  this.plane.display();
+  this.patch.display(this.elapsedTime);
 
   /*
   if (this.graph.loadedOk)

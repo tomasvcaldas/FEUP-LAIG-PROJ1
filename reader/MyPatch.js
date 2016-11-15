@@ -38,6 +38,7 @@
 
     this.patch = new CGFnurbsObject(this.scene, getSurfacePoint, this.dX, this.dY);
 
+    this.animation = new MyCircularAnimation(scene,0,5,0,0,0,0,0,0,90);
   };
 
   MyPatch.prototype = Object.create(CGFobject.prototype);
@@ -52,8 +53,9 @@
       v.push(1);
     }
     return v;
-  }
+  };
 
-  MyPatch.prototype.display = function(){
+  MyPatch.prototype.display = function(time){
+    this.animation.apply(time);
     this.patch.display();
   };
