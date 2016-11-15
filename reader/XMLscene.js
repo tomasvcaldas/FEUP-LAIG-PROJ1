@@ -25,8 +25,8 @@ XMLscene.prototype.init = function (application) {
 
   this.materials = new Stack(null);
   this.textures = new Stack(null);
-
   this.appearance = new CGFappearance(this);
+  this.plane = new MyPlane(this, 5, 5);
 
 
   this.lightsBoolean=[];
@@ -153,13 +153,13 @@ XMLscene.prototype.display = function () {
   this.applyViewMatrix();
 
   this.setDefaultAppearance();
+  this.plane.display();
 
+  /*
   if (this.graph.loadedOk)
   {
     this.createGraph("start");
-
-  }
-
+  }*/
 
 };
 
@@ -177,7 +177,7 @@ XMLscene.prototype.loadLights = function () {
     this.lights[index].setSpecular(omni.specular.r, omni.specular.g, omni.specular.b, omni.specular.a);
 
     if (omni.enabled) this.lights[index].enable();
-    this.lights[index].setVisible(true);
+    this.lights[index].setVisible(false);
     this.lights[index].update();
 
     this.lightsBoolean[index] = omni.enabled;
@@ -187,8 +187,6 @@ XMLscene.prototype.loadLights = function () {
 
   for(var i=0; i < this.graph.spotLights.length;i++,index++){
     //Percorrer vetor de luzes spot
-
-
 
     var spot = this.graph.spotLights[i];
 
@@ -200,17 +198,20 @@ XMLscene.prototype.loadLights = function () {
     this.lights[index].setSpotExponent(spot.exponent);
 
     if (spot.enabled) this.lights[index].enable();
-    this.lights[index].setVisible(true);
+    this.lights[index].setVisible(false);
     this.lights[index].update();
 
     this.lightsBoolean[index] = spot.enabled;
     this.myInterface.addLight("spot",index, spot.id);
   }
 
+  console.log(this.lights);
+
 };
 
 XMLscene.prototype.updateLights = function(){
   for(var i = 0; i < this.lightsBoolean.length; i++){
+    this.lights[i].setVisible(true);
     if(this.lightsBoolean[i] == true)
     this.lights[i].enable();
     else
