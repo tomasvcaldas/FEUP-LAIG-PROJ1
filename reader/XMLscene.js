@@ -25,8 +25,8 @@ XMLscene.prototype.init = function (application) {
 
   this.materials = new Stack(null);
   this.textures = new Stack(null);
-
   this.appearance = new CGFappearance(this);
+  this.patch = new MyPatch(this, 2, 1, 10, 10)
 
 
   this.lightsBoolean=[];
@@ -37,17 +37,6 @@ XMLscene.prototype.init = function (application) {
   this.axis=new CGFaxis(this);
 
 };
-
-/*XMLscene.prototype.initLights = function () {
-
-  //OMNI
-  this.lights[0].setPosition(5, 5, 5, 0.2);
-  this.lights[0].setAmbient(0.8,0.8,0.8, 0.8);
-  this.lights[0].setDiffuse(0.5, 0.5, 0.5, 0.5);
-  this.lights[0].setSpecular(1, 1, 0, 1);
-  this.lights[0].enable();
-
-};*/
 
 XMLscene.prototype.initCameras = function () {
   this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
@@ -153,13 +142,14 @@ XMLscene.prototype.display = function () {
   this.applyViewMatrix();
 
   this.setDefaultAppearance();
+  this.axis.display();
+  this.patch.display();
 
+  /*
   if (this.graph.loadedOk)
   {
     this.createGraph("start");
-
-  }
-
+  }*/
 
 };
 
@@ -177,7 +167,7 @@ XMLscene.prototype.loadLights = function () {
     this.lights[index].setSpecular(omni.specular.r, omni.specular.g, omni.specular.b, omni.specular.a);
 
     if (omni.enabled) this.lights[index].enable();
-    this.lights[index].setVisible(true);
+    this.lights[index].setVisible(false);
     this.lights[index].update();
 
     this.lightsBoolean[index] = omni.enabled;
@@ -187,8 +177,6 @@ XMLscene.prototype.loadLights = function () {
 
   for(var i=0; i < this.graph.spotLights.length;i++,index++){
     //Percorrer vetor de luzes spot
-
-
 
     var spot = this.graph.spotLights[i];
 
@@ -200,17 +188,20 @@ XMLscene.prototype.loadLights = function () {
     this.lights[index].setSpotExponent(spot.exponent);
 
     if (spot.enabled) this.lights[index].enable();
-    this.lights[index].setVisible(true);
+    this.lights[index].setVisible(false);
     this.lights[index].update();
 
     this.lightsBoolean[index] = spot.enabled;
     this.myInterface.addLight("spot",index, spot.id);
   }
 
+  console.log(this.lights);
+
 };
 
 XMLscene.prototype.updateLights = function(){
   for(var i = 0; i < this.lightsBoolean.length; i++){
+    this.lights[i].setVisible(true);
     if(this.lightsBoolean[i] == true)
     this.lights[i].enable();
     else
