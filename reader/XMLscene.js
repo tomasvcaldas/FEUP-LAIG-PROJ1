@@ -27,6 +27,7 @@ XMLscene.prototype.init = function (application) {
   this.textures = new Stack(null);
   this.appearance = new CGFappearance(this);
   this.patch = new MyPatch(this, 2, 1, 10, 10)
+  this.plane = new MyPlane(this, 5, 5);
 
 
   this.lightsBoolean=[];
@@ -144,6 +145,7 @@ XMLscene.prototype.display = function () {
   this.setDefaultAppearance();
   this.axis.display();
   this.patch.display();
+  this.plane.display();
 
   /*
   if (this.graph.loadedOk)
