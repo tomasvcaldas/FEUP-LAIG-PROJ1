@@ -13,6 +13,8 @@
     this.dX = divX;
     this.dY = divY;
 
+    this.points = [[0,0,0],[2,2,2],[4,4,4]];
+
     this.controlP = [	// U = 0
             [ // V = 0..1;
             [ -1.5, -1.5, 0, 1 ],
@@ -36,8 +38,10 @@
       return nurbsSurface.getPoint(u,v);
     };
 
+
     this.patch = new CGFnurbsObject(this.scene, getSurfacePoint, this.dX, this.dY);
 
+    this.animation = new MyLinearAnimation(scene,0,10,0,this.points);
   };
 
   MyPatch.prototype = Object.create(CGFobject.prototype);
@@ -52,8 +56,9 @@
       v.push(1);
     }
     return v;
-  }
+  };
 
-  MyPatch.prototype.display = function(){
+  MyPatch.prototype.display = function(time){
+    this.animation.apply(time);
     this.patch.display();
   };
