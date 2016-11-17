@@ -41,7 +41,11 @@
 
     this.patch = new CGFnurbsObject(this.scene, getSurfacePoint, this.dX, this.dY);
 
+
     this.animation = new MyLinearAnimation(scene,0,10,0,this.points);
+/*
+    this.animation = new MyCircularAnimation(scene,0,5,0,0,0,0,0,0,90);*/
+
   };
 
   MyPatch.prototype = Object.create(CGFobject.prototype);
