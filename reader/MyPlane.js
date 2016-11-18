@@ -2,8 +2,13 @@
  * @constructor
  */
 
-function MyPlane(scene, dx, dy) {
+function MyPlane(scene, dx, dy, partsx, partsy) {
 	this.scene = scene;
+
+	this.dx = parseInt(dx);
+	this.dy = parseInt(dy);
+	this.partsx = parseInt(partsx);
+	this.partsy = parseInt(partsy);
 
 	var knots = [0, 0, 1, 1];
 	var controlPoints = [
@@ -23,7 +28,7 @@ function MyPlane(scene, dx, dy) {
 		return nurbsSurface.getPoint(u, v);
 	};
 
-	this.plane = new CGFnurbsObject(this.scene, getSurfacePoint, dx, dy);
+	this.plane = new CGFnurbsObject(this.scene, getSurfacePoint, this.partsx, this.partsy);
 
 }
 

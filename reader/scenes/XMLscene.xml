@@ -352,6 +352,11 @@
     </primitive>
 
 
+    <primitive id = "plane">
+      <plane dimX="3" dimY="3" partsX="10" partsY="7"/>
+    </primitive>
+
+
   </primitives>
 
 
@@ -366,6 +371,7 @@
         <componentref id="baloiço" />
         <componentref id="escorrega"/>
         <componentref id="relva"/>
+        <componentref id="plane"/>
       </children>
 
       <materials>
@@ -374,6 +380,22 @@
 
       <texture id="none" />
     </component>
+
+    <component id="plane">
+      <transformation>
+        <transformationref id="sample"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="plane" />
+      </children>
+
+      <materials>
+        <material id="material1" />
+      </materials>
+
+      <texture id="none" />
+      </component>
 
     <component id="baloiço">
       <!-- bloco "transformation" obrigatorio -->
