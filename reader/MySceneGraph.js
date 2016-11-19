@@ -131,6 +131,7 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 			this.primitive[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new MyPlane(this.scene, dimX, dimY, partsX, partsY);
 		}
 
+
 		if(prim[0].tagName == 'patch' ){
 			var orderU = prim[0].attributes.getNamedItem("orderU").value;
 			var orderV = prim[0].attributes.getNamedItem("orderV").value;

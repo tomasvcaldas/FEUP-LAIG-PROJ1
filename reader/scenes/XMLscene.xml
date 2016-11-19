@@ -367,7 +367,6 @@
     </patch>
   </primitive>
 
-
   </primitives>
 
 
@@ -392,7 +391,9 @@
       <texture id="none" />
     </component>
 
+
     <component id="patch">
+
       <transformation>
         <transformationref id="sample"/>
       </transformation>
