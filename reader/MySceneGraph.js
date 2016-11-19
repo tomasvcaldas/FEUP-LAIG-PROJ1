@@ -59,45 +59,6 @@ MySceneGraph.prototype.onXMLReady=function()
 */
 MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
-	/*var elems =  rootElement.getElementsByTagName('globals');
-	if (elems === null) {
-		return "globals element is missing.";
-	}
-
-	if (elems.length != 1) {
-		return "either zero or more than one 'globals' element found.";
-	}
-
-	// various examples of different types of access
-	var globals = elems[0];
-	this.background = this.reader.getRGBA(globals, 'background');
-	this.drawmode = this.reader.getItem(globals, 'drawmode', ["fill","line","point"]);
-	this.cullface = this.reader.getItem(globals, 'cullface', ["back","front","none", "frontandback"]);
-	this.cullorder = this.reader.getItem(globals, 'cullorder', ["ccw","cw"]);
-
-	console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");
-*/
-	//-----------------------------------------------------------------------------//
-	//LISTAS ----------------------------------------------------------------------//
-	//-----------------------------------------------------------------------------//
-	/*var tempList=rootElement.getElementsByTagName('list');
-
-	if (tempList == null  || tempList.length==0) {
-		return "list element is missing.";
-	}
-
-	this.list=[];
-	// iterate over every element
-	var nnodes=tempList[0].children.length;
-	for (var i=0; i< nnodes; i++)
-	{
-		var e=tempList[0].children[i];
-
-		// process each element and store its information
-		this.list[e.id]=e.attributes.getNamedItem("coords").value;
-		console.log("Read list item id "+ e.id+" with value "+this.list[e.id]);
-	}*/
-
 	//-----------------------------------------------------------------------------//
 	//PRIMITIVAS ------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------//
@@ -107,9 +68,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	if (tempPrim == null  || tempPrim.length==0) {
 		return "primitives element is missing.";
 	}
-
-
-
 
 	for(var i = 0; i < tempPrim[0].children.length ; i++){
 
@@ -164,6 +122,43 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 			this.primitive[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new Torus(this.scene, inner, outer, slices, loops);
 		}
 
+		if(prim[0].tagName == 'plane' ){
+			var dimX = prim[0].attributes.getNamedItem("dimX").value;
+			var dimY = prim[0].attributes.getNamedItem("dimY").value;
+			var partsX = prim[0].attributes.getNamedItem("partsX").value;
+			var partsY = prim[0].attributes.getNamedItem("partsY").value;
+
+			this.primitive[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new MyPlane(this.scene, dimX, dimY, partsX, partsY);
+		}
+
+		if(prim[0].tagName == 'patch' ){
+			var orderU = prim[0].attributes.getNamedItem("orderU").value;
+			var orderV = prim[0].attributes.getNamedItem("orderV").value;
+			var partsU = prim[0].attributes.getNamedItem("partsU").value;
+			var partsV = prim[0].attributes.getNamedItem("partsV").value;
+
+			var controlPoints=[];
+			var j=0;
+
+			for(var u=0; u <= orderU;u++){
+				var tempU=[];
+
+				for(var v=0; v <= orderV; v++){
+					var point = prim[0].children[j];
+					var tempV = [];
+					var x, y, z;
+					x = this.reader.getFloat(point, 'x', true);
+					y = this.reader.getFloat(point, 'y', true);
+					z = this.reader.getFloat(point, 'z', true);
+					tempV.push(x, y, z, 1);
+					tempU.push(tempV);
+					j++;
+				}
+				controlPoints.push(tempU);
+			}
+
+			this.primitive[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new MyPatch(this.scene, orderU, orderV, partsU, partsV,controlPoints);
+		}
 	}
 
 
@@ -242,9 +237,6 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 		this.materials[id] = material;
 	}
-
-
-
 
 
 	//-----------------------------------------------------------------------------//

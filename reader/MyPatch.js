@@ -1,37 +1,21 @@
 /**
  * @constructor
  */
- function MyPatch(scene, orderU, orderV, divX, divY) {
+ function MyPatch(scene, orderU, orderV, divX, divY,controlP) {
     this.scene = scene;
 
-    var knots1 = this.getKnotsVector(orderU);
-  	var knots2 = this.getKnotsVector(orderV);
+    this.orderU = parseInt(orderU);
+    this.orderV = parseInt(orderV);
+    this.dX = parseInt(divX);
+    this.dY = parseInt(divY);
+    this.controlP = controlP;
 
-    this.orderU = orderU;
-    this.orderV = orderV;
+    console.log(this.controlP);
 
-    this.dX = divX;
-    this.dY = divY;
+    var knots1 = this.getKnotsVector(this.orderU);
+    var knots2 = this.getKnotsVector(this.orderV);
 
     this.points = [[0,0,0],[2,2,2],[4,4,4]];
-
-    this.controlP = [	// U = 0
-            [ // V = 0..1;
-            [ -1.5, -1.5, 0, 1 ],
-            [ -1.5,  1.5, 0, 1 ]
-
-            ],
-              // U = 1
-            [ // V = 0..1
-            [ 0, -1.5, 3.0, 1 ],
-            [ 0,  1.5, 3.0, 1 ]
-            ],
-              // U = 2
-              [ // V = 0..1
-            [ 1.5, -1.5, 0, 1 ],
-            [ 1.5,  1.5, 0, 1 ]
-            ]
-            ];
 
     var nurbsSurface = new CGFnurbsSurface(this.orderU, this.orderV, knots1, knots2, this.controlP);
     getSurfacePoint = function(u, v){
@@ -42,7 +26,7 @@
     this.patch = new CGFnurbsObject(this.scene, getSurfacePoint, this.dX, this.dY);
 
 
-    this.animation = new MyLinearAnimation(scene,0,10,0,this.points);
+    //this.animation = new MyLinearAnimation(scene,0,10,0,this.points);
 /*
     this.animation = new MyCircularAnimation(scene,0,5,0,0,0,0,0,0,90);*/
 
@@ -63,6 +47,6 @@
   };
 
   MyPatch.prototype.display = function(time){
-    this.animation.apply(time);
+  //  this.animation.apply(time);
     this.patch.display();
   };

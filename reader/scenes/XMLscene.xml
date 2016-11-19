@@ -352,6 +352,22 @@
     </primitive>
 
 
+    <primitive id = "plane">
+      <plane dimX="3" dimY="3" partsX="10" partsY="7"/>
+    </primitive>
+
+    <primitive id = "patch">
+    <patch orderU="2" orderV="1" partsU="7" partsV="9" >
+            <controlpoint x="-1.5" y="-1.5" z="0.0" />
+            <controlpoint x="-1.5" y="1.5" z="0.0" />
+            <controlpoint x="0.0" y="-1.5" z="3.0" />
+            <controlpoint x="0.0" y="1.5" z="3.0" />
+            <controlpoint x="1.5" y="-1.5" z="0.0" />
+            <controlpoint x="1.5" y="1.5" z="0.0" />
+    </patch>
+  </primitive>
+
+
   </primitives>
 
 
@@ -366,6 +382,7 @@
         <componentref id="baloiço" />
         <componentref id="escorrega"/>
         <componentref id="relva"/>
+        <componentref id="patch"/>
       </children>
 
       <materials>
@@ -374,6 +391,22 @@
 
       <texture id="none" />
     </component>
+
+    <component id="patch">
+      <transformation>
+        <transformationref id="sample"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="patch" />
+      </children>
+
+      <materials>
+        <material id="material1" />
+      </materials>
+
+      <texture id="none" />
+      </component>
 
     <component id="baloiço">
       <!-- bloco "transformation" obrigatorio -->
