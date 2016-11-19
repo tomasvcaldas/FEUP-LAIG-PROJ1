@@ -15,9 +15,12 @@ MyCircularAnimation.prototype = Object.create(MyAnimation.prototype);
 
 MyCircularAnimation.prototype.constructor = MyCircularAnimation;
 
-MyCircularAnimation.prototype.apply = function(span) {
+MyCircularAnimation.prototype.apply = function(span,node) {
 	if (span > this.span)
 		span = this.span;
+
+    if(node.animationIndex < node.animation.length)
+      node.animationIndex++;
 
 	this.scene.translate(this.centerx, this.centery, this.centerz);
 

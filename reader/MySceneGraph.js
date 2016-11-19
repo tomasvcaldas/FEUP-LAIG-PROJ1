@@ -11,6 +11,7 @@ function MySceneGraph(filename, scene) {
 	this.comp = {};
 	this.materials = {};
 	this.textures = {};
+	this.animations={}
 	this.omniLights=[];
 	this.spotLights=[];
 	this.perspectives=[];
@@ -205,6 +206,27 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 	}
 
+	var tempAnimations = rootElement.getElementsByTagName('animations');
+
+	if(tempAnimations == null || tempAnimations.length ==0){
+		return "Animations element is missing.";
+	}
+
+	var anim = tempAnimations[0].children;
+
+	for(var i=0; i < anim.length;i++){
+		var id = this.reader.getString(anim[i],'id');
+		var span = this.reader.getFloat(anim[i], 'span');
+		var type = this.reader.getString(anim[i], 'type');
+		var centerx = this.reader.getFloat(anim[i], 'centerx');
+		var centery = this.reader.getFloat(anim[i], 'centery');
+		var centerz = this.reader.getFloat(anim[i], 'centerz');
+		var radius = this.reader.getFloat(anim[i], 'radius');
+		var startang = this.reader.getFloat(anim[i], 'startang');
+		var rotang = this.reader.getFloat(anim[i], 'rotang');
+		var newAnim = new MyCircularAnimation(this.scene,id,span,type,centerx,centery,centerz,radius,startang,rotang);
+		this.animations[id] = newAnim;
+	}
 
 	//-----------------------------------------------------------------------------//
 	//MATERIALS--------------------------------------------------------------------//
@@ -316,8 +338,24 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	node.texture = this.textures[idtextures];
 	this.nodes[nodeId] = node;
 
+	//animations
+	var loadAnimations = tempNode.getElementsByTagName('animation');
+	if(loadAnimations.length !=0){
+	var animList = loadAnimations[0].children;
+
+	for(var j=0; j < animList.length;j++){
+		var idAnim = animList[j].attributes.getNamedItem("id").value;
+		console.log(idAnim);
+
+		node.animation.push(idAnim);}
+	}
+
+
 
 }
+
+
+
 
 //-----------------------------------------------------------------------------//
 //ILLUMINATION-----------------------------------------------------------------//

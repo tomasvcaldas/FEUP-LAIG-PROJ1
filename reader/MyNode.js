@@ -9,4 +9,6 @@
    this.texture = null;
    this.componentId =[];
    this.primitive = null;
+   this.animation=[];
+   this.animationIndex = 0;
  }

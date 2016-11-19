@@ -26,9 +26,6 @@ XMLscene.prototype.init = function (application) {
   this.materials = new Stack(null);
   this.textures = new Stack(null);
   this.appearance = new CGFappearance(this);
-  //this.patch = new MyPatch(this, 2, 1, 10, 10);
-  this.plane = new MyPlane(this, 3, 2, 10,7);
-
 
   this.lightsBoolean=[];
 
@@ -109,6 +106,14 @@ XMLscene.prototype.createGraph = function(initialNode){
 
     this.multMatrix(newNode.mat);
 
+    animation = this.graph.animations[newNode.animation[newNode.animationIndex]];
+
+    if(animation != null)
+     animation.apply(this.elapsedTime, newNode);
+
+     if(newNode.animationIndex == newNode.animation.length)
+      newNode.animationIndex = 0;
+
     if(newNode.primitive != null){
       this.pushMatrix();
       newNode.primitive.display();
@@ -152,9 +157,6 @@ XMLscene.prototype.display = function () {
 
   this.setDefaultAppearance();
   this.axis.display();
-  //this.plane.display();
-  //this.patch.display(this.elapsedTime);
-
 
   if (this.graph.loadedOk)
   {

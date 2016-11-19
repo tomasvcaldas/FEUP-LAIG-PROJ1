@@ -367,7 +367,15 @@
     </patch>
   </primitive>
 
-  </primitives>
+</primitives>
+
+  <animations>
+
+    <animation id="anim1" span="10" type="circular"
+      centerx="0" centery="0" centerz="0"
+      radius="0" startang="0" rotang="90" />
+
+  </animations>
 
 
   <components>
@@ -389,6 +397,7 @@
       </materials>
 
       <texture id="none" />
+
     </component>
 
 
@@ -406,8 +415,13 @@
         <material id="material1" />
       </materials>
 
-      <texture id="none" />
-      </component>
+      <texture id="wood2" />
+
+      <animation>
+        <animationref id="anim1" />
+      </animation>
+
+    </component>
 
     <component id="baloiço">
       <!-- bloco "transformation" obrigatorio -->
@@ -451,6 +465,7 @@
       </materials>
 
       <texture id="inherit" />
+
     </component>
 
     <component id="postetras">
@@ -468,6 +483,7 @@
       </materials>
 
       <texture id="inherit" />
+
     </component>
 
 
@@ -486,6 +502,7 @@
       </materials>
 
       <texture id="inherit" />
+
     </component>
 
     <component id="fiodireita">
@@ -503,6 +520,7 @@
       </materials>
 
       <texture id="metal" />
+
     </component>
 
     <component id="fioesquerda">
@@ -520,6 +538,7 @@
       </materials>
 
       <texture id="metal" />
+
     </component>
 
     <component id="pneu">
@@ -537,6 +556,7 @@
       </materials>
 
       <texture id="boia" />
+
     </component>
 
     <component id="escorrega">
@@ -572,6 +592,7 @@
       </materials>
 
       <texture id="wood" />
+
     </component>
 
     <component id="suportetrasdireita">
@@ -589,6 +610,7 @@
       </materials>
 
       <texture id="inherit" />
+
     </component>
 
     <component id="suportetrasesquerda">
@@ -606,6 +628,7 @@
       </materials>
 
       <texture id="inherit" />
+
     </component>
 
     <component id="suportefrentedireita">
@@ -623,6 +646,7 @@
       </materials>
 
       <texture id="inherit" />
+
     </component>
 
     <component id="suportefrenteesquerda">
@@ -640,6 +664,7 @@
       </materials>
 
       <texture id="inherit" />
+
     </component>
 
     <component id="base">
@@ -929,6 +954,7 @@
       </materials>
 
       <texture id="metal" />
+
     </component>
 
     <component id="fioesquerda1">
@@ -946,6 +972,7 @@
       </materials>
 
       <texture id="metal" />
+
     </component>
 
     <component id="pneu1">
