@@ -157,7 +157,6 @@
     </transformation>
 
 
-
     <transformation id="postetras">
       <translate x="5" y="0" z="-3"/>
       <rotate axis="x" angle="-60"/>
@@ -420,6 +419,7 @@
   </transformation>
 
 
+
     <!--<transformation id="plane">
       <translate x="-3" y="9.25" z="8"/>
       <rotate axis="y" angle="90"/>
@@ -466,6 +466,7 @@
 
     <primitive id="vehicle">
       <vehicle  orderU="2" orderV="2" partsU="9" partsV="9" >
+
         <controlpoint x="-0.5" y="-1.5" z="1" />
         <controlpoint x="-1.5" y="0" z="0" />
         <controlpoint x="-0.5" y="1.5" z="1" />
@@ -475,6 +476,7 @@
         <controlpoint x="0.5" y="-1.5" z="1" />
         <controlpoint x="1.5" y="0" z="0" />
         <controlpoint x="0.5" y="1.5" z="1" />
+
       </vehicle>
     </primitive>
 
@@ -523,6 +525,9 @@
       <controlpoint xx="5" yy="0" zz="20" />
       </animation>
 
+    <animation id="anim2" span="5" type="circular"
+      centerx="0" centery="0" centerz="0"
+      radius="0" startang="0" rotang="180" />
 
 
     <animation id="anim3" span="1" type="linear">
@@ -533,7 +538,6 @@
     <animation id="anim4" span="5" type="circular"
       centerx="0" centery="0" centerz="0"
       radius="0" startang="0" rotang="180" />
-
 
 
   </animations>
@@ -562,6 +566,7 @@
       <texture id="none" />
 
     </component>
+
 
     <component id="mesadexadrez1">
       <transformation>
@@ -686,6 +691,7 @@
       <texture id="none" />
 
     </component>
+
 
     <component id="mesadexadrez2">
       <transformation>
@@ -825,6 +831,7 @@
         <animationref id="anim3" />
         <animationref id="anim4" />
       </animation>
+=
 
       <children>
         <primitiveref id="vehicle"/>
@@ -834,7 +841,9 @@
         <material id="inherit" />
       </materials>
 
+
       <texture id="aviao" />
+
       </component>
 
 
