@@ -146,6 +146,22 @@
       <scale x="1" y="1" z="1" />
     </transformation>
 
+    <transformation id="canoa">
+
+      <scale x="0.4" y="0.4" z="0.4" />
+      <translate x="0" y="15" z="15" />
+    </transformation>
+
+    <transformation id="chessboard1">
+      <translate x="1" y="0" z="1"/>
+      <rotate axis="x" angle="-90" />
+    </transformation>
+
+    <transformation id="chessboard2">
+      <translate x="3" y="0" z="3"/>
+      <rotate axis="x" angle="-90" />
+    </transformation>
+
     <transformation id="postetras">
       <translate x="5" y="0" z="-3"/>
       <rotate axis="x" angle="-60"/>
@@ -322,7 +338,7 @@
       <rotate axis="x" angle="-90"/>
       <scale x="1" y="1" z="1" />
     </transformation>
-	
+
 	<transformation id="patch">
       <translate x="0" y="10" z="8"/>
       <rotate axis="x" angle="-90"/>
@@ -331,7 +347,7 @@
 
     </transformation>
 
-    <transformation id="plane">
+    <!--<transformation id="plane">
       <translate x="-3" y="9.25" z="8"/>
       <rotate axis="y" angle="90"/>
       <scale x="1.1" y="0.5" z="1" />
@@ -346,7 +362,7 @@
       <translate x="0" y="9.5" z="7.2"/>
 
       <scale x="0.3" y="0.3" z="1.6" />
-    </transformation>
+    </transformation>-->
 
 
 
@@ -375,6 +391,20 @@
       <sphere radius="1" slices="50" stacks="20" />
     </primitive>
 
+    <primitive id="vehicle">
+      <vehicle  orderU="2" orderV="2" partsU="9" partsV="9" >
+        <controlpoint x="-0.5" y="-1.5" z="0.0" />
+        <controlpoint x="-1.5" y="0" z="0" />
+        <controlpoint x="-0.5" y="1.5" z="0" />
+        <controlpoint x="0.0" y="-1.5" z="0" />
+        <controlpoint x="0.0" y="0" z="0" />
+        <controlpoint x="0.0" y="1.5" z="0" />
+        <controlpoint x="0.5" y="-1.5" z="0.0" />
+        <controlpoint x="1.5" y="0" z="0" />
+        <controlpoint x="0.5" y="1.5" z="0" />
+      </vehicle>
+    </primitive>
+
 
     <primitive id = "plane">
       <plane dimX="3" dimY="3" partsX="10" partsY="7"/>
@@ -393,13 +423,45 @@
             <controlpoint x="1.5" y="1.5" z="0" />
     </patch>
   </primitive>
-</primitives>
+
+  <primitive id="board1">
+  <chessboard du="8" dv="8" textureref="boia" su="4" sv="4">
+            <c1 r="0.5" g="0.5" b="0.0" a="1" />
+            <c2 r="0.0" g="0.5" b="0.5" a="1" />
+            <cs r="1" g="0" b="0" a="1" />
+  </chessboard>
+  </primitive>
+
+  <primitive id="board2">
+  <chessboard du="16" dv="16" textureref="boia" su="4" sv="4">
+            <c1 r="0.2" g="0.2" b="0.2" a="1" />
+            <c2 r="0.5" g="0.5" b="0.8" a="1" />
+            <cs r="1" g="0" b="0" a="1" />
+  </chessboard>
+  </primitive>
+
+
+  </primitives>
 
   <animations>
 
-    <animation id="anim1" span="10" type="circular"
+    <animation id="anim1" span="1" type="linear">
+      <controlpoint xx="0" yy="0" zz="20" />
+      <controlpoint xx="5" yy="0" zz="20" />
+      </animation>
+
+    <animation id="anim2" span="5" type="circular"
       centerx="0" centery="0" centerz="0"
-      radius="0" startang="0" rotang="90" />
+      radius="0" startang="0" rotang="180" />
+
+    <animation id="anim3" span="1" type="linear">
+        <controlpoint xx="0" yy="0" zz="20" />
+        <controlpoint xx="5" yy="0" zz="20" />
+    </animation>
+
+    <animation id="anim4" span="5" type="circular"
+      centerx="0" centery="0" centerz="0"
+      radius="0" startang="0" rotang="180" />
 
   </animations>
 
@@ -415,7 +477,43 @@
         <componentref id="baloiço" />
         <componentref id="escorrega"/>
         <componentref id="relva"/>
-        <componentref id="barco"/>
+        <componentref id="vehicle"/>
+        <componentref id="chessboard1" />
+        <componentref id="chessboard2" />
+      </children>
+
+      <materials>
+          <material id="material1" />
+      </materials>
+
+      <texture id="none" />
+
+    </component>
+
+    <component id="chessboard1">
+      <transformation>
+        <transformationref id="chessboard1"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="board1" />
+      </children>
+
+      <materials>
+          <material id="material1" />
+      </materials>
+
+      <texture id="none" />
+
+    </component>
+
+    <component id="chessboard2">
+      <transformation>
+        <transformationref id="chessboard2"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="board2" />
       </children>
 
       <materials>
@@ -427,103 +525,30 @@
     </component>
 
 
-    <component id="barco">
+    <component id="vehicle">
 
       <transformation>
-        <transformationref id="sample"/>
+        <transformationref id="canoa"/>
       </transformation>
-	  
+
 	    <animation>
         <animationref id="anim1" />
-      </animation>
+        <animationref id="anim2" />
+        <animationref id="anim3" />
+        <animationref id="anim4" />
+      </animation> 
 
       <children>
-        <componentref id="cil1"/>
-        <componentref id="cil2"/>
-		<componentref id="patch"/>
-        <componentref id="plane"/>
+        <primitiveref id="vehicle"/>
       </children>
 
       <materials>
-        <material id="material1" />
+        <material id="inherit" />
       </materials>
 
       <texture id="wood" />
       </component>
 
-
-      <component id="cil1">
-
-        <transformation>
-          <transformationref id="cil1"/>
-        </transformation>
-
-        <children>
-          <primitiveref id="cylinder" />
-        </children>
-
-        <materials>
-          <material id="material1" />
-        </materials>
-
-        <texture id="wood" />
-        </component>
-
-        <component id="cil2">
-
-          <transformation>
-            <transformationref id="cil2"/>
-          </transformation>
-
-          <children>
-            <primitiveref id="cylinder" />
-          </children>
-
-          <materials>
-            <material id="material1" />
-          </materials>
-
-          <texture id="wood" />
-          </component>
-
-    <component id="patch">
-
-      <transformation>
-        <transformationref id="patch"/>
-      </transformation>
-	  
-	
-	  
-	  
-
-      <children>
-        <primitiveref id="patch" />
-      </children>
-	  
-
-      <materials>
-        <material id="material1" />
-      </materials>
-
-      <texture id="wood" />
-      </component>
-
-      <component id="plane">
-
-        <transformation>
-          <transformationref id="plane"/>
-        </transformation>
-
-        <children>
-          <primitiveref id="plane" />
-        </children>
-
-        <materials>
-          <material id="material1" />
-        </materials>
-
-        <texture id="wood" />
-        </component>
 
     <component id="baloiço">
       <!-- bloco "transformation" obrigatorio -->

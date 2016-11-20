@@ -106,13 +106,21 @@ XMLscene.prototype.createGraph = function(initialNode){
 
     this.multMatrix(newNode.mat);
 
-    animation = this.graph.animations[newNode.animation[newNode.animationIndex]];
+    for(var i = 0; i < newNode.animation.length; i++){
+      var anim = this.graph.animations[newNode.animation[i]];
+      anim.apply(this.elapsedTime, newNode);
+      if(anim.complete == false)
+        break;
+      // this.elapsedTime = 0;
+      // this.startTime = 0;
+    }
+    // animation = this.graph.animations[newNode.animation[newNode.animationIndex]];
 
-    if(animation != null)
-     animation.apply(this.elapsedTime, newNode);
-
-     if(newNode.animationIndex == newNode.animation.length)
-      newNode.animationIndex = 0;
+    // if(animation != null)
+    //  animation.apply(this.elapsedTime, newNode);
+    //
+    //  if(newNode.animationIndex == newNode.animation.length)
+    //   newNode.animationIndex = 0;
 
     if(newNode.primitive != null){
       this.pushMatrix();
@@ -134,9 +142,9 @@ XMLscene.prototype.createGraph = function(initialNode){
 
 
 XMLscene.prototype.update = function(currTime) {
-  if (this.startTime == 0)
-    this.startTime = currTime;
-  this.elapsedTime = (currTime - this.startTime) / 1000;
+  // if (this.startTime == 0)
+  //   this.startTime = currTime;
+  this.elapsedTime = currTime/1000;
 };
 
 

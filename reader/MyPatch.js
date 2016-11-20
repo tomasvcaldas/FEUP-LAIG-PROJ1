@@ -15,7 +15,6 @@
     var knots1 = this.getKnotsVector(this.orderU);
     var knots2 = this.getKnotsVector(this.orderV);
 
-    this.points = [[0,0,0],[2,2,2],[4,4,4]];
 
     var nurbsSurface = new CGFnurbsSurface(this.orderU, this.orderV, knots1, knots2, this.controlP);
     getSurfacePoint = function(u, v){

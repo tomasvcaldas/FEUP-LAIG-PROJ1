@@ -2,6 +2,7 @@ function MyLinearAnimation(scene,id,span,type,controlP){
 
   MyAnimation.call(this, scene, id, span, type);
    this.controlP=controlP;
+   this.complete = false;
 
    this.distance=0;
   this.segDist = [];
@@ -12,16 +13,24 @@ function MyLinearAnimation(scene,id,span,type,controlP){
  	}
 
    this.velocity = this.distance / span;
+   this.elapsedTime = 0;
  };
 
  MyLinearAnimation.prototype = Object.create(MyAnimation.prototype);
 
  MyLinearAnimation.prototype.constructor = MyLinearAnimation;
 
- MyLinearAnimation.prototype.apply = function(span){
-
-   if(span > this.span)
+ MyLinearAnimation.prototype.apply = function(currTime,node){
+   if(this.elapsedTime == 0) this.elapsedTime = currTime;
+   var span = currTime-this.elapsedTime;
+   if(span > this.span){
      span = this.span;
+     this.complete = true;
+   }
+
+     if(node.animationIndex < node.animation.length){
+       node.animationIndex++;
+  }
 
      this.currentDistance = this.velocity * span;
 

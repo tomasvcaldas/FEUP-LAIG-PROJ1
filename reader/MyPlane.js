@@ -13,11 +13,11 @@ function MyPlane(scene, dx, dy, partsx, partsy) {
 	var knots = [0, 0, 1, 1];
 	var controlPoints = [
 							[
-								[-dx/6, -dy/2, 0, 1],
+								[-dx/2, -dy/2, 0, 1],
 								[-dx/2, dy/2, 0, 1]
 							],
 							[
-								[dx/6, -dy/2, 0, 1],
+								[dx/2, -dy/2, 0, 1],
 								[dx/2, dy/2, 0, 1]
 							]
 						];
