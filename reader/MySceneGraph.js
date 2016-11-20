@@ -11,6 +11,7 @@ function MySceneGraph(filename, scene) {
 	this.comp = {};
 	this.materials = {};
 	this.textures = {};
+	this.animations={}
 	this.omniLights=[];
 	this.spotLights=[];
 	this.perspectives=[];
@@ -58,6 +59,30 @@ MySceneGraph.prototype.onXMLReady=function()
 * Example of method that parses elements of one block and stores information in a specific data structure
 */
 MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
+
+	//-----------------------------------------------------------------------------//
+	//TEXTURES---------------------------------------------------------------------//
+	//-----------------------------------------------------------------------------//
+
+	var tempText = rootElement.getElementsByTagName('textures');
+
+	if (tempText == null  || tempText.length==0) {
+		return "Textures element is missing.";
+	}
+	for(var i= 0; i < tempText[0].children.length; i++){
+		var currentText = tempText[0].children;
+		var textureID = currentText[i].attributes.getNamedItem("id").value
+		var file = currentText[i].attributes.getNamedItem("file").value;
+		var textureF = new CGFtexture(this.scene, file);
+		var lengths = currentText[i].attributes.getNamedItem("length_s").value;
+		var lengtht = currentText[i].attributes.getNamedItem("length_t").value;
+
+		var newTexture = new Texture(textureID, textureF, lengths, lengtht);
+
+		this.textures[textureID] = newTexture;
+
+
+	}
 
 	//-----------------------------------------------------------------------------//
 	//PRIMITIVAS ------------------------------------------------------------------//
@@ -160,6 +185,56 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
 			this.primitive[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new MyPatch(this.scene, orderU, orderV, partsU, partsV,controlPoints);
 		}
+
+		if(prim[0].tagName == 'chessboard' ){
+			var du = this.reader.getFloat(prim[0],'du',true);
+			var dv = this.reader.getFloat(prim[0],'dv',true);
+			var su = this.reader.getFloat(prim[0],'su',true);
+			var sv = this.reader.getFloat(prim[0],'sv',true);
+			texturef = this.reader.getString(prim[0], 'textureref', true);
+			console.log(this.textures);
+			var texture = this.textures[texturef].file;
+			var color1 = prim[0].children[0];
+			var color2 = prim[0].children[1];
+			var colors = prim[0].children[2];
+
+			var c1 = new Color(this.reader.getFloat(color1, 'r', true),this.reader.getFloat(color1, 'g', true),this.reader.getFloat(color1, 'b', true),this.reader.getFloat(color1, 'a', true));
+			var c2 = new Color(this.reader.getFloat(color2, 'r', true),this.reader.getFloat(color2, 'g', true),this.reader.getFloat(color2, 'b', true),this.reader.getFloat(color2, 'a', true));
+			var cs = new Color(this.reader.getFloat(colors, 'r', true),this.reader.getFloat(colors, 'g', true),this.reader.getFloat(colors, 'b', true),this.reader.getFloat(colors, 'a', true));
+
+			this.primitive[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new MyChessboard(this.scene, du, dv, texture, su, sv, c1, c2, cs);
+		}
+
+		if(prim[0].tagName == 'vehicle' ){
+
+				var orderU = prim[0].attributes.getNamedItem("orderU").value;
+				var orderV = prim[0].attributes.getNamedItem("orderV").value;
+				var partsU = prim[0].attributes.getNamedItem("partsU").value;
+				var partsV = prim[0].attributes.getNamedItem("partsV").value;
+
+				var controlPoints=[];
+				var j=0;
+
+				for(var u=0; u <= orderU;u++){
+					var tempU=[];
+
+					for(var v=0; v <= orderV; v++){
+						var point = prim[0].children[j];
+						var tempV = [];
+						var x, y, z;
+						x = this.reader.getFloat(point, 'x', true);
+						y = this.reader.getFloat(point, 'y', true);
+						z = this.reader.getFloat(point, 'z', true);
+						tempV.push(x, y, z, 1);
+						tempU.push(tempV);
+						j++;
+					}
+					controlPoints.push(tempU);
+				}
+
+				this.primitive[tempPrim[0].children[i].attributes.getNamedItem("id").value] = new MyVehicle(this.scene, orderU, orderV, partsU, partsV,controlPoints );
+
+		}
 	}
 
 
@@ -181,30 +256,55 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	}
 
 
+
 	//-----------------------------------------------------------------------------//
-	//TEXTURES---------------------------------------------------------------------//
+	//ANIMATIONS-------------------------------------------------------------------//
 	//-----------------------------------------------------------------------------//
 
-	var tempText = rootElement.getElementsByTagName('textures');
+	var tempAnimations = rootElement.getElementsByTagName('animations');
 
-	if (tempText == null  || tempText.length==0) {
-		return "Textures element is missing.";
-	}
-	for(var i= 0; i < tempText[0].children.length; i++){
-		var currentText = tempText[0].children;
-		var textureID = currentText[i].attributes.getNamedItem("id").value
-		var file = currentText[i].attributes.getNamedItem("file").value;
-		var textureF = new CGFtexture(this.scene, file);
-		var lengths = currentText[i].attributes.getNamedItem("length_s").value;
-		var lengtht = currentText[i].attributes.getNamedItem("length_t").value;
-
-		var newTexture = new Texture(textureID, textureF, lengths, lengtht);
-
-		this.textures[textureID] = newTexture;
-
-
+	if(tempAnimations == null || tempAnimations.length ==0){
+		return "Animations element is missing.";
 	}
 
+	var anim = tempAnimations[0].children;
+
+	for(var i=0; i < anim.length;i++){
+		var id = this.reader.getString(anim[i],'id');
+		var span = this.reader.getFloat(anim[i], 'span');
+		var type = this.reader.getString(anim[i], 'type');
+		console.log(type);
+
+		if(type == "circular"){
+		var centerx = this.reader.getFloat(anim[i], 'centerx');
+		var centery = this.reader.getFloat(anim[i], 'centery');
+		var centerz = this.reader.getFloat(anim[i], 'centerz');
+		var radius = this.reader.getFloat(anim[i], 'radius');
+		var startang = this.reader.getFloat(anim[i], 'startang');
+		var rotang = this.reader.getFloat(anim[i], 'rotang');
+		var newAnim = new MyCircularAnimation(this.scene,id,span,type,centerx,centery,centerz,radius,startang,rotang);
+		this.animations[id] = newAnim;
+	}
+
+	var control =[];
+
+	if(type=="linear"){
+		var controlPoints = anim[i].getElementsByTagName('controlpoint');
+		for (var j = 0; j < controlPoints.length; j++){
+					var point = controlPoints[j];
+					var c = [];
+					var x, y, z;
+					x = this.reader.getFloat(point, 'xx', true);
+					y = this.reader.getFloat(point, 'yy', true);
+					z = this.reader.getFloat(point, 'zz', true);
+					c.push(x, y, z);
+					control.push(c);
+				}
+
+				var newAnim = new MyLinearAnimation(this.scene,id,span,type,control);
+				this.animations[id] = newAnim;
+	}
+	}
 
 	//-----------------------------------------------------------------------------//
 	//MATERIALS--------------------------------------------------------------------//
@@ -316,8 +416,24 @@ MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 	node.texture = this.textures[idtextures];
 	this.nodes[nodeId] = node;
 
+	//animations
+	var loadAnimations = tempNode.getElementsByTagName('animation');
+	if(loadAnimations.length !=0){
+	var animList = loadAnimations[0].children;
+
+	for(var j=0; j < animList.length;j++){
+		var idAnim = animList[j].attributes.getNamedItem("id").value;
+		console.log(idAnim);
+
+		node.animation.push(idAnim);}
+	}
+
+
 
 }
+
+
+
 
 //-----------------------------------------------------------------------------//
 //ILLUMINATION-----------------------------------------------------------------//

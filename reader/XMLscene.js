@@ -26,9 +26,6 @@ XMLscene.prototype.init = function (application) {
   this.materials = new Stack(null);
   this.textures = new Stack(null);
   this.appearance = new CGFappearance(this);
-  //this.patch = new MyPatch(this, 2, 1, 10, 10);
-  this.plane = new MyPlane(this, 3, 2, 10,7);
-
 
   this.lightsBoolean=[];
 
@@ -109,6 +106,22 @@ XMLscene.prototype.createGraph = function(initialNode){
 
     this.multMatrix(newNode.mat);
 
+    for(var i = 0; i < newNode.animation.length; i++){
+      var anim = this.graph.animations[newNode.animation[i]];
+      anim.apply(this.elapsedTime, newNode);
+      if(anim.complete == false)
+        break;
+      // this.elapsedTime = 0;
+      // this.startTime = 0;
+    }
+    // animation = this.graph.animations[newNode.animation[newNode.animationIndex]];
+
+    // if(animation != null)
+    //  animation.apply(this.elapsedTime, newNode);
+    //
+    //  if(newNode.animationIndex == newNode.animation.length)
+    //   newNode.animationIndex = 0;
+
     if(newNode.primitive != null){
       this.pushMatrix();
       newNode.primitive.display();
@@ -129,9 +142,9 @@ XMLscene.prototype.createGraph = function(initialNode){
 
 
 XMLscene.prototype.update = function(currTime) {
-  if (this.startTime == 0)
-    this.startTime = currTime;
-  this.elapsedTime = (currTime - this.startTime) / 1000;
+  // if (this.startTime == 0)
+  //   this.startTime = currTime;
+  this.elapsedTime = currTime/1000;
 };
 
 
@@ -152,9 +165,6 @@ XMLscene.prototype.display = function () {
 
   this.setDefaultAppearance();
   this.axis.display();
-  //this.plane.display();
-  //this.patch.display(this.elapsedTime);
-
 
   if (this.graph.loadedOk)
   {

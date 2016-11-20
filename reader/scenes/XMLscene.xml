@@ -39,13 +39,17 @@
 
   <textures>
 
-    <texture id="wood3" file="./resources/images/wood3.jpg" length_s="1.0" length_t="1.0" />
-    <texture id="wood2" file="./resources/images/wood3.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="wood2" file="./resources/images/wood.jpg" length_s="1.0" length_t="1.0" />
     <texture id="wood" file="./resources/images/wood3.jpg" length_s="1.0" length_t="1.0" />
     <texture id="wood4" file="./resources/images/wood4.jpg" length_s="1.0" length_t="1.0" />
     <texture id="boia" file="./resources/images/tire.png" length_s="1.0" length_t="1.0" />
     <texture id="metal" file="./resources/images/metal.jpg" length_s="1.0" length_t="1.0" />
     <texture id="relva" file="./resources/images/relva.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="marmor" file="./resources/images/marmor.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="green" file="./resources/images/green.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="aviao" file="./resources/images/orange.jpg" length_s="1.0" length_t="1.0" />
+    <texture id="grass" file="./resources/images/grass.jpg" length_s="1.0" length_t="1.0" />
+
 
   </textures>
 
@@ -145,6 +149,14 @@
     <transformation id="sample">
       <scale x="1" y="1" z="1" />
     </transformation>
+
+    <transformation id="canoa">
+
+      <scale x="0.4" y="0.4" z="0.4" />
+      <translate x="0" y="15" z="15" />
+    </transformation>
+
+
 
     <transformation id="postetras">
       <translate x="5" y="0" z="-3"/>
@@ -301,8 +313,9 @@
     </transformation>
 
     <transformation id="relva">
+      <translate x="0" y="0" z="5"/>
       <rotate axis="x" angle="-90"/>
-      <scale x="20" y="20" z="20" />
+      <scale x="20" y="30" z="20" />
     </transformation>
 
     <transformation id="fiodireita1">
@@ -323,6 +336,106 @@
       <scale x="1" y="1" z="1" />
     </transformation>
 
+	<transformation id="patch">
+      <translate x="0" y="10" z="8"/>
+      <rotate axis="x" angle="-90"/>
+      <rotate axis="z" angle="90"/>
+      <scale x="1" y="2" z="1" />
+  </transformation>
+
+  <transformation id="topo">
+    <translate x="0" y="1.7" z="-5"/>
+    <rotate axis="x" angle="-90"/>
+    <scale x="2.5" y="2.5" z="0.4"/>
+  </transformation>
+
+  <transformation id="tubo">
+    <translate x="0" y="0" z="-5"/>
+    <rotate axis="x" angle="-90"/>
+    <scale x="0.4" y="0.4" z="1.7"/>
+  </transformation>
+
+  <transformation id="baixo">
+    <translate x="0" y="0" z="-5"/>
+    <rotate axis="x" angle="-90"/>
+    <scale x="1.5" y="1.5" z="0.4"/>
+  </transformation>
+
+  <transformation id="mesadexadrez1">
+    <translate x="4" y="0" z="20"/>
+  </transformation>
+
+  <transformation id="banco1">
+    <translate x="0" y="0" z="-7"/>
+      <rotate axis="x" angle="-90"/>
+  </transformation>
+
+  <transformation id="banco2">
+    <translate x="0" y="0" z="-3"/>
+      <rotate axis="x" angle="-90"/>
+  </transformation>
+
+  <transformation id="chessboard1">
+    <translate x="0" y="2.12" z="-5"/>
+    <rotate axis="x" angle="-90" />
+    <scale x="1.5" y="1.5" z="1.5"/>
+  </transformation>
+
+  <transformation id="chessboard2">
+    <translate x="0" y="2.12" z="-5"/>
+    <rotate axis="x" angle="-90" />
+    <scale x="1.5" y="1.5" z="1.5"/>
+  </transformation>
+
+  <transformation id="topo1">
+    <translate x="0" y="1.7" z="-5"/>
+    <rotate axis="x" angle="-90"/>
+    <scale x="2.5" y="2.5" z="0.4"/>
+  </transformation>
+
+  <transformation id="tubo1">
+    <translate x="0" y="0" z="-5"/>
+    <rotate axis="x" angle="-90"/>
+    <scale x="0.4" y="0.4" z="1.7"/>
+  </transformation>
+
+  <transformation id="baixo1">
+    <translate x="0" y="0" z="-5"/>
+    <rotate axis="x" angle="-90"/>
+    <scale x="1.5" y="1.5" z="0.4"/>
+  </transformation>
+
+  <transformation id="mesadexadrez2">
+    <translate x="0" y="0" z="20"/>
+  </transformation>
+
+  <transformation id="banco3">
+    <translate x="0" y="0" z="-7"/>
+      <rotate axis="x" angle="-90"/>
+  </transformation>
+
+  <transformation id="banco4">
+    <translate x="0" y="0" z="-3"/>
+      <rotate axis="x" angle="-90"/>
+  </transformation>
+
+
+    <!--<transformation id="plane">
+      <translate x="-3" y="9.25" z="8"/>
+      <rotate axis="y" angle="90"/>
+      <scale x="1.1" y="0.5" z="1" />
+    </transformation>
+
+    <transformation id="cil1">
+      <translate x="-2" y="9.5" z="6.85"/>
+      <scale x="0.3" y="0.3" z="2.3" />
+    </transformation>
+
+    <transformation id="cil2">
+      <translate x="0" y="9.5" z="7.2"/>
+
+      <scale x="0.3" y="0.3" z="1.6" />
+    </transformation>-->
 
 
 
@@ -351,23 +464,79 @@
       <sphere radius="1" slices="50" stacks="20" />
     </primitive>
 
+    <primitive id="vehicle">
+      <vehicle  orderU="2" orderV="2" partsU="9" partsV="9" >
+        <controlpoint x="-0.5" y="-1.5" z="1" />
+        <controlpoint x="-1.5" y="0" z="0" />
+        <controlpoint x="-0.5" y="1.5" z="1" />
+        <controlpoint x="0.0" y="-1.5" z="0" />
+        <controlpoint x="0.0" y="0" z="0" />
+        <controlpoint x="0.0" y="1.5" z="0" />
+        <controlpoint x="0.5" y="-1.5" z="1" />
+        <controlpoint x="1.5" y="0" z="0" />
+        <controlpoint x="0.5" y="1.5" z="1" />
+      </vehicle>
+    </primitive>
+
 
     <primitive id = "plane">
       <plane dimX="3" dimY="3" partsX="10" partsY="7"/>
     </primitive>
 
     <primitive id = "patch">
-    <patch orderU="2" orderV="1" partsU="7" partsV="9" >
-            <controlpoint x="-1.5" y="-1.5" z="0.0" />
-            <controlpoint x="-1.5" y="1.5" z="0.0" />
-            <controlpoint x="0.0" y="-1.5" z="3.0" />
-            <controlpoint x="0.0" y="1.5" z="3.0" />
-            <controlpoint x="1.5" y="-1.5" z="0.0" />
-            <controlpoint x="1.5" y="1.5" z="0.0" />
+    <patch orderU="2" orderV="2" partsU="9" partsV="9" >
+            <controlpoint x="0" y="-1.5" z="0.0" />
+            <controlpoint x="-1.5" y="0" z="0" />
+            <controlpoint x="-1.5" y="1.5" z="0" />
+            <controlpoint x="0.0" y="-1.5" z="-3.0" />
+            <controlpoint x="0.0" y="0" z="-3.0" />
+            <controlpoint x="0.0" y="1.5" z="-3.0" />
+            <controlpoint x="0" y="-1.5" z="0.0" />
+            <controlpoint x="1.5" y="0" z="0" />
+            <controlpoint x="1.5" y="1.5" z="0" />
     </patch>
   </primitive>
 
+  <primitive id="board1">
+  <chessboard du="8" dv="8" textureref="boia" su="4" sv="4">
+            <c1 r="0.5" g="0.286" b="0" a="1" />
+            <c2 r="1" g="0.96" b="0.285" a="1" />
+            <cs r="1" g="0" b="0" a="1" />
+  </chessboard>
+  </primitive>
+
+  <primitive id="board2">
+  <chessboard du="16" dv="16" textureref="boia" su="4" sv="4">
+            <c1 r="0" g="0" b="0" a="1" />
+            <c2 r="1" g="1" b="1" a="1" />
+            <cs r="1" g="0" b="0" a="1" />
+  </chessboard>
+  </primitive>
+
+
   </primitives>
+
+  <animations>
+
+    <animation id="anim1" span="1" type="linear">
+      <controlpoint xx="0" yy="0" zz="20" />
+      <controlpoint xx="5" yy="0" zz="20" />
+      </animation>
+
+
+
+    <animation id="anim3" span="1" type="linear">
+        <controlpoint xx="0" yy="0" zz="20" />
+        <controlpoint xx="5" yy="0" zz="20" />
+    </animation>
+
+    <animation id="anim4" span="5" type="circular"
+      centerx="0" centery="0" centerz="0"
+      radius="0" startang="0" rotang="180" />
+
+
+
+  </animations>
 
 
   <components>
@@ -381,7 +550,9 @@
         <componentref id="baloiço" />
         <componentref id="escorrega"/>
         <componentref id="relva"/>
-        <componentref id="patch"/>
+        <componentref id="vehicle"/>
+        <componentref id="mesadexadrez2" />
+        <componentref id="mesadexadrez1"/>
       </children>
 
       <materials>
@@ -389,25 +560,283 @@
       </materials>
 
       <texture id="none" />
+
     </component>
 
-
-    <component id="patch">
-
+    <component id="mesadexadrez1">
       <transformation>
-        <transformationref id="sample"/>
+        <transformationref id="mesadexadrez1"/>
       </transformation>
 
       <children>
-        <primitiveref id="patch" />
+        <componentref id="baixo"/>
+        <componentref id="tubo"/>
+        <componentref id="topo"/>
+        <componentref id="chessboard1" />
+        <componentref id="banco1"/>
+        <componentref id="banco2" />
       </children>
 
       <materials>
-        <material id="material1" />
+          <material id="material1" />
+      </materials>
+
+      <texture id="marmor" />
+
+    </component>
+
+    <component id="baixo">
+      <transformation>
+        <transformationref id="baixo"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="wood" />
+      </materials>
+
+      <texture id="inherit" />
+
+    </component>
+
+    <component id="tubo">
+      <transformation>
+        <transformationref id="tubo"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="inherit" />
+
+    </component>
+
+    <component id="topo">
+      <transformation>
+        <transformationref id="topo"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="marmor" />
+
+    </component>
+
+    <component id="banco1">
+      <transformation>
+        <transformationref id="banco1"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="marmor" />
+
+    </component>
+
+    <component id="banco2">
+      <transformation>
+        <transformationref id="banco2"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="marmor" />
+
+    </component>
+
+    <component id="chessboard1">
+      <transformation>
+        <transformationref id="chessboard1"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="board1" />
+      </children>
+
+      <materials>
+          <material id="material1" />
       </materials>
 
       <texture id="none" />
+
+    </component>
+
+    <component id="mesadexadrez2">
+      <transformation>
+        <transformationref id="mesadexadrez2"/>
+      </transformation>
+
+      <children>
+        <componentref id="baixo1"/>
+        <componentref id="tubo1"/>
+        <componentref id="topo1"/>
+        <componentref id="chessboard2" />
+        <componentref id="banco3"/>
+        <componentref id="banco4" />
+      </children>
+
+      <materials>
+          <material id="material1" />
+      </materials>
+
+      <texture id="marmor" />
+
+    </component>
+
+    <component id="baixo1">
+      <transformation>
+        <transformationref id="baixo1"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="inherit" />
+
+    </component>
+
+    <component id="tubo1">
+      <transformation>
+        <transformationref id="tubo1"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="inherit" />
+
+    </component>
+
+    <component id="topo1">
+      <transformation>
+        <transformationref id="topo1"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="marmor" />
+
+    </component>
+
+
+    <component id="chessboard2">
+      <transformation>
+        <transformationref id="chessboard2"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="board2" />
+      </children>
+
+      <materials>
+          <material id="material1" />
+      </materials>
+
+      <texture id="none" />
+
+    </component>
+
+    <component id="banco4">
+      <transformation>
+        <transformationref id="banco4"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="marmor" />
+
+    </component>
+
+    <component id="banco3">
+      <transformation>
+        <transformationref id="banco3"/>
+      </transformation>
+
+      <children>
+        <primitiveref id="cylinder"/>
+      </children>
+
+      <materials>
+          <material id="inherit" />
+      </materials>
+
+      <texture id="marmor" />
+
+    </component>
+
+
+    <component id="vehicle">
+
+      <transformation>
+        <transformationref id="canoa"/>
+      </transformation>
+
+	    <animation>
+        <animationref id="anim1" />
+        <animationref id="anim2" />
+        <animationref id="anim3" />
+        <animationref id="anim4" />
+      </animation>
+
+      <children>
+        <primitiveref id="vehicle"/>
+      </children>
+
+      <materials>
+        <material id="inherit" />
+      </materials>
+
+      <texture id="aviao" />
       </component>
+
 
     <component id="baloiço">
       <!-- bloco "transformation" obrigatorio -->
@@ -451,6 +880,7 @@
       </materials>
 
       <texture id="inherit" />
+
     </component>
 
     <component id="postetras">
@@ -468,6 +898,7 @@
       </materials>
 
       <texture id="inherit" />
+
     </component>
 
 
@@ -486,6 +917,7 @@
       </materials>
 
       <texture id="inherit" />
+
     </component>
 
     <component id="fiodireita">
@@ -503,6 +935,7 @@
       </materials>
 
       <texture id="metal" />
+
     </component>
 
     <component id="fioesquerda">
@@ -520,6 +953,7 @@
       </materials>
 
       <texture id="metal" />
+
     </component>
 
     <component id="pneu">
@@ -537,6 +971,7 @@
       </materials>
 
       <texture id="boia" />
+
     </component>
 
     <component id="escorrega">
@@ -572,6 +1007,7 @@
       </materials>
 
       <texture id="wood" />
+
     </component>
 
     <component id="suportetrasdireita">
@@ -589,6 +1025,7 @@
       </materials>
 
       <texture id="inherit" />
+
     </component>
 
     <component id="suportetrasesquerda">
@@ -606,6 +1043,7 @@
       </materials>
 
       <texture id="inherit" />
+
     </component>
 
     <component id="suportefrentedireita">
@@ -623,6 +1061,7 @@
       </materials>
 
       <texture id="inherit" />
+
     </component>
 
     <component id="suportefrenteesquerda">
@@ -640,6 +1079,7 @@
       </materials>
 
       <texture id="inherit" />
+
     </component>
 
     <component id="base">
@@ -656,7 +1096,7 @@
           <material id="inherit" />
       </materials>
 
-      <texture id="wood2" />
+      <texture id="wood" />
 
     </component>
 
@@ -855,7 +1295,7 @@
           <material id="inherit" />
       </materials>
 
-      <texture id="wood3" />
+      <texture id="wood" />
 
     </component>
 
@@ -929,6 +1369,7 @@
       </materials>
 
       <texture id="metal" />
+
     </component>
 
     <component id="fioesquerda1">
@@ -946,6 +1387,7 @@
       </materials>
 
       <texture id="metal" />
+
     </component>
 
     <component id="pneu1">
